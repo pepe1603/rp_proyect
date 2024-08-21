@@ -1,10 +1,8 @@
 package com.buenrostroasociados.gestion_clientes.entity;
 
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.buenrostroasociados.gestion_clientes.enums.EstadoCaso;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +16,9 @@ import java.util.List;
 @AllArgsConstructor
 public class ActividadLitigio extends Actividad {
 
-    private String estadoCaso; // Seguimiento del proceso o avance del caso
+    @Enumerated(EnumType.STRING)
+    private EstadoCaso estadoCaso; // Estado del caso, seguimiento o avance
 
     @OneToMany(mappedBy = "actividadLitigio", cascade = CascadeType.ALL)
-    private List<Archivo> documentos;
+    private List<Archivo> documentos;//Lista de docs asoiciados
 }

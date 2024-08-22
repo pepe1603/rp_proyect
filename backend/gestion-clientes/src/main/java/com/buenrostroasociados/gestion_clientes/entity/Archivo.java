@@ -16,9 +16,11 @@ public class Archivo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nombreArchivo;
-
+    @Column(nullable = false)
     private String rutaArchivo;
+
 
     @ManyToOne
     @JoinColumn(name = "actividad_contable_id")

@@ -86,7 +86,12 @@
 			<version>1.5.3.Final</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<!-- Libreria para iphonenumbervalidator de google-->
+		<dependency>
+			<groupId>com.googlecode.libphonenumber</groupId>
+			<artifactId>libphonenumber</artifactId>
+			<version>8.12.56</version> <!-- Verifica la última versión disponible -->
+		</dependency>
 
 
 	</dependencies>

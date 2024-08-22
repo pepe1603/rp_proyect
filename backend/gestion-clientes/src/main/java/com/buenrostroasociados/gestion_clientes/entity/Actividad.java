@@ -19,11 +19,10 @@ public abstract class Actividad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(nullable = false)
     private String descripcion;
-
+    @Column(nullable = false)
     private LocalDateTime fechaCreacion;
-
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;

@@ -17,10 +17,13 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true, nullable = false)
     private String rfc;
-    private String nombre;
-    private String apellidos;
+    @Column(nullable = false)
+    private String nombreFull;
+    @Column(nullable = false)
     private String correo;
+    @Column(nullable = false)
     private String telefono;
 
     @OneToOne

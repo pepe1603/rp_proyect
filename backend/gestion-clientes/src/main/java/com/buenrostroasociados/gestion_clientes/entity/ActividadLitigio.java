@@ -17,8 +17,10 @@ import java.util.List;
 public class ActividadLitigio extends Actividad {
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private EstadoCaso estadoCaso; // Estado del caso, seguimiento o avance
 
-    @OneToMany(mappedBy = "actividadLitigio", cascade = CascadeType.ALL)
-    private List<Archivo> documentos;//Lista de docs asoiciados
+    @OneToMany(mappedBy = "actividadLitigio", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Archivo> documentos; // Lista de docs asociados
+
 }

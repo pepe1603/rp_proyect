@@ -5,10 +5,14 @@ import com.buenrostroasociados.gestion_clientes.dto.RolDTO;
 import java.util.List;
 
 public interface RolService {
-    RolDTO saveRol(RolDTO rolDTO);
-    RolDTO getRolById(Long id);
-    List<RolDTO> getAllRoles();
-    RolDTO updateRol(Long id, RolDTO rolDTO);
-    void deleteRol(Long id);
 
+    RolDTO createRol(RolDTO rolDTO);
+
+    RolDTO getRolById(Long id);
+
+    List<RolDTO> getAllRoles();
+
+    RolDTO updateRol(Long id, RolDTO rolDTO);
+
+    void deleteRol(Long id);
 }

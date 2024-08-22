@@ -1,8 +1,8 @@
 ------ datos de inicializacion
 
 -- *** tabla usuarios:
-INSERT INTO roles (nombre) VALUES ('CLIENTE');
-INSERT INTO roles (nombre) VALUES ('ADMINISTRADOR');
-
+INSERT INTO roles (nombre) VALUES ('CLIENT');
+INSERT INTO roles (nombre) VALUES ('ADMIN');
+INSERT INTO roles (nombre) VALUES ('MANAGER');
 
 -- *** agregar mas ...

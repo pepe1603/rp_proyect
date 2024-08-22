@@ -1,4 +1,4 @@
 package com.buenrostroasociados.gestion_clientes.config;
 
-public class AppConfig {
+public class Config {
 }

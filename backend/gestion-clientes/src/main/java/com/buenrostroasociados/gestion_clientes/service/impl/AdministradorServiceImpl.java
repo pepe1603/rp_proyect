@@ -59,6 +59,14 @@ public class AdministradorServiceImpl implements AdministradorService {
     }
 
     @Override
+    public AdministradorDTO getAdministradorByEmail(String email) {
+        Administrador admin = administradorRepo.findByCorreo(email)
+                .orElseThrow( () -> new EntityNotFoundException("Administrrador no encontrado con email: "+email));
+
+        return administradorMapper.toDTO(admin);
+    }
+
+    @Override
     public AdministradorDTO updateClaveAdministrador(Long id, String clave) {
         Administrador adminFounded=administradorRepo.findById(id)
                 .orElseThrow(

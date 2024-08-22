@@ -533,3 +533,127 @@ This generated password is for development use only. Your security configuration
 2024-08-21T19:43:13.323-06:00  INFO 22936 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-08-21T19:43:13.343-06:00  INFO 22936 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2024-08-21T19:43:13.401-06:00  INFO 22936 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-21T19:52:00.188-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.12 with PID 24086 (/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes started by usr_pepe in /home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes)
+2024-08-21T19:52:00.192-06:00 DEBUG 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-08-21T19:52:00.195-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-08-21T19:52:00.361-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-08-21T19:52:00.362-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-08-21T19:52:02.270-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21T19:52:02.443-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 160 ms. Found 8 JPA repository interfaces.
+2024-08-21T19:52:03.866-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-08-21T19:52:03.898-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-21T19:52:03.899-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21T19:52:03.974-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-21T19:52:03.975-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3612 ms
+2024-08-21T19:52:04.359-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21T19:52:04.442-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21T19:52:04.494-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-08-21T19:52:04.894-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21T19:52:04.931-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-21T19:52:05.437-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@129eb2f4
+2024-08-21T19:52:05.442-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-21T19:52:05.534-06:00  WARN 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-08-21T19:52:07.996-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21T19:52:08.220-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21T19:52:08.697-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.service.files.FileServiceImpl      : Carpeta de directorio de subidas ya está disponible.
+2024-08-21T19:52:08.762-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21T19:52:08.895-06:00  WARN 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21T19:52:09.398-06:00  WARN 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 46a39e00-1fa3-4659-be70-01f693f2d20a
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-08-21T19:52:09.413-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-08-21T19:52:09.646-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-21T19:52:09.697-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 4200 (http) with context path '/'
+2024-08-21T19:52:09.713-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Started GestionClientesBuenrostroAsociadosApplication in 10.982 seconds (process running for 12.386)
+2024-08-21T20:31:54.864-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21T20:31:54.871-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-21T20:31:54.901-06:00  INFO 24086 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-21T20:36:30.929-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.12 with PID 25511 (/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes started by usr_pepe in /home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes)
+2024-08-21T20:36:30.932-06:00 DEBUG 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-08-21T20:36:30.934-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-08-21T20:36:31.139-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-08-21T20:36:31.140-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-08-21T20:36:32.840-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21T20:36:33.039-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 185 ms. Found 8 JPA repository interfaces.
+2024-08-21T20:36:35.197-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-08-21T20:36:35.225-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-21T20:36:35.227-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21T20:36:35.376-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-21T20:36:35.378-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4236 ms
+2024-08-21T20:36:35.732-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21T20:36:35.804-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21T20:36:35.855-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-08-21T20:36:36.460-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21T20:36:36.516-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-21T20:36:37.086-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@463a052
+2024-08-21T20:36:37.088-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-21T20:36:37.135-06:00  WARN 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-08-21T20:36:39.133-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21T20:36:39.427-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21T20:36:39.455-06:00  WARN 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'actividadContableController': Unsatisfied dependency expressed through field 'actividadContableService': No qualifying bean of type 'com.buenrostroasociados.gestion_clientes.service.ActividadContableService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2024-08-21T20:36:39.456-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21T20:36:39.470-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-21T20:36:39.520-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-21T20:36:39.525-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-21T20:36:39.558-06:00  INFO 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-08-21T20:36:39.628-06:00 ERROR 25511 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field actividadContableService in com.buenrostroasociados.gestion_clientes.controller.ActividadContableController required a bean of type 'com.buenrostroasociados.gestion_clientes.service.ActividadContableService' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.buenrostroasociados.gestion_clientes.service.ActividadContableService' in your configuration.
+
+2024-08-21T20:38:01.696-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.12 with PID 25680 (/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes started by usr_pepe in /home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes)
+2024-08-21T20:38:01.699-06:00 DEBUG 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-08-21T20:38:01.701-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-08-21T20:38:01.849-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-08-21T20:38:01.850-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-08-21T20:38:03.381-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21T20:38:03.528-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 136 ms. Found 8 JPA repository interfaces.
+2024-08-21T20:38:04.465-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-08-21T20:38:04.481-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-21T20:38:04.482-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21T20:38:04.546-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-21T20:38:04.546-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2693 ms
+2024-08-21T20:38:04.804-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21T20:38:04.876-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21T20:38:04.924-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-08-21T20:38:05.369-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21T20:38:05.397-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-21T20:38:05.783-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4bbb43d7
+2024-08-21T20:38:05.785-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-21T20:38:05.822-06:00  WARN 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-08-21T20:38:07.653-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21T20:38:07.977-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21T20:38:08.674-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21T20:38:08.716-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.service.files.FileServiceImpl      : Carpeta de directorio de subidas ya está disponible.
+2024-08-21T20:38:08.899-06:00  WARN 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21T20:38:09.760-06:00  WARN 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: e8ea0ff3-102d-4c42-8f5b-27c21351876e
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-08-21T20:38:09.785-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-08-21T20:38:10.021-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-21T20:38:10.064-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 4200 (http) with context path '/'
+2024-08-21T20:38:10.082-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Started GestionClientesBuenrostroAsociadosApplication in 9.33 seconds (process running for 10.177)
+2024-08-21T20:40:43.071-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21T20:40:43.098-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-21T20:40:43.166-06:00  INFO 25680 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

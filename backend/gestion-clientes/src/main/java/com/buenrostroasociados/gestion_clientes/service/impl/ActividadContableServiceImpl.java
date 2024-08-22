@@ -12,10 +12,11 @@ import com.buenrostroasociados.gestion_clientes.repository.ClienteRepository;
 import com.buenrostroasociados.gestion_clientes.service.ActividadContableService;
 import com.buenrostroasociados.gestion_clientes.service.files.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class ActividadContableServiceImpl implements ActividadContableService {
     @Autowired
     private ActividadContableMapper actividadContableMapper;

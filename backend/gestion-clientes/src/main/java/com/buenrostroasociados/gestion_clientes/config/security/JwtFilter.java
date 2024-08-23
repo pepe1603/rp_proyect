@@ -1,5 +1,6 @@
 package com.buenrostroasociados.gestion_clientes.config.security;
 
+import com.buenrostroasociados.gestion_clientes.exception.JwtTokenBlacklistedException;
 import com.buenrostroasociados.gestion_clientes.service.jwtBlacklisted.BlacklistedService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -63,8 +64,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // Verificamos que el token no está en la lista negra
         if (blacklistService.isTokenBlacklisted(jwt)) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token has been blacklisted");
-            return;
+            throw new JwtTokenBlacklistedException("Token has been blacklisted");
         }
 
         username = jwtService.getUserName(jwt);

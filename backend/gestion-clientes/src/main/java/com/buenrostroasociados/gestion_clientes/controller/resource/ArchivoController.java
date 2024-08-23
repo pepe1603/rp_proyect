@@ -1,8 +1,7 @@
-package com.buenrostroasociados.gestion_clientes.controller;
+package com.buenrostroasociados.gestion_clientes.controller.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.ArchivoDTO;
 import com.buenrostroasociados.gestion_clientes.service.ArchivoService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/archivos")
+@RequestMapping("/api/v1/buenrostroAsociados/archivos")
 public class ArchivoController {
 
     @Autowired

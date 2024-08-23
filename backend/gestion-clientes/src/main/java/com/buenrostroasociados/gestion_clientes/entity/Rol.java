@@ -14,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 @AllArgsConstructor
 public class Rol implements GrantedAuthority {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

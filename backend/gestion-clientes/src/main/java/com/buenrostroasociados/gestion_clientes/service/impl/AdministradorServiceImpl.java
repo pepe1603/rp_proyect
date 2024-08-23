@@ -45,7 +45,7 @@ public class AdministradorServiceImpl implements AdministradorService {
     }
 
     @Override
-    public List<AdministradorDTO> gatAllAdministradores() {
+    public List<AdministradorDTO> getAllAdministradores() {
         List<Administrador> administradores = administradorRepo.findAll();
 
         if (administradores.isEmpty()){

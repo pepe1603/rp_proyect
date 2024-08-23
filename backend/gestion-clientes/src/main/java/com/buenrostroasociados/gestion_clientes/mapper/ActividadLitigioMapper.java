@@ -28,7 +28,8 @@ public interface ActividadLitigioMapper {
     default String mapEstadoCasoToString(EstadoCaso estadoCaso) {
         return estadoCaso != null ? estadoCaso.name() : null;
     }
-    @Mapping(target = "cliente", ignore = true)  // Evita la actualización del cliente si no es necesario
+    @Mapping(target = "cliente", ignore = true)
+    @Mapping(target = "id", ignore = true)// Evita la actualización del cliente si no es necesario
     void updateEntity(ActividadLitigioDTO dto, @MappingTarget ActividadLitigio entity);
 
 }

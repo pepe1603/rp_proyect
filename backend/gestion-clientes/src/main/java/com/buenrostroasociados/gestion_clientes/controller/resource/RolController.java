@@ -1,7 +1,10 @@
-package com.buenrostroasociados.gestion_clientes.controller;
+package com.buenrostroasociados.gestion_clientes.controller.resource;
 
+import com.buenrostroasociados.gestion_clientes.dto.CustomErrorResponse;
 import com.buenrostroasociados.gestion_clientes.dto.RolDTO;
 import com.buenrostroasociados.gestion_clientes.service.RolService;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,15 +13,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/roles")
+@RequestMapping("/api/v1/buenrostroAsociados/roles")
 public class RolController {
 
     @Autowired
     private RolService rolService;
 
     @PostMapping
-    public ResponseEntity<RolDTO> createRol(@RequestBody RolDTO rolDTO) {
-        return new ResponseEntity<>(rolService.createRol(rolDTO), HttpStatus.CREATED);
+    public ResponseEntity<?> createRole(@Valid @RequestBody RolDTO roleDTO) {
+        try {
+            RolDTO createdRole = rolService.createRol(roleDTO);
+            return new ResponseEntity<>(createdRole, HttpStatus.CREATED);
+        } catch (ConstraintViolationException e) {
+            return new ResponseEntity<>(new CustomErrorResponse(HttpStatus.BAD_REQUEST.value(), "Invalid Data", e.getMessage()), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new CustomErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Server Error", "Ocurrio un error inesperado: " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{id}")

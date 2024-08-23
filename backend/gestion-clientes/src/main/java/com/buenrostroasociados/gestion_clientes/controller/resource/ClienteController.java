@@ -1,4 +1,4 @@
-package com.buenrostroasociados.gestion_clientes.controller;
+package com.buenrostroasociados.gestion_clientes.controller.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.ClienteDTO;
 import com.buenrostroasociados.gestion_clientes.service.ClienteService;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/clientes")
+@RequestMapping("/api/v1/buenrostroAsociados/clientes")
 public class ClienteController {
 
     @Autowired

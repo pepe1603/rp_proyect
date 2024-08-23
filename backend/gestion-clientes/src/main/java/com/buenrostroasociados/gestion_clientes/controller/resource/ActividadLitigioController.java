@@ -1,9 +1,14 @@
-package com.buenrostroasociados.gestion_clientes.controller;
+package com.buenrostroasociados.gestion_clientes.controller.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.ActividadLitigioDTO;
-import com.buenrostroasociados.gestion_clientes.dto.ArchivoDTO;
+import com.buenrostroasociados.gestion_clientes.dto.InfoResponse;
+import com.buenrostroasociados.gestion_clientes.entity.ActividadLitigio;
+import com.buenrostroasociados.gestion_clientes.enums.EstadoCaso;
+import com.buenrostroasociados.gestion_clientes.exception.BusinessException;
+import com.buenrostroasociados.gestion_clientes.exception.UnauthorizedException;
 import com.buenrostroasociados.gestion_clientes.service.ActividadLitigioService;
 import jakarta.validation.Valid;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/actividades-litigio")
+@RequestMapping("/api/v1/buenrostroAsociados/actividades-litigio")
 public class ActividadLitigioController {
 
     @Autowired
@@ -47,11 +52,15 @@ public class ActividadLitigioController {
         actividadLitigioService.deleteActividadLitigio(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-/*
-    @GetMapping("/{id}/documentos")
-    public ResponseEntity<List<ArchivoDTO>> getDocumentosByActividadLitigio(@PathVariable Long id) {
-        List<ArchivoDTO> documentos = actividadLitigioService.getDocumentosByActividadLitigioId(id);
-        return new ResponseEntity<>(documentos, HttpStatus.OK);
+
+    @PutMapping("/{id}/estado")
+    public ResponseEntity<?> updateEstadoCaso(@PathVariable Long id, @RequestParam String estadoCaso) {
+        actividadLitigioService.updateEstadoActividadLitigio(id, estadoCaso);
+        return new ResponseEntity<>(new InfoResponse("Estado Actualizado con exito"), HttpStatus.OK);
     }
-    */
+
+
+
+
+
 }

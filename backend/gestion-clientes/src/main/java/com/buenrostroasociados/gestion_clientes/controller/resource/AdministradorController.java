@@ -1,6 +1,8 @@
-package com.buenrostroasociados.gestion_clientes.controller;
+package com.buenrostroasociados.gestion_clientes.controller.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.AdministradorDTO;
+import com.buenrostroasociados.gestion_clientes.dto.CustomErrorResponse;
+import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundException;
 import com.buenrostroasociados.gestion_clientes.service.AdministradorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +13,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/administradores")
+@RequestMapping("/api/v1/buenrostroAsociados/administradores")
 public class AdministradorController {
 
     @Autowired
     private AdministradorService administradorService;
 
+    @GetMapping("/hola")
+    public String hello(){
+        return "HOla munod Spring Boot";
+    }
+
     @GetMapping
-    public ResponseEntity<List<AdministradorDTO>> getAllAdministradores() {
-        List<AdministradorDTO> administradores = administradorService.gatAllAdministradores();
-        return new ResponseEntity<>(administradores, HttpStatus.OK);
+    public ResponseEntity<?> getAllAdministradores() {
+        try {
+            List<AdministradorDTO> administradores = administradorService.getAllAdministradores();
+            return new ResponseEntity<>(administradores, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            CustomErrorResponse errorResponse = new CustomErrorResponse(HttpStatus.NOT_FOUND.value(), "Not Found Entity", e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            CustomErrorResponse errorResponse = new CustomErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Server Error", "Ocurrio un error inesperado: " + e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PostMapping

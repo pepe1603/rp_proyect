@@ -20,7 +20,4 @@ public class ActividadLitigio extends Actividad {
     @Column(nullable = false)
     private EstadoCaso estadoCaso; // Estado del caso, seguimiento o avance
 
-    @OneToMany(mappedBy = "actividadLitigio", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Archivo> documentos; // Lista de docs asociados
-
 }

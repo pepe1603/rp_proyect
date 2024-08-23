@@ -8,7 +8,7 @@ import java.util.Map;
 public interface AdministradorService {
     AdministradorDTO savedAdministrador(AdministradorDTO administradorDTO);
     AdministradorDTO getAdministradorById(Long id);
-    List<AdministradorDTO> gatAllAdministradores();
+    List<AdministradorDTO> getAllAdministradores();
     AdministradorDTO getAdministradorByEmail(String email);
     AdministradorDTO updateClaveAdministrador(Long id, String clave);
     AdministradorDTO updateAdministrador(Long id, AdministradorDTO administradorDTO);

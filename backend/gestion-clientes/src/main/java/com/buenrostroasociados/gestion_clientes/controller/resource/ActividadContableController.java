@@ -1,4 +1,4 @@
-package com.buenrostroasociados.gestion_clientes.controller;
+package com.buenrostroasociados.gestion_clientes.controller.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.ActividadContableDTO;
 import com.buenrostroasociados.gestion_clientes.service.ActividadContableService;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/actividades-contables")
+@RequestMapping("/api/v1/buenrostroAsociados/actividades-contables")
 public class ActividadContableController {
 
     @Autowired

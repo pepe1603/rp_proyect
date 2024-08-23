@@ -9,9 +9,9 @@ import com.buenrostroasociados.gestion_clientes.repository.RolRepository;
 import com.buenrostroasociados.gestion_clientes.service.RolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,12 +23,30 @@ public class RolServiceImpl implements RolService {
     @Autowired
     private RolMapper rolMapper;
 
+    @Transactional
     @Override
     public RolDTO createRol(RolDTO rolDTO) {
-        validateRol(NombreRol.valueOf(rolDTO.getNombre().toUpperCase()));
-        rolDTO.getNombre().toUpperCase();// Validar que el rol existe en el enum
+        // Convertir nombre del rol a mayúsculas
+        String rolNombreUpper = rolDTO.getNombre().toUpperCase();
+
+        // Validar que el rol existe en el enum
+        if (!isValidRolName(rolNombreUpper)) {
+            throw new IllegalArgumentException("El rol proporcionado no es válido.");
+        }
+
+        // Verificar si el rol ya existe en la base de datos
+        if (rolRepository.existsByNombre(NombreRol.valueOf(rolNombreUpper))) {
+            throw new IllegalArgumentException("El rol ya existe.");
+        }
+
+        // Convertir DTO a entidad
         Rol rol = rolMapper.toEntity(rolDTO);
+        rol.setNombre(NombreRol.valueOf(rolNombreUpper)); // Asegurar que el nombre está en mayúsculas
+
+        // Guardar la entidad en la base de datos
         Rol savedRol = rolRepository.save(rol);
+
+        // Convertir la entidad guardada de nuevo a DTO y devolverlo
         return rolMapper.toDTO(savedRol);
     }
 
@@ -40,23 +58,33 @@ public class RolServiceImpl implements RolService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<RolDTO> getAllRoles() {
         return rolRepository.findAll().stream()
                 .map(rolMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public RolDTO updateRol(Long id, RolDTO rolDTO) {
-        validateRol(NombreRol.valueOf(rolDTO.getNombre().toUpperCase())); // Validar que el rol existe en el enum
+        // Validar que el rol existe en el enum
+        String rolNombreUpper = rolDTO.getNombre().toUpperCase();
+        if (!isValidRolName(rolNombreUpper)) {
+            throw new IllegalArgumentException("El rol proporcionado no es válido.");
+        }
+
+        // Buscar el rol existente
         Rol rol = rolRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Rol no encontrado con id: " + id));
 
-        rol.setNombre(NombreRol.valueOf(rolDTO.getNombre().toUpperCase()));
+        // Actualizar el rol
+        rol.setNombre(NombreRol.valueOf(rolNombreUpper));
         Rol updatedRol = rolRepository.save(rol);
         return rolMapper.toDTO(updatedRol);
     }
 
+    @Transactional
     @Override
     public void deleteRol(Long id) {
         Rol rol = rolRepository.findById(id)
@@ -65,10 +93,12 @@ public class RolServiceImpl implements RolService {
         rolRepository.delete(rol);
     }
 
-    private void validateRol(NombreRol nombreRol) {
-        // Validar si el rol está en el enum NombreRol
-        if (nombreRol == null || !Set.of(NombreRol.values()).contains(nombreRol)) {
-            throw new IllegalArgumentException("Rol no válido: " + nombreRol);
+    private boolean isValidRolName(String roleName) {
+        try {
+            NombreRol.valueOf(roleName);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
         }
     }
 }

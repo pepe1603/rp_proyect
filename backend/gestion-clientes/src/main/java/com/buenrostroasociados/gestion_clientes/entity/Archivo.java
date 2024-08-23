@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "archivos")
 @Data
@@ -20,8 +22,10 @@ public class Archivo {
     private String nombreArchivo;
     @Column(nullable = false)
     private String rutaArchivo;
-
-
+    @Column(nullable = false)
+    private String tipoArchivo; // Definición del tipo de archivo
+    @Column(nullable = false)
+    private LocalDateTime fechaCreacion;
     @ManyToOne
     @JoinColumn(name = "actividad_contable_id")
     private ActividadContable actividadContable;

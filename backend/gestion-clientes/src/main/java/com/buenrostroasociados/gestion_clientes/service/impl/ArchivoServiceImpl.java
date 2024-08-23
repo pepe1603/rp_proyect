@@ -4,6 +4,7 @@ import com.buenrostroasociados.gestion_clientes.dto.ArchivoDTO;
 import com.buenrostroasociados.gestion_clientes.entity.ActividadContable;
 import com.buenrostroasociados.gestion_clientes.entity.ActividadLitigio;
 import com.buenrostroasociados.gestion_clientes.entity.Archivo;
+import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundException;
 import com.buenrostroasociados.gestion_clientes.exception.ResourceNotFoundException;
 import com.buenrostroasociados.gestion_clientes.mapper.ArchivoMapper;
 import com.buenrostroasociados.gestion_clientes.repository.ActividadContableRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.FileSystemAlreadyExistsException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,6 +55,8 @@ public class ArchivoServiceImpl implements ArchivoService {
                     .orElseThrow(() -> new ResourceNotFoundException("Actividad Litigio no encontrada con id: " + archivoDTO.getActividadLitigioId()));
         }
 
+
+        archivoDTO.setFechaCreacion(LocalDateTime.now());// fecha actual por default
         // Verifica si el archivo ya existe
         Optional<Archivo> existingArchivo = archivoRepository.findByNombreArchivo(file.getOriginalFilename());
 
@@ -97,6 +101,90 @@ public class ArchivoServiceImpl implements ArchivoService {
                 .map(archivoMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<ArchivoDTO> getArchivosByActividadContableId(Long actividadContableId) {
+        List<Archivo> archivos = archivoRepository.findArchivosByActividadContableId(actividadContableId);
+        if (archivos.isEmpty()){
+            throw new EntityNotFoundException("No se encontraron Archivos de Actvidad Contable");
+        }
+        return archivos.stream()
+                .map(archivoMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<ArchivoDTO> getArchivosByActividadLitigioId(Long actividadLitigioId) {
+        List<Archivo> archivos = archivoRepository.findArchivosByActividadLitigioId(actividadLitigioId);
+        if (archivos.isEmpty()){
+            throw new EntityNotFoundException("No se encontraron Archivos de Actvidad Litigio");
+        }
+        return archivos.stream()
+                .map(archivoMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+    @Override
+    public ArchivoDTO updateArchivo(Long id, ArchivoDTO archivoDTO, MultipartFile file, boolean replaceExisting) {
+        // Primero, encuentra el archivo existente
+        Archivo existingArchivo = archivoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Archivo no encontrado con id: " + id));
+
+        // Verifica si el archivo ya existe en el sistema de archivos
+        Optional<Archivo> oldArchivo = archivoRepository.findByNombreArchivo(file.getOriginalFilename());
+
+        if (oldArchivo.isPresent() && replaceExisting) {
+            // Elimina el archivo del sistema de archivos local
+            fileService.delete(oldArchivo.get().getNombreArchivo());
+
+            // Elimina el registro viejo en la base de datos
+            archivoRepository.delete(oldArchivo.get());
+        } else if (oldArchivo.isPresent()) {
+            throw new FileSystemAlreadyExistsException("El archivo con el nombre " + file.getOriginalFilename() + " ya existe.");
+        }
+
+        // Guarda el nuevo archivo en el sistema de archivos local
+        String filename = fileService.getUniqueFilename(file.getOriginalFilename());
+        fileService.save(file, filename);
+
+        // Actualiza la entidad con el nuevo archivo
+        existingArchivo.setNombreArchivo(filename);
+        existingArchivo.setRutaArchivo(fileService.getRutaArchivo(filename));
+
+        // Actualiza otros campos si es necesario
+        existingArchivo.setTipoArchivo(archivoDTO.getTipoArchivo());
+        existingArchivo.setActividadContable(actividadContableRepository.findById(archivoDTO.getActividadContableId()).orElse(null));
+        existingArchivo.setActividadLitigio(actividadLitigioRepository.findById(archivoDTO.getActividadLitigioId()).orElse(null));
+
+        // Guarda los cambios
+        Archivo updatedArchivo = archivoRepository.save(existingArchivo);
+
+        return archivoMapper.toDTO(updatedArchivo);
+    }
+
+    @Override
+    public ArchivoDTO updateArchivoMetadata(Long id, ArchivoDTO archivoDTO) {
+        Archivo existingArchivo = archivoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Archivo no encontrado con id: " + id));
+
+        // Actualiza los metadatos del archivo
+        if (archivoDTO.getTipoArchivo() != null) {
+            existingArchivo.setTipoArchivo(archivoDTO.getTipoArchivo());
+        }
+        if (archivoDTO.getActividadContableId() != null) {
+            ActividadContable actividadContable = actividadContableRepository.findById(archivoDTO.getActividadContableId()).orElse(null);
+            existingArchivo.setActividadContable(actividadContable);
+        }
+        if (archivoDTO.getActividadLitigioId() != null) {
+            ActividadLitigio actividadLitigio = actividadLitigioRepository.findById(archivoDTO.getActividadLitigioId()).orElse(null);
+            existingArchivo.setActividadLitigio(actividadLitigio);
+        }
+
+        // Guarda los cambios
+        Archivo updatedArchivo = archivoRepository.save(existingArchivo);
+
+        return archivoMapper.toDTO(updatedArchivo);
+    }
+
+
 
     @Override
     public void deleteArchivo(Long id) {

@@ -20,12 +20,14 @@ public class ArchivoController {
     @PostMapping
     public ResponseEntity<ArchivoDTO> uploadArchivo(
             @RequestParam("file") MultipartFile file,
+            @RequestParam("tipoArcchivo") String tipoArchivo,
             @RequestParam("actividadContableId") Long actividadContableId,
             @RequestParam("actividadLitigioId") Long actividadLitigioId,
             @RequestParam(value = "replaceExisting", defaultValue = "false") boolean replaceExisting) {
 
         // Crea el DTO del archivo sin usar la ID, ya que se maneja en el servicio
         ArchivoDTO archivoDTO = new ArchivoDTO();
+        archivoDTO.setTipoArchivo(tipoArchivo);//
         archivoDTO.setActividadContableId(actividadContableId);
         archivoDTO.setActividadLitigioId(actividadLitigioId);
 
@@ -46,6 +48,47 @@ public class ArchivoController {
         return new ResponseEntity<>(archivos, HttpStatus.OK);
     }
 
+    @GetMapping("/actividadLitigio/{id}")
+    public ResponseEntity<List<ArchivoDTO>> getArchivosByActividadLitigio(@PathVariable Long id) {
+        List<ArchivoDTO> archivos = archivoService.getArchivosByActividadLitigioId(id);
+        return new ResponseEntity<>(archivos, HttpStatus.OK);
+    }
+
+    @GetMapping("/actividadContable/{id}")
+    public ResponseEntity<List<ArchivoDTO>> getArchivosByActividadContable(@PathVariable Long id) {
+        List<ArchivoDTO> archivos = archivoService.getArchivosByActividadContableId(id);
+        return new ResponseEntity<>(archivos, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ArchivoDTO> updateArchivo(
+            @PathVariable Long id,
+            @RequestParam(value = "file", required = false) MultipartFile file,
+            @RequestParam(value = "replaceExisting", defaultValue = "false") boolean replaceExisting) {
+
+        // Si no se proporciona un archivo, solo actualiza los metadatos
+        if (file == null || file.isEmpty()) {
+            ArchivoDTO archivoDTO = archivoService.getArchivo(id);
+            ArchivoDTO updatedArchivo = archivoService.updateArchivoMetadata(id, archivoDTO);
+            return new ResponseEntity<>(updatedArchivo, HttpStatus.OK);
+        } else {
+            ArchivoDTO archivoDTO = new ArchivoDTO();
+            archivoDTO.setNombreArchivo(file.getOriginalFilename());
+            // Llama al servicio para reemplazar el archivo
+            ArchivoDTO updatedArchivo = archivoService.updateArchivo(id, archivoDTO, file, replaceExisting);
+            return new ResponseEntity<>(updatedArchivo, HttpStatus.OK);
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ArchivoDTO> patchArchivo(
+            @PathVariable Long id,
+            @RequestBody ArchivoDTO archivoDTO) {
+
+        ArchivoDTO updatedArchivo = archivoService.updateArchivoMetadata(id, archivoDTO);
+        return new ResponseEntity<>(updatedArchivo, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteArchivo(@PathVariable Long id) {
         archivoService.deleteArchivo(id);
@@ -56,18 +99,43 @@ public class ArchivoController {
 /*
 * Explicación
 
-    uploadArchivo:
-        Este método maneja las solicitudes POST para cargar archivos. Recibe el archivo como un MultipartFile y los IDs opcionales de actividadContable y actividadLitigio.
-        El parámetro replaceExisting se usa para decidir si reemplazar un archivo existente con el mismo nombre.
-        Llama al método saveArchivo del servicio, que maneja la lógica de almacenamiento y reemplazo de archivos.
+       POST /api/v1/buenrostroAsociados/archivos:
+        Descripción: Carga un nuevo archivo.
+        Parámetros: file, tipoArchivo, actividadContableId, actividadLitigioId, replaceExisting (opcional).
+        Respuesta: 201 Created con el DTO del archivo guardado.
 
-    getArchivoById:
-        Recupera un archivo por su ID. Llama al método getArchivo del servicio y devuelve el archivo como ArchivoDTO.
+    GET /api/v1/buenrostroAsociados/archivos/{id}:
+        Descripción: Obtiene un archivo por su ID.
+        Respuesta: 200 OK con el DTO del archivo.
 
-    getAllArchivos:
-        Recupera todos los archivos en el sistema. Llama al método getAllArchivos del servicio y devuelve la lista de archivos como ArchivoDTO.
+    GET /api/v1/buenrostroAsociados/archivos:
+        Descripción: Obtiene todos los archivos.
+        Respuesta: 200 OK con la lista de archivos.
 
-    deleteArchivo:
-        Elimina un archivo por su ID. Llama al método deleteArchivo del servicio y elimina tanto el archivo del sistema de archivos como el registro de la base de datos.
-*
+    GET /api/v1/buenrostroAsociados/archivos/actividadContable/{id}:
+        Descripción: Obtiene archivos por ID de actividad contable.
+        Respuesta: 200 OK con la lista de archivos.
+
+    GET /api/v1/buenrostroAsociados/archivos/actividadLitigio/{id}:
+        Descripción: Obtiene archivos por ID de actividad de litigio.
+        Respuesta: 200 OK con la lista de archivos.
+
+    DELETE /api/v1/buenrostroAsociados/archivos/{id}:
+        Descripción: Elimina un archivo por su ID.
+        Respuesta: 204 No Content.
+
+    PUT /api/v1/buenrostroAsociados/archivos/{id}:
+        Descripción: Actualiza un archivo completo. Si se proporciona un nuevo archivo, lo reemplaza; si no, solo actualiza los metadatos.
+        Parámetros: file (opcional), replaceExisting (opcional).
+        Respuesta: 200 OK con el DTO del archivo actualizado.
+
+    PATCH /api/v1/buenrostroAsociados/archivos/{id}:
+        Descripción: Actualiza solo los metadatos del archivo.
+        Parámetros: ArchivoDTO con los campos a actualizar.
+        Respuesta: 200 OK con el DTO del archivo actualizado.
+
+Nota
+
+    En el caso de PUT, si no se proporciona un archivo nuevo (file es null o vacío), solo se actualizan los metadatos del archivo. De lo contrario, el archivo antiguo se reemplaza si replaceExisting es true.
+    En el caso de PATCH, solo se actualizan los metadatos del archivo sin afectar el contenido del archivo.
 * */

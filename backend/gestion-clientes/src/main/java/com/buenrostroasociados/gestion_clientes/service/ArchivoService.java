@@ -11,6 +11,15 @@ public interface ArchivoService {
 
     ArchivoDTO getArchivo(Long id);
     List<ArchivoDTO> getAllArchivos();
+
+    List<ArchivoDTO> getArchivosByActividadContableId(Long actividadContableId);
+
+    List<ArchivoDTO> getArchivosByActividadLitigioId(Long actividadLitigioId);
+
+    ArchivoDTO updateArchivo(Long id, ArchivoDTO archivoDTO, MultipartFile file, boolean replaceExisting);
+
+    ArchivoDTO updateArchivoMetadata(Long id, ArchivoDTO archivoDTO);
+
     void deleteArchivo(Long id);
 }
 

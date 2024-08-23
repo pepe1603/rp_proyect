@@ -2,6 +2,7 @@ package com.buenrostroasociados.gestion_clientes.controller.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.ActividadContableDTO;
 import com.buenrostroasociados.gestion_clientes.service.ActividadContableService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class ActividadContableController {
     }
 
     @PostMapping
-    public ResponseEntity<ActividadContableDTO> createActividadContable(@RequestBody ActividadContableDTO actividadContableDTO) {
+    public ResponseEntity<ActividadContableDTO> createActividadContable(@Valid @RequestBody ActividadContableDTO actividadContableDTO) {
         ActividadContableDTO created = actividadContableService.saveActividadContable(actividadContableDTO);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
@@ -35,7 +36,7 @@ public class ActividadContableController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ActividadContableDTO> updateActividadContable(@PathVariable Long id, @RequestBody ActividadContableDTO actividadContableDTO) {
+    public ResponseEntity<ActividadContableDTO> updateActividadContable(@PathVariable Long id, @Valid @RequestBody ActividadContableDTO actividadContableDTO) {
         ActividadContableDTO updated = actividadContableService.updateActividadContable(id, actividadContableDTO);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
@@ -46,11 +47,5 @@ public class ActividadContableController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    /*
-    @GetMapping("/{id}/archivos")
-    public ResponseEntity<List<ArchivoDTO>> getArchivosByActividadContable(@PathVariable Long id) {
-        List<ArchivoDTO> archivos = actividadContableService.getArchivosByActividadContableId(id);
-        return new ResponseEntity<>(archivos, HttpStatus.OK);
-    }*/
 }
 

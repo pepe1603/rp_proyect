@@ -14,7 +14,8 @@ public interface ActividadContableMapper {
     @Mapping(source = "clienteId", target = "cliente.id")
     ActividadContable toEntity(ActividadContableDTO actividadContableDTO);
 
-    @Mapping(target = "cliente", ignore = true)  // Evita la actualización del cliente si no es necesario
+    @Mapping(target = "cliente", ignore = true)
+        @Mapping(target = "id", ignore = true)// Evita la actualización del cliente si no es necesario
     void updateEntity(ActividadContableDTO dto, @MappingTarget ActividadContable entity);
 
 }

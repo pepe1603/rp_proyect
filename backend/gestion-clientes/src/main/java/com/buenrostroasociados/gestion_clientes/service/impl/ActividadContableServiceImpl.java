@@ -37,24 +37,10 @@ public class ActividadContableServiceImpl implements ActividadContableService {
         ActividadContable actividadContable = actividadContableMapper.toEntity(actividadContableDTO);
         actividadContable.setCliente(cliente);
 
-        // Manejo de archivos (si aplica)
-        if (actividadContableDTO.getArchivos() != null) {
-            List<Archivo> archivos = actividadContableDTO.getArchivos().stream()
-                    .map(archivoDTO -> {
-                        Archivo archivo = new Archivo();
-                        archivo.setNombreArchivo(archivoDTO.getNombreArchivo());
-                        archivo.setRutaArchivo(fileService.getRutaArchivo(archivoDTO.getNombreArchivo()));
-                        archivo.setActividadContable(actividadContable); // Asignar actividad contable
-                        return archivo;
-                    })
-                    .collect(Collectors.toList());
-            actividadContable.setArchivos(archivos);
-        }
-
+        // Guardar la actividad contable
         ActividadContable actividadGuardada = actividadContableRepo.save(actividadContable);
         return actividadContableMapper.toDTO(actividadGuardada);
     }
-
     @Override
     public ActividadContableDTO getActividadContableById(Long id) {
         ActividadContable actividadContable = actividadContableRepo.findById(id)
@@ -77,30 +63,21 @@ public class ActividadContableServiceImpl implements ActividadContableService {
 
     @Override
     public ActividadContableDTO updateActividadContable(Long id, ActividadContableDTO actividadContableDTO) {
+        // Buscar la entidad existente por ID
         ActividadContable actividadContable = actividadContableRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Actividad contable no encontrada con ID: " + id));
 
+        // Actualizar los campos de la entidad existente
         actividadContableMapper.updateEntity(actividadContableDTO, actividadContable);
 
+        // Buscar y asignar el cliente
         Cliente cliente = clienteRepo.findById(actividadContableDTO.getClienteId())
-                .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado con ID: " + actividadContableDTO.getClienteId()));
+                .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado con ID: " + id));
         actividadContable.setCliente(cliente);
 
-        // Manejo de archivos
-        if (actividadContableDTO.getArchivos() != null) {
-            List<Archivo> archivos = actividadContableDTO.getArchivos().stream()
-                    .map(archivoDTO -> {
-                        Archivo archivo = new Archivo();
-                        archivo.setNombreArchivo(archivoDTO.getNombreArchivo());
-                        archivo.setRutaArchivo(fileService.getRutaArchivo(archivoDTO.getNombreArchivo()));
-                        archivo.setActividadContable(actividadContable);
-                        return archivo;
-                    })
-                    .collect(Collectors.toList());
-            actividadContable.setArchivos(archivos);
-        }
-
+        // Guardar la entidad actualizada
         ActividadContable actividadActualizada = actividadContableRepo.save(actividadContable);
+
         return actividadContableMapper.toDTO(actividadActualizada);
     }
 

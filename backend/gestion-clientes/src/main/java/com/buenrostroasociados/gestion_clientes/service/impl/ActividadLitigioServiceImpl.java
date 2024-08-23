@@ -45,6 +45,7 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
 
         ActividadLitigio actividadLitigio = actividadLitigioMapper.toEntity(actividadLitigioDTO);
         actividadLitigio.setCliente(cliente);
+        actividadLitigio.setEstadoCaso(EstadoCaso.PENDIENTE);
 
         // No se manejan archivos en la creación inicial
         ActividadLitigio actividadGuardada = actividadLitigioRepo.save(actividadLitigio);

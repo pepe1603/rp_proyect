@@ -7,21 +7,28 @@ import com.buenrostroasociados.gestion_clientes.mapper.AdministradorMapper;
 import com.buenrostroasociados.gestion_clientes.repository.AdministradorRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ClienteRepository;
 import com.buenrostroasociados.gestion_clientes.service.AdministradorService;
+import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class AdministradorServiceImpl implements AdministradorService {
+
+    private static final Logger logger = LoggerFactory.getLogger(AdministradorServiceImpl.class);
     @Autowired
     private AdministradorRepository administradorRepo;
     @Autowired
     private AdministradorMapper administradorMapper;
     @Autowired
     private ClienteRepository clienteRepo;
+    @Autowired
+    private ExportService exportService;
 
     @Override
     public AdministradorDTO savedAdministrador(AdministradorDTO administradorDTO) {
@@ -102,5 +109,48 @@ public class AdministradorServiceImpl implements AdministradorService {
                         () -> new EntityNotFoundException("Cliente no encontrado con ID: "+id)
                 );
         administradorRepo.deleteById(id);
+    }
+
+    @Override
+    public Resource exportActividadesToCSV() {
+        List<AdministradorDTO> administradores = getAllAdministradores();
+        List<String> headers = List.of("ID", "Clave", "NombreCompleto", "Correo", "Telefono", "UsuarioId");
+        List<List<String>> data = administradores.stream()
+                .map(admin -> List.of(
+                        admin.getId().toString(),
+                        admin.getClave().toString(),
+                        admin.getNombreFull().toString(),
+                        admin.getCorreo().toString(),
+                        admin.getCorreo().toString(),
+                        admin.getTelefono().toString(),
+                        admin.getUsuarioId().toString()
+                ))
+                .collect(Collectors.toList());
+
+        if (data.isEmpty()) {
+            logger.warn("No hay datos para exportar al CSV.");
+        }
+
+        return exportService.exportToCSV(headers, data);
+    }
+
+    @Override
+    public Resource exportActividadesToPDF() {
+        List<AdministradorDTO> administradores = getAllAdministradores();
+        List<String> headers = List.of("ID", "RFC", "Nombre", "Correo", "Telefono");
+        List<List<String>> data = administradores.stream()
+                .map(admin -> List.of(
+                        admin.getId().toString(),
+                        admin.getClave().toString(),
+                        admin.getNombreFull().toString(),
+                        admin.getCorreo().toString(),
+                        admin.getCorreo().toString(),
+                        admin.getTelefono().toString(),
+                        admin.getUsuarioId().toString()
+                ))
+                .collect(Collectors.toList());
+
+        String title = "Reporte de Administradores";
+        return exportService.exportToPDF(title, headers, data);
     }
 }

@@ -10,10 +10,14 @@ import com.buenrostroasociados.gestion_clientes.service.ActividadLitigioService;
 import jakarta.validation.Valid;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -59,8 +63,23 @@ public class ActividadLitigioController {
         return new ResponseEntity<>(new InfoResponse("Estado Actualizado con exito"), HttpStatus.OK);
     }
 
+    @GetMapping("/export/csv")
+    public ResponseEntity<Resource> exportToCSV() {
+        Resource resource = actividadLitigioService.exportActividadesToCSV();
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        String filename = String.format("actividadesLitigio_%s.csv", timestamp);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .body(resource);
+    }
 
-
-
-
+    @GetMapping("/export/pdf")
+    public ResponseEntity<Resource> exportToPDF() {
+        Resource resource = actividadLitigioService.exportActividadesToPDF();
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        String filename = String.format("actividadesLitigio_%s.pdf", timestamp);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .body(resource);
+    }
 }

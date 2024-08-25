@@ -11,8 +11,12 @@ import com.buenrostroasociados.gestion_clientes.repository.ActividadContableRepo
 import com.buenrostroasociados.gestion_clientes.repository.ActividadLitigioRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ArchivoRepository;
 import com.buenrostroasociados.gestion_clientes.service.ArchivoService;
+import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
 import com.buenrostroasociados.gestion_clientes.service.files.FileService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +27,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 public class ArchivoServiceImpl implements ArchivoService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ArchivoServiceImpl.class);
 
     @Autowired
     private ArchivoRepository archivoRepository;
@@ -38,6 +44,9 @@ public class ArchivoServiceImpl implements ArchivoService {
 
     @Autowired
     private ArchivoMapper archivoMapper;
+
+    @Autowired
+    private ExportService exportService;
 
     @Override
     public ArchivoDTO saveArchivo(ArchivoDTO archivoDTO, MultipartFile file, boolean replaceExisting) {
@@ -184,8 +193,6 @@ public class ArchivoServiceImpl implements ArchivoService {
         return archivoMapper.toDTO(updatedArchivo);
     }
 
-
-
     @Override
     public void deleteArchivo(Long id) {
         Archivo archivo = archivoRepository.findById(id)
@@ -197,4 +204,50 @@ public class ArchivoServiceImpl implements ArchivoService {
         // Elimina el registro en la base de datos
         archivoRepository.delete(archivo);
     }
-}
+
+    @Override
+    public Resource exportActividadesToCSV() {
+        List<ArchivoDTO> archivos = getAllArchivos();
+        List<String> headers = List.of("ID", "NombreArchivo", "RutaArchivo", "TipoArchivo", "FechaCreacion", "ActividadContableId", "ActividadLitigioId");
+        List<List<String>> data = archivos.stream()
+                .map(archivo -> List.of(
+                        archivo.getId().toString(),
+                        archivo.getNombreArchivo().toString(),
+                        archivo.getRutaArchivo().toString(),
+                        archivo.getTipoArchivo().toString(),
+                        archivo.getFechaCreacion().toString(),
+                        archivo.getActividadContableId().toString(),
+                        archivo.getActividadLitigioId().toString()
+
+                ))
+                .collect(Collectors.toList());
+
+        if (data.isEmpty()) {
+            logger.warn("No hay datos para exportar al CSV.");
+        }
+
+        return exportService.exportToCSV(headers, data);
+    }
+    @Override
+    public Resource exportActividadesToPDF() {
+        List<ArchivoDTO> archivos = getAllArchivos();
+        List<String> headers = List.of("ID", "NombreArchivo", "RutaArchivo", "TipoArchivo", "FechaCreacion", "ActividadContableId", "ActividadLitigioId");
+        List<List<String>> data = archivos.stream()
+                .map(archivo -> List.of(
+                        archivo.getId().toString(),
+                        archivo.getNombreArchivo().toString(),
+                        archivo.getRutaArchivo().toString(),
+                        archivo.getTipoArchivo().toString(),
+                        archivo.getFechaCreacion().toString(),
+                        archivo.getActividadContableId().toString(),
+                        archivo.getActividadLitigioId().toString()
+                ))
+                .collect(Collectors.toList());
+
+        String title = "Reporte de Archivos";
+        return exportService.exportToPDF(title, headers, data);
+    }
+
+
+
+    }

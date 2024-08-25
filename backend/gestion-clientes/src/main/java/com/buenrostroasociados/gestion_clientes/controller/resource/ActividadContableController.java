@@ -4,10 +4,14 @@ import com.buenrostroasociados.gestion_clientes.dto.ActividadContableDTO;
 import com.buenrostroasociados.gestion_clientes.service.ActividadContableService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -45,6 +49,25 @@ public class ActividadContableController {
     public ResponseEntity<Void> deleteActividadContable(@PathVariable Long id) {
         actividadContableService.deleteActividadContable(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("/export/csv")
+    public ResponseEntity<Resource> exportToCSV() {
+        Resource resource = actividadContableService.exportActividadesToCSV();
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        String filename = String.format("actividadesContables_%s.csv", timestamp);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .body(resource);
+    }
+
+    @GetMapping("/export/pdf")
+    public ResponseEntity<Resource> exportToPDF() {
+        Resource resource = actividadContableService.exportActividadesToPDF();
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        String filename = String.format("actividadesContables_%s.pdf", timestamp);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .body(resource);
     }
 
 }

@@ -14,11 +14,14 @@ import com.buenrostroasociados.gestion_clientes.repository.ActividadLitigioRepos
 import com.buenrostroasociados.gestion_clientes.repository.ArchivoRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ClienteRepository;
 import com.buenrostroasociados.gestion_clientes.service.ActividadLitigioService;
+import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
 import com.buenrostroasociados.gestion_clientes.service.files.FileService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +30,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class ActividadLitigioServiceImpl implements ActividadLitigioService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ActividadContableServiceImpl.class);
+
     @Autowired
     private ActividadLitigioMapper actividadLitigioMapper;
     @Autowired
@@ -37,6 +43,8 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
     private ArchivoRepository archivoRepo;
     @Autowired
     private FileService fileService;
+    @Autowired
+    private ExportService exportService;
 
     @Override
     public ActividadLitigioDTO saveActividadLitigio(ActividadLitigioDTO actividadLitigioDTO) {
@@ -159,6 +167,48 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
         // Elimina la actividad litigio
         actividadLitigioRepo.delete(actividadLitigio);
     }
+
+
+
+    @Override
+    public Resource exportActividadesToCSV() {
+        List<ActividadLitigioDTO> actividades = getAllActividadesLitigio();
+        List<String> headers = List.of("ID", "Descripción", "Fecha Creación", "Estado Caso", "Cliente ID");
+        List<List<String>> data = actividades.stream()
+                .map(actividad -> List.of(
+                        actividad.getId().toString(),
+                        actividad.getDescripcion(),
+                        actividad.getFechaCreacion().toString(),
+                        actividad.getEstadoCaso(),
+                        actividad.getClienteId().toString()
+                ))
+                .collect(Collectors.toList());
+
+        if (data.isEmpty()) {
+            logger.warn("No hay datos para exportar al CSV.");
+        }
+
+        return exportService.exportToCSV(headers, data);
+    }
+
+    @Override
+    public Resource exportActividadesToPDF() {
+        List<ActividadLitigioDTO> actividades = getAllActividadesLitigio();
+        List<String> headers = List.of("ID", "Descripción", "Fecha Creación", "Estado Caso", "Cliente ID");
+        List<List<String>> data = actividades.stream()
+                .map(actividad -> List.of(
+                        actividad.getId().toString(),
+                        actividad.getDescripcion(),
+                        actividad.getFechaCreacion().toString(),
+                        actividad.getEstadoCaso(),
+                        actividad.getClienteId().toString()
+                ))
+                .collect(Collectors.toList());
+
+        String title = "Reporte de Actividades de Litigio";
+        return exportService.exportToPDF(title, headers, data);
+    }
+
 
     /*
      * Métodos auxiliares

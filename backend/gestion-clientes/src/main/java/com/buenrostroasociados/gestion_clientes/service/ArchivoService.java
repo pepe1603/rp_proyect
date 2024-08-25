@@ -1,6 +1,7 @@
 package com.buenrostroasociados.gestion_clientes.service;
 
 import com.buenrostroasociados.gestion_clientes.dto.ArchivoDTO;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -21,6 +22,10 @@ public interface ArchivoService {
     ArchivoDTO updateArchivoMetadata(Long id, ArchivoDTO archivoDTO);
 
     void deleteArchivo(Long id);
+
+    Resource exportActividadesToCSV();
+
+    Resource exportActividadesToPDF();
 }
 
 /*

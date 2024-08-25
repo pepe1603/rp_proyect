@@ -2,6 +2,7 @@ package com.buenrostroasociados.gestion_clientes.service;
 
 import com.buenrostroasociados.gestion_clientes.dto.ActividadLitigioDTO;
 import com.buenrostroasociados.gestion_clientes.entity.Archivo;
+import org.springframework.core.io.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -19,4 +20,8 @@ public interface ActividadLitigioService {
     void updateEstadoActividadLitigio(Long id, String estadoCaso);
 
     void deleteActividadLitigio(Long id);
+
+    Resource exportActividadesToCSV();
+
+    Resource exportActividadesToPDF();
 }

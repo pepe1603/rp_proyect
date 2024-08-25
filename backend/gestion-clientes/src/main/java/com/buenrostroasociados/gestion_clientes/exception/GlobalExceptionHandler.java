@@ -1,6 +1,8 @@
 package com.buenrostroasociados.gestion_clientes.exception;
 
 import com.buenrostroasociados.gestion_clientes.dto.CustomErrorResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
@@ -11,7 +13,10 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    /*- ecxeptiones para clases no encontradas ene l reposotory*/
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+
+    /*- exceptions para clases no encontradas ene l reposotory*/
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<CustomErrorResponse> handleEntityNotFound(EntityNotFoundException ex){
@@ -49,6 +54,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ExportException.class)
+    public ResponseEntity<CustomErrorResponse> handleExportException(ExportException ex){
+        CustomErrorResponse errorResponse = new CustomErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Error To Export Resource",  ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     /**- unthorized */
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<CustomErrorResponse> handleUnauthorizedException(UnauthorizedException ex) {
@@ -76,5 +87,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 
+
+    private void logException(Exception ex) {
+        logger.error("Exception occurred: ", ex);
+    }
 
 }

@@ -7,7 +7,11 @@ import com.buenrostroasociados.gestion_clientes.exception.ResourceNotFoundExcept
 import com.buenrostroasociados.gestion_clientes.mapper.RolMapper;
 import com.buenrostroasociados.gestion_clientes.repository.RolRepository;
 import com.buenrostroasociados.gestion_clientes.service.RolService;
+import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +21,16 @@ import java.util.stream.Collectors;
 @Service
 public class RolServiceImpl implements RolService {
 
+    private static final Logger logger = LoggerFactory.getLogger(RolServiceImpl.class);
+
     @Autowired
     private RolRepository rolRepository;
 
     @Autowired
     private RolMapper rolMapper;
+
+    @Autowired
+    private ExportService exportService;
 
     @Transactional
     @Override
@@ -92,6 +101,41 @@ public class RolServiceImpl implements RolService {
 
         rolRepository.delete(rol);
     }
+    @Override
+    public Resource exportActividadesToCSV() {
+        List<RolDTO> roles = getAllRoles();
+        List<String> headers = List.of("ID", "Nombrerol");
+        List<List<String>> data = roles.stream()
+                .map(rol -> List.of(
+                        rol.getId().toString(),
+                        rol.getNombre().toString()
+                ))
+                .collect(Collectors.toList());
+
+        if (data.isEmpty()) {
+            logger.warn("No hay datos para exportar al CSV.");
+        }
+
+        return exportService.exportToCSV(headers, data);
+    }
+    @Override
+    public Resource exportActividadesToPDF() {
+        List<RolDTO> roles = getAllRoles();
+        List<String> headers = List.of("ID", "Nombre");
+        List<List<String>> data = roles.stream()
+                .map(rol-> List.of(
+                        rol.getId().toString(),
+                        rol.getNombre().toString()
+                ))
+                .collect(Collectors.toList());
+
+        String title = "Reporte de roles";
+        return exportService.exportToPDF(title, headers, data);
+    }
+    /**
+     * Metodos Aurxiliares
+     * */
+
 
     private boolean isValidRolName(String roleName) {
         try {

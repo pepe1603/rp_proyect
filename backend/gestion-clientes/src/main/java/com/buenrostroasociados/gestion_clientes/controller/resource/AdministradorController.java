@@ -6,10 +6,14 @@ import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundExceptio
 import com.buenrostroasociados.gestion_clientes.service.AdministradorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -68,4 +72,25 @@ public class AdministradorController {
         AdministradorDTO administrador = administradorService.getAdministradorByEmail(email);
         return new ResponseEntity<>(administrador, HttpStatus.OK);
     }
+
+    @GetMapping("/export/csv")
+    public ResponseEntity<Resource> exportToCSV() {
+        Resource resource = administradorService.exportActividadesToCSV();
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        String filename = String.format("adminstradores_%s.csv", timestamp);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .body(resource);
+    }
+
+    @GetMapping("/export/pdf")
+    public ResponseEntity<Resource> exportToPDF() {
+        Resource resource = administradorService.exportActividadesToPDF();
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        String filename = String.format("administradores_%s.pdf", timestamp);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .body(resource);
+    }
+
 }

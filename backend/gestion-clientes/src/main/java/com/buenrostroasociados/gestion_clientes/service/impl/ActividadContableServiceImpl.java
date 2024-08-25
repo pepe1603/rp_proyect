@@ -10,14 +10,20 @@ import com.buenrostroasociados.gestion_clientes.repository.ActividadContableRepo
 import com.buenrostroasociados.gestion_clientes.repository.ArchivoRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ClienteRepository;
 import com.buenrostroasociados.gestion_clientes.service.ActividadContableService;
+import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
 import com.buenrostroasociados.gestion_clientes.service.files.FileService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
 public class ActividadContableServiceImpl implements ActividadContableService {
+    private static final Logger logger= LoggerFactory.getLogger(ActividadContableServiceImpl.class);
+
     @Autowired
     private ActividadContableMapper actividadContableMapper;
     @Autowired
@@ -28,6 +34,8 @@ public class ActividadContableServiceImpl implements ActividadContableService {
     private ArchivoRepository archivoRepo;
     @Autowired
     private FileService fileService;
+    @Autowired
+    private ExportService exportService;
 
     @Override
     public ActividadContableDTO saveActividadContable(ActividadContableDTO actividadContableDTO) {
@@ -96,4 +104,43 @@ public class ActividadContableServiceImpl implements ActividadContableService {
         // Elimina la actividad contable
         actividadContableRepo.delete(actividadContable);
     }
+
+    @Override
+    public Resource exportActividadesToCSV() {
+        List<ActividadContableDTO> actividadesContables = getAllActividadesContables();
+        List<String> headers = List.of("ID", "Descripcion", "FechaCreacion", "ClienteId");
+        List<List<String>> data = actividadesContables.stream()
+                .map(actividad -> List.of(
+                        actividad.getId().toString(),
+                        actividad.getDescripcion().toString(),
+                        actividad.getFechaCreacion().toString(),
+                        actividad.getClienteId().toString()
+                ))
+                .collect(Collectors.toList());
+
+        if (data.isEmpty()) {
+            logger.warn("No hay datos para exportar al CSV.");
+        }
+
+        return exportService.exportToCSV(headers, data);
+    }
+
+    @Override
+    public Resource exportActividadesToPDF() {
+        List<ActividadContableDTO> actividadesContables = getAllActividadesContables();
+        List<String> headers = List.of("ID", "Descripcion", "FechaCreacion", "CleinteId");
+        List<List<String>> data = actividadesContables.stream()
+                .map(actividad -> List.of(
+                        actividad.getId().toString(),
+                        actividad.getDescripcion().toString(),
+                        actividad.getFechaCreacion().toString(),
+                        actividad.getClienteId().toString()
+                ))
+                .collect(Collectors.toList());
+
+        String title = "Reporte de Actividades Contables";
+        return exportService.exportToPDF(title, headers, data);
+    }
+
+
 }

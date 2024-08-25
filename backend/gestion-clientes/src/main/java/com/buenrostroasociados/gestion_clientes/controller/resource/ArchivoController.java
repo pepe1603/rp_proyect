@@ -2,12 +2,17 @@ package com.buenrostroasociados.gestion_clientes.controller.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.ArchivoDTO;
 import com.buenrostroasociados.gestion_clientes.service.ArchivoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -20,7 +25,7 @@ public class ArchivoController {
     @PostMapping
     public ResponseEntity<ArchivoDTO> uploadArchivo(
             @RequestParam("file") MultipartFile file,
-            @RequestParam("tipoArcchivo") String tipoArchivo,
+            @Valid  @RequestParam("tipoArcchivo") String tipoArchivo,
             @RequestParam("actividadContableId") Long actividadContableId,
             @RequestParam("actividadLitigioId") Long actividadLitigioId,
             @RequestParam(value = "replaceExisting", defaultValue = "false") boolean replaceExisting) {
@@ -93,6 +98,25 @@ public class ArchivoController {
     public ResponseEntity<Void> deleteArchivo(@PathVariable Long id) {
         archivoService.deleteArchivo(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("/export/csv")
+    public ResponseEntity<Resource> exportToCSV() {
+        Resource resource = archivoService.exportActividadesToCSV();
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        String filename = String.format("archivos_%s.csv", timestamp);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .body(resource);
+    }
+
+    @GetMapping("/export/pdf")
+    public ResponseEntity<Resource> exportToPDF() {
+        Resource resource = archivoService.exportActividadesToPDF();
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        String filename = String.format("archivos_%s.pdf", timestamp);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .body(resource);
     }
 }
 

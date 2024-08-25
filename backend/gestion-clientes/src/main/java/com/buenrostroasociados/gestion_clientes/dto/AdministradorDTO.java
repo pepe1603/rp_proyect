@@ -12,7 +12,7 @@ public class AdministradorDTO {
     private Long id;
     @NotBlank(message = "La clave no puede estar en blanco")
     private String clave;
-    @NotBlank(message = "Elñ nombre no deebe de esatr en blanco")
+    @NotBlank(message = "El nombre no deebe de esatr en blanco")
     @Size(min = 3, max = 100, message = "El nombre debe tener entre 3 y 100 caracteres")
     private String nombreFull;
     @NotBlank(message = "El correo no puede estar en blanco")

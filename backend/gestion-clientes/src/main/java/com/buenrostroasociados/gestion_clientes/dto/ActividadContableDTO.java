@@ -8,6 +8,7 @@ import java.util.List;
 
 @Data
 public class ActividadContableDTO {
+    private Long id;
     @NotBlank(message = "La descripcion no puede estar en blanco")
     private String descripcion;
     @NotBlank(message = "La fecha de creacion no puede estar en blanco")

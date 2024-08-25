@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 public class ActividadLitigioDTO {
+    private Long id;
     @NotBlank(message = "La descripcion no puede estar en blanco")
     private String descripcion;
     @NotNull(message = "La fecha de creacion no puede estar en blanco")

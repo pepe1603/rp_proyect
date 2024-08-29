@@ -2,7 +2,6 @@ package com.buenrostroasociados.gestion_clientes.mapper;
 
 import com.buenrostroasociados.gestion_clientes.dto.RolDTO;
 import com.buenrostroasociados.gestion_clientes.entity.Rol;
-import com.buenrostroasociados.gestion_clientes.enums.NombreRol;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -17,6 +16,7 @@ public interface RolMapper {
     @Mapping(source = "nombre", target = "nombre")
     Rol toEntity(RolDTO rolDTO);
 
+    /* Decomentar en caso de usar enum y roles en BD
     // Métodos adicionales para manejar el mapeo de NombreRol -> es decir deviolfvere el enum corecto
     default String map(NombreRol nombreRol) {
         return nombreRol != null ? nombreRol.name() : null;
@@ -25,4 +25,5 @@ public interface RolMapper {
     default NombreRol map(String nombre) {
         return nombre != null ? NombreRol.valueOf(nombre) : null;
     }
+    */
 }

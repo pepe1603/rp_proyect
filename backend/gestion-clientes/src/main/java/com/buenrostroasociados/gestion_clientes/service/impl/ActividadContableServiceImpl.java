@@ -61,7 +61,7 @@ public class ActividadContableServiceImpl implements ActividadContableService {
     public List<ActividadContableDTO> getAllActividadesContables() {
         List<ActividadContable> actividadesContables = actividadContableRepo.findAll();
         if (actividadesContables.isEmpty()) {
-            throw new EntityNotFoundException("No hay Actividades Contables en el Repositorio");
+            throw new EntityNotFoundException("No se encontro ninguna Actividad Contable en el Repositorio");
         }
 
         return actividadesContables.stream()

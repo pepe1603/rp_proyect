@@ -8,6 +8,7 @@ import java.util.Optional;
 @Repository
 public interface AdministradorRepository extends JpaRepository<Administrador, Long> {
 
+    Optional<Administrador> findByClave(String claveAdmin);
     Optional<Administrador> findByCorreo(String correo);
     Optional<Administrador> findByNombreFull(String rfc);
 }

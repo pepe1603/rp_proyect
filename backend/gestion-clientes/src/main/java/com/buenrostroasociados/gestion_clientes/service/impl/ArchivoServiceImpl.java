@@ -106,6 +106,11 @@ public class ArchivoServiceImpl implements ArchivoService {
 
     @Override
     public List<ArchivoDTO> getAllArchivos() {
+        List<Archivo> archivos = archivoRepository.findAll();
+
+        if (archivos.isEmpty()){
+            throw new EntityNotFoundException("No se encontro ningun registro de algun archivo en el Repositorio");
+        }
         return archivoRepository.findAll().stream()
                 .map(archivoMapper::toDTO)
                 .collect(Collectors.toList());

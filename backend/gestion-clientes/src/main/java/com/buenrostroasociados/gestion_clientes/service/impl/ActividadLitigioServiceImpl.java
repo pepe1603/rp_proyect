@@ -72,7 +72,7 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
     public List<ActividadLitigioDTO> getAllActividadesLitigio() {
         List<ActividadLitigio> actividadesLitigio = actividadLitigioRepo.findAll();
         if (actividadesLitigio.isEmpty()) {
-            throw new EntityNotFoundException("No hay Actividades Litigio en el Repositorio");
+            throw new EntityNotFoundException("No se encontro ninguna actividad litigio en el Repositorio");
         }
 
         return actividadesLitigio.stream()

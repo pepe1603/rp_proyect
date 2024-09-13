@@ -1,110 +1,599 @@
-2024-08-25T17:40:30.867-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.12 with PID 8186 (/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes started by usr_pepe in /home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes)
-2024-08-25T17:40:30.883-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
-2024-08-25T17:40:30.889-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
-2024-08-25T17:40:31.087-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-08-25T17:40:31.088-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-08-25T17:40:33.603-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-08-25T17:40:33.847-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 224 ms. Found 9 JPA repository interfaces.
-2024-08-25T17:40:36.734-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
-2024-08-25T17:40:36.769-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-08-25T17:40:36.774-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
-2024-08-25T17:40:37.048-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-08-25T17:40:37.053-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5960 ms
-2024-08-25T17:40:37.499-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-08-25T17:40:37.667-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-08-25T17:40:37.811-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-08-25T17:40:38.421-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-08-25T17:40:38.476-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-25T17:40:39.146-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@495ecedc
-2024-08-25T17:40:39.149-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-25T17:40:39.228-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-08-25T17:40:41.699-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-08-25T17:40:41.980-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-08-25T17:40:42.678-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
-2024-08-25T17:40:42.754-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
-2024-08-25T17:40:42.780-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
-2024-08-25T17:40:42.806-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
-2024-08-25T17:40:42.980-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-08-25T17:40:43.009-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.service.files.FileServiceImpl      : Carpeta de directorio de subidas ya está disponible.
-2024-08-25T17:40:43.481-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-25T17:40:44.107-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2024-08-25T17:40:44.109-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
-2024-08-25T17:40:45.282-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2024-08-25T17:40:45.412-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 4200 (http) with context path '/'
-2024-08-25T17:40:45.450-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Started GestionClientesBuenrostroAsociadosApplication in 15.829 seconds (process running for 17.832)
-2024-08-25T17:41:06.193-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-08-25T17:41:06.194-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-08-25T17:41:06.200-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
-2024-08-25T17:41:06.258-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/clientes/export/csv
-2024-08-25T17:41:06.259-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:41:06.259-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:41:07.067-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
-2024-08-25T17:41:07.077-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:41:07.080-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:41:27.952-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/actividadesContables/export/csv
-2024-08-25T17:41:27.953-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:41:27.954-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:41:27.957-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] o.s.web.servlet.PageNotFound             : No mapping for GET /api/v1/buenrostroAsociados/actividadesContables/export/csv
-2024-08-25T17:41:28.026-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
-2024-08-25T17:41:28.026-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:41:28.027-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:41:37.971-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/actividadescontables/export/csv
-2024-08-25T17:41:37.972-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:41:37.973-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:41:37.978-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] o.s.web.servlet.PageNotFound             : No mapping for GET /api/v1/buenrostroAsociados/actividadescontables/export/csv
-2024-08-25T17:41:38.031-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
-2024-08-25T17:41:38.034-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:41:38.034-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:41:44.087-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/actividades_contables/export/csv
-2024-08-25T17:41:44.088-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:41:44.088-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:41:44.089-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] o.s.web.servlet.PageNotFound             : No mapping for GET /api/v1/buenrostroAsociados/actividades_contables/export/csv
-2024-08-25T17:41:44.142-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
-2024-08-25T17:41:44.145-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:41:44.145-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:41:50.429-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/actividades_contable/export/csv
-2024-08-25T17:41:50.430-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:41:50.431-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:41:50.432-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] o.s.web.servlet.PageNotFound             : No mapping for GET /api/v1/buenrostroAsociados/actividades_contable/export/csv
-2024-08-25T17:41:50.500-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
-2024-08-25T17:41:50.504-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:41:50.505-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:42:01.089-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/actividadesLitigio/export/csv
-2024-08-25T17:42:01.090-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:42:01.091-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:42:01.094-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.PageNotFound             : No mapping for GET /api/v1/buenrostroAsociados/actividadesLitigio/export/csv
-2024-08-25T17:42:01.140-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
-2024-08-25T17:42:01.141-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:42:01.141-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:42:28.248-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/administradores/export/csv
-2024-08-25T17:42:28.249-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:42:28.249-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:42:28.355-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
-2024-08-25T17:42:28.355-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:42:28.356-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:42:40.456-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/roles/export/csv
-2024-08-25T17:42:40.457-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:42:40.458-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:42:40.471-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.service.impl.RolServiceImpl        : No hay datos para exportar al CSV.
-2024-08-25T17:48:13.815-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/archivos/export/csv
-2024-08-25T17:48:13.816-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:48:13.816-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:48:13.831-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.service.impl.ArchivoServiceImpl    : No hay datos para exportar al CSV.
-2024-08-25T17:48:32.573-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/archivos/export/pdf
-2024-08-25T17:48:32.573-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:48:32.573-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:51:23.215-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/actividades-contables/export/pdf
-2024-08-25T17:51:23.216-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:51:23.217-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:51:23.292-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
-2024-08-25T17:51:23.293-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:51:23.293-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:51:35.661-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/actividades-litigio/export/pdf
-2024-08-25T17:51:35.662-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:51:35.663-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:51:35.714-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
-2024-08-25T17:51:35.714-06:00  WARN 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Authorization header missing
-2024-08-25T17:51:35.714-06:00 DEBUG 8186 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
-2024-08-25T17:54:19.014-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-08-25T17:54:19.020-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-25T17:54:19.049-06:00  INFO 8186 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-12T11:35:14.819-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.12 with PID 2939 (/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes started by usr_pepe in /home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes)
+2024-09-12T11:35:14.837-06:00 DEBUG 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-09-12T11:35:14.844-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-09-12T11:35:15.060-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-12T11:35:15.062-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-12T11:35:17.206-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12T11:35:17.422-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 199 ms. Found 11 JPA repository interfaces.
+2024-09-12T11:35:18.933-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-09-12T11:35:18.957-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-12T11:35:18.958-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-09-12T11:35:19.052-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-12T11:35:19.053-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3985 ms
+2024-09-12T11:35:19.422-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12T11:35:19.566-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-12T11:35:19.640-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-12T11:35:20.192-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-12T11:35:20.235-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-12T11:35:20.925-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4242a477
+2024-09-12T11:35:20.927-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-12T11:35:20.998-06:00  WARN 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-09-12T11:35:23.386-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-12T11:35:23.483-06:00  WARN 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2024-09-12T11:35:23.484-06:00  WARN 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "refresh_tokens" does not exist, skipping
+2024-09-12T11:35:23.668-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T11:35:24.381-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
+2024-09-12T11:35:24.471-06:00 DEBUG 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
+2024-09-12T11:35:24.501-06:00 DEBUG 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
+2024-09-12T11:35:24.531-06:00 DEBUG 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
+2024-09-12T11:35:24.765-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-09-12T11:35:24.766-06:00  WARN 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-09-12T11:35:24.778-06:00  WARN 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authController': Unsatisfied dependency expressed through field 'authService': Error creating bean with name 'authServiceImpl': Unsatisfied dependency expressed through field 'emailService': Error creating bean with name 'emailServiceImpl': Unsatisfied dependency expressed through field 'mailSender': No qualifying bean of type 'org.springframework.mail.javamail.JavaMailSender' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2024-09-12T11:35:24.779-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T11:35:24.786-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-12T11:35:24.814-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-12T11:35:24.822-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-09-12T11:35:24.848-06:00  INFO 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-09-12T11:35:32.578-06:00 ERROR 2939 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field mailSender in com.buenrostroasociados.gestion_clientes.service.email.EmailServiceImpl required a bean of type 'org.springframework.mail.javamail.JavaMailSender' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.mail.javamail.JavaMailSender' in your configuration.
+
+2024-09-12T11:38:03.427-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.12 with PID 3160 (/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes started by usr_pepe in /home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes)
+2024-09-12T11:38:03.432-06:00 DEBUG 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-09-12T11:38:03.436-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-09-12T11:38:03.550-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-12T11:38:03.551-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-12T11:38:06.401-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12T11:38:06.656-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 236 ms. Found 11 JPA repository interfaces.
+2024-09-12T11:38:08.889-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-09-12T11:38:08.944-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-12T11:38:08.948-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-09-12T11:38:09.122-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-12T11:38:09.125-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5573 ms
+2024-09-12T11:38:09.559-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12T11:38:09.688-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-12T11:38:09.809-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-12T11:38:10.340-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-12T11:38:10.382-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-12T11:38:10.929-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7cfa3f12
+2024-09-12T11:38:10.932-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-12T11:38:10.995-06:00  WARN 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-09-12T11:38:13.210-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-12T11:38:13.450-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T11:38:14.074-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
+2024-09-12T11:38:14.131-06:00 DEBUG 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
+2024-09-12T11:38:14.179-06:00 DEBUG 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
+2024-09-12T11:38:14.197-06:00 DEBUG 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
+2024-09-12T11:38:14.429-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-09-12T11:38:14.430-06:00  WARN 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-09-12T11:38:14.441-06:00  WARN 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authController': Unsatisfied dependency expressed through field 'authService': Error creating bean with name 'authServiceImpl': Unsatisfied dependency expressed through field 'emailService': Error creating bean with name 'emailServiceImpl' defined in file [/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes/com/buenrostroasociados/gestion_clientes/notification/EmailServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'org.springframework.mail.javamail.JavaMailSender' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2024-09-12T11:38:14.443-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T11:38:14.448-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-12T11:38:14.476-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-12T11:38:14.483-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-09-12T11:38:14.507-06:00  INFO 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-09-12T11:38:20.812-06:00 ERROR 3160 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in com.buenrostroasociados.gestion_clientes.service.email.EmailServiceImpl required a bean of type 'org.springframework.mail.javamail.JavaMailSender' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.mail.javamail.JavaMailSender' in your configuration.
+
+2024-09-12T11:43:00.886-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.12 with PID 3660 (/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes started by usr_pepe in /home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes)
+2024-09-12T11:43:00.890-06:00 DEBUG 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-09-12T11:43:00.892-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-09-12T11:43:01.088-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-12T11:43:01.089-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-12T11:43:03.527-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12T11:43:03.765-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 222 ms. Found 11 JPA repository interfaces.
+2024-09-12T11:43:05.329-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-09-12T11:43:05.359-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-12T11:43:05.360-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-09-12T11:43:05.454-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-12T11:43:05.455-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4365 ms
+2024-09-12T11:43:05.984-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12T11:43:06.167-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-12T11:43:06.274-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-12T11:43:06.747-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-12T11:43:06.788-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-12T11:43:07.463-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@414bbb3c
+2024-09-12T11:43:07.468-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-12T11:43:07.539-06:00  WARN 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-09-12T11:43:10.676-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-12T11:43:10.926-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T11:43:11.675-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
+2024-09-12T11:43:11.799-06:00 DEBUG 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
+2024-09-12T11:43:11.859-06:00 DEBUG 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
+2024-09-12T11:43:11.888-06:00 DEBUG 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
+2024-09-12T11:43:12.158-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-09-12T11:43:12.160-06:00  WARN 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-09-12T11:43:12.174-06:00  WARN 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authController': Unsatisfied dependency expressed through field 'authService': Error creating bean with name 'authServiceImpl': Unsatisfied dependency expressed through field 'emailService': Error creating bean with name 'emailServiceImpl' defined in file [/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes/com/buenrostroasociados/gestion_clientes/notification/EmailServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'org.springframework.mail.javamail.JavaMailSender' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2024-09-12T11:43:12.176-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T11:43:12.184-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-12T11:43:12.244-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-12T11:43:12.249-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-09-12T11:43:12.276-06:00  INFO 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-09-12T11:43:19.128-06:00 ERROR 3660 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in com.buenrostroasociados.gestion_clientes.service.email.EmailServiceImpl required a bean of type 'org.springframework.mail.javamail.JavaMailSender' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.mail.javamail.JavaMailSender' in your configuration.
+
+2024-09-12T11:56:19.760-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.12 with PID 5108 (/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes started by usr_pepe in /home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes)
+2024-09-12T11:56:19.768-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-09-12T11:56:19.779-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-09-12T11:56:19.938-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-12T11:56:19.939-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-12T11:56:22.881-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12T11:56:23.267-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 367 ms. Found 11 JPA repository interfaces.
+2024-09-12T11:56:25.200-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-09-12T11:56:25.223-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-12T11:56:25.224-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-09-12T11:56:25.329-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-12T11:56:25.332-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5390 ms
+2024-09-12T11:56:25.730-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12T11:56:25.854-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-12T11:56:25.982-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-12T11:56:26.442-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-12T11:56:26.479-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-12T11:56:26.942-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7501ffa
+2024-09-12T11:56:26.945-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-12T11:56:26.994-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-09-12T11:56:29.208-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-12T11:56:29.404-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T11:56:30.018-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
+2024-09-12T11:56:30.088-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
+2024-09-12T11:56:30.116-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
+2024-09-12T11:56:30.145-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
+2024-09-12T11:56:30.334-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-09-12T11:56:30.336-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-09-12T11:56:30.595-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12T11:56:30.634-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.service.files.FileServiceImpl      : Carpeta de directorio de subidas ya está disponible.
+2024-09-12T11:56:30.964-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-12T11:56:32.163-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-09-12T11:56:32.230-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 4200 (http) with context path '/'
+2024-09-12T11:56:32.249-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Started GestionClientesBuenrostroAsociadosApplication in 13.929 seconds (process running for 15.092)
+2024-09-12T11:57:18.935-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-09-12T11:57:18.936-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-09-12T11:57:18.941-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2024-09-12T11:57:18.977-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/index.html
+2024-09-12T11:57:18.977-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T11:57:18.978-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T11:57:19.159-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/swagger-ui.css
+2024-09-12T11:57:19.166-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T11:57:19.166-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T11:57:19.174-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/index.css
+2024-09-12T11:57:19.174-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T11:57:19.174-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T11:57:19.180-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/swagger-ui-bundle.js
+2024-09-12T11:57:19.184-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T11:57:19.184-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T11:57:19.201-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/swagger-ui-standalone-preset.js
+2024-09-12T11:57:19.211-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/swagger-initializer.js
+2024-09-12T11:57:19.212-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T11:57:19.215-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T11:57:19.214-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T11:57:19.219-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T11:57:19.956-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/favicon-16x16.png
+2024-09-12T11:57:19.957-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T11:57:19.958-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T11:57:20.095-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/swagger-config
+2024-09-12T11:57:20.095-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T11:57:20.096-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T11:57:20.404-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/Auth%20API
+2024-09-12T11:57:20.409-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T11:57:20.410-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T11:57:21.407-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 915 ms
+2024-09-12T11:57:27.883-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/Public%20API
+2024-09-12T11:57:27.884-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T11:57:27.884-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T11:57:28.176-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 288 ms
+2024-09-12T11:57:58.570-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/public/info
+2024-09-12T11:57:58.571-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T11:57:58.572-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T11:58:27.470-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/Auth%20API
+2024-09-12T11:58:27.471-06:00  WARN 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T11:58:27.471-06:00 DEBUG 5108 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:07:05.055-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T12:07:05.063-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-12T12:07:05.099-06:00  INFO 5108 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-12T12:07:11.127-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.12 with PID 6472 (/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes started by usr_pepe in /home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes)
+2024-09-12T12:07:11.132-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-09-12T12:07:11.139-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-09-12T12:07:11.299-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-12T12:07:11.300-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-12T12:07:13.564-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12T12:07:13.787-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 209 ms. Found 11 JPA repository interfaces.
+2024-09-12T12:07:15.066-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-09-12T12:07:15.085-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-12T12:07:15.086-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-09-12T12:07:15.197-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-12T12:07:15.198-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3897 ms
+2024-09-12T12:07:15.517-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12T12:07:15.621-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-12T12:07:15.692-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-12T12:07:16.201-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-12T12:07:16.247-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-12T12:07:16.812-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@696dea65
+2024-09-12T12:07:16.815-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-12T12:07:16.881-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-09-12T12:07:19.570-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-12T12:07:19.845-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T12:07:20.454-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
+2024-09-12T12:07:20.547-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
+2024-09-12T12:07:20.587-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
+2024-09-12T12:07:20.612-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
+2024-09-12T12:07:20.868-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-09-12T12:07:20.870-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-09-12T12:07:21.128-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12T12:07:21.156-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.service.files.FileServiceImpl      : Carpeta de directorio de subidas ya está disponible.
+2024-09-12T12:07:21.450-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-12T12:07:23.134-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-09-12T12:07:23.228-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 4200 (http) with context path '/'
+2024-09-12T12:07:23.269-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Started GestionClientesBuenrostroAsociadosApplication in 13.233 seconds (process running for 14.291)
+2024-09-12T12:07:47.594-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-09-12T12:07:47.595-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-09-12T12:07:47.603-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2024-09-12T12:07:47.658-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/Resource%20API
+2024-09-12T12:07:47.658-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:07:47.658-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:07:49.268-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 1491 ms
+2024-09-12T12:08:21.965-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/roles
+2024-09-12T12:08:21.966-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:08:21.966-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:09:14.649-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/roles
+2024-09-12T12:09:14.651-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:09:14.651-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:10:04.526-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/roles
+2024-09-12T12:10:04.528-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:10:04.528-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:10:30.289-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/roles
+2024-09-12T12:10:30.290-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:10:30.290-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:10:34.031-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/roles
+2024-09-12T12:10:34.031-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:10:34.031-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:13:06.184-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/administradores
+2024-09-12T12:13:06.184-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:13:06.184-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:13:24.413-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/administradores
+2024-09-12T12:13:24.414-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:13:24.414-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:13:37.965-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/actividades-litigio
+2024-09-12T12:13:37.965-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:13:37.965-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:18:52.750-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/roles
+2024-09-12T12:18:52.750-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:18:52.750-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:19:00.541-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/roles
+2024-09-12T12:19:00.543-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:19:00.544-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:19:00.714-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
+2024-09-12T12:19:00.715-06:00  WARN 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:19:00.715-06:00 DEBUG 6472 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:19:37.686-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T12:19:37.697-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-12T12:19:37.748-06:00  INFO 6472 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-12T12:19:43.914-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.12 with PID 7132 (/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes started by usr_pepe in /home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes)
+2024-09-12T12:19:43.918-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-09-12T12:19:43.920-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-09-12T12:19:44.138-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-12T12:19:44.138-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-12T12:19:46.568-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12T12:19:46.800-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 217 ms. Found 11 JPA repository interfaces.
+2024-09-12T12:19:48.543-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-09-12T12:19:48.577-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-12T12:19:48.578-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-09-12T12:19:48.728-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-12T12:19:48.730-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4589 ms
+2024-09-12T12:19:49.269-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12T12:19:49.442-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-12T12:19:49.515-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-12T12:19:50.047-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-12T12:19:50.094-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-12T12:19:51.273-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5ea8517b
+2024-09-12T12:19:51.277-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-12T12:19:51.479-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-09-12T12:19:56.151-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-12T12:19:56.524-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T12:19:57.206-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
+2024-09-12T12:19:57.301-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
+2024-09-12T12:19:57.327-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
+2024-09-12T12:19:57.356-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
+2024-09-12T12:19:57.605-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-09-12T12:19:57.607-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-09-12T12:19:57.939-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12T12:19:57.993-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.service.files.FileServiceImpl      : Carpeta de directorio de subidas ya está disponible.
+2024-09-12T12:19:58.421-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-12T12:19:59.697-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-09-12T12:19:59.808-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 4200 (http) with context path '/'
+2024-09-12T12:19:59.845-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Started GestionClientesBuenrostroAsociadosApplication in 17.137 seconds (process running for 18.271)
+2024-09-12T12:20:46.328-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-09-12T12:20:46.328-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-09-12T12:20:46.331-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-09-12T12:20:46.379-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/roles
+2024-09-12T12:20:46.379-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:20:46.379-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:20:46.540-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
+2024-09-12T12:20:46.540-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:20:46.541-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:20:58.325-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/index.html
+2024-09-12T12:20:58.325-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:20:58.326-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:20:58.409-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/swagger-ui.css
+2024-09-12T12:20:58.410-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:20:58.410-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:20:58.417-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/index.css
+2024-09-12T12:20:58.418-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:20:58.419-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:20:58.423-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/swagger-initializer.js
+2024-09-12T12:20:58.424-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:20:58.424-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:20:58.423-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/swagger-ui-bundle.js
+2024-09-12T12:20:58.425-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:20:58.426-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:20:58.423-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/swagger-ui-standalone-preset.js
+2024-09-12T12:20:58.427-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:20:58.427-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:20:58.941-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/swagger-config
+2024-09-12T12:20:58.942-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:20:58.943-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:20:59.080-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/Resource%20API
+2024-09-12T12:20:59.083-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:20:59.084-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:21:00.441-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 1306 ms
+2024-09-12T12:21:11.225-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/buenrostroAsociados/roles
+2024-09-12T12:21:11.226-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:21:11.226-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:22:21.251-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/Public%20API
+2024-09-12T12:22:21.252-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:22:21.252-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:22:21.438-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 182 ms
+2024-09-12T12:22:24.168-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/Auth%20API
+2024-09-12T12:22:24.168-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:22:24.169-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:22:24.402-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 228 ms
+2024-09-12T12:22:26.218-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/Public%20API
+2024-09-12T12:22:26.218-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:22:26.218-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:22:31.400-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/Auth%20API
+2024-09-12T12:22:31.400-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:22:31.400-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:23:50.181-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/auth/sign_up
+2024-09-12T12:23:50.181-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:23:50.182-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:23:50.213-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.service.auth.AuthServiceImpl       : Validating signup request for username: usr_pepe
+2024-09-12T12:23:50.734-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.service.auth.AuthServiceImpl       : User registered successfully: usr_pepe
+2024-09-12T12:25:18.744-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/auth/sign_in
+2024-09-12T12:25:18.744-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:25:18.744-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:25:18.748-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.service.auth.AuthServiceImpl       : Attempting to authenticate user: usr_pepe
+2024-09-12T12:25:18.889-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.AppConfig          : Loading user by username: usr_pepe
+2024-09-12T12:25:19.117-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtService         : Generating token for user: usr_pepe
+2024-09-12T12:35:58.903-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/auth/sign_in
+2024-09-12T12:35:58.903-06:00  WARN 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:35:58.904-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:35:58.906-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.service.auth.AuthServiceImpl       : Attempting to authenticate user: usr_pepe
+2024-09-12T12:35:58.907-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.AppConfig          : Loading user by username: usr_pepe
+2024-09-12T12:35:59.067-06:00 DEBUG 7132 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtService         : Generating token for user: usr_pepe
+2024-09-12T12:40:53.249-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T12:40:53.264-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-12T12:40:53.324-06:00  INFO 7132 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-12T12:41:02.491-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.12 with PID 8390 (/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes started by usr_pepe in /home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes)
+2024-09-12T12:41:02.502-06:00 DEBUG 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-09-12T12:41:02.508-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-09-12T12:41:02.770-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-12T12:41:02.771-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-12T12:41:05.352-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12T12:41:05.639-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 271 ms. Found 11 JPA repository interfaces.
+2024-09-12T12:41:07.375-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-09-12T12:41:07.404-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-12T12:41:07.405-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-09-12T12:41:07.557-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-12T12:41:07.558-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4783 ms
+2024-09-12T12:41:07.863-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12T12:41:07.971-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-12T12:41:08.039-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-12T12:41:08.608-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-12T12:41:08.649-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-12T12:41:09.171-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@447030ef
+2024-09-12T12:41:09.173-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-12T12:41:09.234-06:00  WARN 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-09-12T12:41:12.015-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-12T12:41:12.279-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T12:41:13.113-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
+2024-09-12T12:41:13.210-06:00 DEBUG 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
+2024-09-12T12:41:13.264-06:00 DEBUG 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
+2024-09-12T12:41:13.299-06:00 DEBUG 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
+2024-09-12T12:41:13.564-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-09-12T12:41:13.565-06:00  WARN 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-09-12T12:41:13.857-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12T12:41:13.889-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.service.files.FileServiceImpl      : Carpeta de directorio de subidas ya está disponible.
+2024-09-12T12:41:14.227-06:00  WARN 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-12T12:41:15.736-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-09-12T12:41:15.908-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 4200 (http) with context path '/'
+2024-09-12T12:41:15.934-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Started GestionClientesBuenrostroAsociadosApplication in 14.777 seconds (process running for 16.162)
+2024-09-12T12:46:42.660-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T12:46:42.669-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-12T12:46:42.702-06:00  INFO 8390 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-12T12:46:51.503-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.12 with PID 8756 (/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes started by usr_pepe in /home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes)
+2024-09-12T12:46:51.512-06:00 DEBUG 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-09-12T12:46:51.517-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-09-12T12:46:51.767-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-12T12:46:51.768-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-12T12:46:54.955-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12T12:46:55.226-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 253 ms. Found 11 JPA repository interfaces.
+2024-09-12T12:46:58.648-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-09-12T12:46:58.712-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-12T12:46:58.714-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-09-12T12:46:58.917-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-12T12:46:58.920-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 7151 ms
+2024-09-12T12:46:59.348-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12T12:46:59.477-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-12T12:46:59.551-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-12T12:47:00.075-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-12T12:47:00.125-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-12T12:47:00.670-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5ddc78af
+2024-09-12T12:47:00.673-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-12T12:47:00.731-06:00  WARN 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-09-12T12:47:03.397-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-12T12:47:03.648-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T12:47:04.166-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
+2024-09-12T12:47:04.240-06:00 DEBUG 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
+2024-09-12T12:47:04.266-06:00 DEBUG 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
+2024-09-12T12:47:04.285-06:00 DEBUG 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
+2024-09-12T12:47:04.509-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-09-12T12:47:04.511-06:00  WARN 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-09-12T12:47:04.810-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12T12:47:04.848-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.service.files.FileServiceImpl      : Carpeta de directorio de subidas ya está disponible.
+2024-09-12T12:47:05.229-06:00  WARN 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-12T12:47:06.484-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-09-12T12:47:06.561-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 4200 (http) with context path '/'
+2024-09-12T12:47:06.588-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Started GestionClientesBuenrostroAsociadosApplication in 16.488 seconds (process running for 17.917)
+2024-09-12T12:47:10.764-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-09-12T12:47:10.764-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-09-12T12:47:10.767-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2024-09-12T12:47:10.818-06:00 DEBUG 8756 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/auth/sign_in
+2024-09-12T12:47:10.819-06:00  WARN 8756 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T12:47:10.819-06:00 DEBUG 8756 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T12:47:11.052-06:00 DEBUG 8756 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.service.auth.AuthServiceImpl       : Attempting to authenticate user: usr_pepe
+2024-09-12T12:47:11.268-06:00 DEBUG 8756 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.AppConfig          : Loading user by username: usr_pepe
+2024-09-12T12:47:11.903-06:00 DEBUG 8756 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtService         : Generating token for user: usr_pepe
+2024-09-12T12:48:21.075-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T12:48:21.082-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-12T12:48:21.133-06:00  INFO 8756 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-12T13:25:11.504-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.12 with PID 9820 (/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes started by usr_pepe in /home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes)
+2024-09-12T13:25:11.510-06:00 DEBUG 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-09-12T13:25:11.513-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-09-12T13:25:11.739-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-12T13:25:11.740-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-12T13:25:14.666-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12T13:25:15.024-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 342 ms. Found 11 JPA repository interfaces.
+2024-09-12T13:25:16.714-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-09-12T13:25:16.740-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-12T13:25:16.741-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-09-12T13:25:16.869-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-12T13:25:16.872-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5127 ms
+2024-09-12T13:25:17.265-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12T13:25:17.374-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-12T13:25:17.440-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-12T13:25:18.222-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-12T13:25:18.264-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-12T13:25:18.961-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@696dea65
+2024-09-12T13:25:18.965-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-12T13:25:19.073-06:00  WARN 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-09-12T13:25:22.188-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-12T13:25:22.487-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T13:25:23.220-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
+2024-09-12T13:25:23.314-06:00 DEBUG 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
+2024-09-12T13:25:23.349-06:00 DEBUG 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
+2024-09-12T13:25:23.384-06:00 DEBUG 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
+2024-09-12T13:25:23.649-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-09-12T13:25:23.652-06:00  WARN 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-09-12T13:25:24.202-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12T13:25:24.313-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.service.files.FileServiceImpl      : Carpeta de directorio de subidas ya está disponible.
+2024-09-12T13:25:24.951-06:00  WARN 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-12T13:25:26.683-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-09-12T13:25:26.789-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 4200 (http) with context path '/'
+2024-09-12T13:25:26.811-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Started GestionClientesBuenrostroAsociadosApplication in 16.701 seconds (process running for 17.798)
+2024-09-12T13:25:37.907-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T13:25:37.914-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-12T13:25:37.950-06:00  INFO 9820 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-09-12T13:37:49.463-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.12 with PID 12175 (/home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes/target/classes started by usr_pepe in /home/usr_pepe/workspace_proyectos/rp_proyect/backend/gestion-clientes)
+2024-09-12T13:37:49.473-06:00 DEBUG 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-09-12T13:37:49.481-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-09-12T13:37:49.751-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-12T13:37:49.751-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-12T13:37:52.546-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12T13:37:52.755-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 195 ms. Found 11 JPA repository interfaces.
+2024-09-12T13:37:54.477-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-09-12T13:37:54.509-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-12T13:37:54.511-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-09-12T13:37:54.634-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-12T13:37:54.635-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4878 ms
+2024-09-12T13:37:54.985-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12T13:37:55.105-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-12T13:37:55.169-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-12T13:37:55.659-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-12T13:37:55.703-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-12T13:37:56.184-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@434f9a09
+2024-09-12T13:37:56.186-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-12T13:37:56.234-06:00  WARN 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-09-12T13:37:58.412-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-12T13:37:58.677-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T13:37:59.320-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
+2024-09-12T13:37:59.392-06:00 DEBUG 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
+2024-09-12T13:37:59.421-06:00 DEBUG 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
+2024-09-12T13:37:59.444-06:00 DEBUG 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
+2024-09-12T13:37:59.659-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-09-12T13:37:59.661-06:00  WARN 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-09-12T13:37:59.888-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12T13:37:59.923-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.service.files.FileServiceImpl      : Carpeta de directorio de subidas ya está disponible.
+2024-09-12T13:38:00.267-06:00  WARN 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-12T13:38:01.461-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-09-12T13:38:01.532-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 4200 (http) with context path '/'
+2024-09-12T13:38:01.553-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Started GestionClientesBuenrostroAsociadosApplication in 13.314 seconds (process running for 14.669)
+2024-09-12T13:38:26.199-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-09-12T13:38:26.200-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-09-12T13:38:26.206-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2024-09-12T13:38:26.256-06:00 DEBUG 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/Public%20API
+2024-09-12T13:38:26.257-06:00  WARN 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T13:38:26.258-06:00 DEBUG 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T13:38:27.106-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 717 ms
+2024-09-12T13:38:32.661-06:00 DEBUG 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/public/info
+2024-09-12T13:38:32.662-06:00  WARN 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T13:38:32.662-06:00 DEBUG 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T14:04:10.213-06:00 DEBUG 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/Auth%20API
+2024-09-12T14:04:10.214-06:00  WARN 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T14:04:10.214-06:00 DEBUG 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T14:04:10.569-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 352 ms
+2024-09-12T14:06:30.413-06:00 DEBUG 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/Resource%20API
+2024-09-12T14:06:30.414-06:00  WARN 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-09-12T14:06:30.414-06:00 DEBUG 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-09-12T14:06:31.263-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 844 ms
+2024-09-12T14:19:18.318-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12T14:19:18.323-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-12T14:19:18.352-06:00  INFO 12175 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

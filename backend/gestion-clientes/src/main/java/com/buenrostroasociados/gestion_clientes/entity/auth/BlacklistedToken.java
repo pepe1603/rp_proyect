@@ -1,4 +1,4 @@
-package com.buenrostroasociados.gestion_clientes.entity;
+package com.buenrostroasociados.gestion_clientes.entity.auth;
 
 
 import jakarta.persistence.Entity;

@@ -1,6 +1,6 @@
-package com.buenrostroasociados.gestion_clientes.repository;
+package com.buenrostroasociados.gestion_clientes.repository.auth;
 
-import com.buenrostroasociados.gestion_clientes.dto.auth.PasswordResetToken;
+import com.buenrostroasociados.gestion_clientes.entity.auth.PasswordResetToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

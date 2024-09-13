@@ -1,7 +1,7 @@
 package com.buenrostroasociados.gestion_clientes.service.jwtBlacklisted;
 
-import com.buenrostroasociados.gestion_clientes.entity.BlacklistedToken;
-import com.buenrostroasociados.gestion_clientes.repository.BlacklistedTokenRepository;
+import com.buenrostroasociados.gestion_clientes.entity.auth.BlacklistedToken;
+import com.buenrostroasociados.gestion_clientes.repository.auth.BlacklistedTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

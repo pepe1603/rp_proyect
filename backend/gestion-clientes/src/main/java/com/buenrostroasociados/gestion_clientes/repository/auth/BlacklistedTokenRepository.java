@@ -1,6 +1,6 @@
-package com.buenrostroasociados.gestion_clientes.repository;
+package com.buenrostroasociados.gestion_clientes.repository.auth;
 
-import com.buenrostroasociados.gestion_clientes.entity.BlacklistedToken;
+import com.buenrostroasociados.gestion_clientes.entity.auth.BlacklistedToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

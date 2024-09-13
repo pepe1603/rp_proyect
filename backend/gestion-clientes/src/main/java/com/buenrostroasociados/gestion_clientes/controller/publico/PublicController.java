@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class PublicController {
     @GetMapping("/info")
     public String getPublicInfo() {
-        return "Información pública accesible sin autenticación.";
+        return "Informacion publica accesible sin autenticacion. \nInformacion de la Empresa URL aqui del sitio..";
     }
 }

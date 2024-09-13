@@ -1,20 +1,35 @@
 package com.buenrostroasociados.gestion_clientes.service.auth;
 
 import com.buenrostroasociados.gestion_clientes.config.security.JwtService;
+import com.buenrostroasociados.gestion_clientes.dto.auth.SigninRequest;
+import com.buenrostroasociados.gestion_clientes.dto.auth.SigninResponse;
 import com.buenrostroasociados.gestion_clientes.dto.auth.SignupRequest;
-import com.buenrostroasociados.gestion_clientes.entity.Administrador;
-import com.buenrostroasociados.gestion_clientes.entity.Cliente;
-import com.buenrostroasociados.gestion_clientes.entity.Rol;
-import com.buenrostroasociados.gestion_clientes.entity.Usuario;
+import com.buenrostroasociados.gestion_clientes.entity.*;
+import com.buenrostroasociados.gestion_clientes.entity.auth.PasswordResetToken;
+import com.buenrostroasociados.gestion_clientes.entity.auth.RefreshToken;
 import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundException;
+import com.buenrostroasociados.gestion_clientes.exception.ResourceNotFoundException;
+import com.buenrostroasociados.gestion_clientes.exception.TokenExpiredException;
+import com.buenrostroasociados.gestion_clientes.service.email.EmailService;
 import com.buenrostroasociados.gestion_clientes.repository.*;
+import com.buenrostroasociados.gestion_clientes.repository.auth.PasswordResetTokenRepository;
+import com.buenrostroasociados.gestion_clientes.service.jwtBlacklisted.BlacklistedService;
+import com.buenrostroasociados.gestion_clientes.service.jwtRefreshToken.RefreshTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class AuthServiceImpl implements AuthService{
@@ -32,31 +47,128 @@ public class AuthServiceImpl implements AuthService{
     @Autowired
     private PasswordResetTokenRepository passwordResetTokenRepo;
     @Autowired
-    BCryptPasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private JwtService jwtService;
     @Autowired
-    AuthenticationManager authManager;
+    private AuthenticationManager authManager;
+    @Autowired
+    private EmailService emailService;
+    @Autowired
+    private BlacklistedService blacklistedService;
+    @Autowired
+    private RefreshTokenService refreshTokenService;
 
     private final String rolname_ADMIN = "ADMIN", rolnameClient = "CLIENT";
 
     @Override
     @Transactional
-    public void SignUp(SignupRequest signupRequest) {
+    public void signUp(SignupRequest signupRequest) {
         validateSignupRequest(signupRequest);
 
         Usuario usuario = new Usuario();
         usuario.setUsername(signupRequest.getUsername());
-        //usuario.setEmail(signupRequest.getEmail());--Deshabilitar en caso de tener un campo emial en usuario
+        usuario.setEmail(signupRequest.getEmail());
         usuario.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
         usuarioRepo.save(usuario);
         assignRoleAndSaveUser(signupRequest, usuario);
         logger.info("User registered successfully: {}", signupRequest.getUsername());
-        // Enviar correo de notificación -- Deshabilitar cuandos e implemente EventListenerEmail
+        // Enviar correo de notificación
         //eventPublisher.publishEvent(new UserRegistrationEvent(this, usuario.getUsername(), usuario.getEmail()));
     }
 
+    @Override
+    public SigninResponse signIn (SigninRequest loginRequest) {
+        logger.debug("Attempting to authenticate user: {}", loginRequest.getUsername());
 
+        //autenticacion de usuario
+        try {
+            Authentication authentication = authManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
+            );
+
+            Usuario user = (Usuario) authentication.getPrincipal();
+            //Generar el Token de acceso
+            String token = jwtService.generateToken(user);
+            //obtener Rol de usuario
+            String role = String.valueOf(user.getRoles().iterator().next().getNombre()); // Obtener el primer rol del usuario
+
+            /// Generar el token de refresco
+            RefreshToken refreshToken = refreshTokenService.generateRefreshToken();
+
+            // Publicar evento de inicio de sesión exitoso
+            //eventPublisher.publishEvent(new UserLoginEvent(this, user.getUsername(), user.getEmail()));
+
+            return new SigninResponse(token, refreshToken.getToken(), role);
+
+        } catch (AuthenticationException e) {
+            logger.error("Authentication failed for user: {}", loginRequest.getUsername(), e);
+            throw new BadCredentialsException("Nombre de usuario o contraseña incorrectos");
+        } catch (TokenExpiredException ex) {
+            logger.error("Token invalido : "+ ex.getMessage());
+            throw new TokenExpiredException("Token JWT expirado. Por favor, inicie sesión nuevamente.");
+        }
+    }
+
+    @Override
+    public void sendPasswordResetLink(String email) {
+
+        logger.info("password-reset-request for email: {} ",email);
+        logger.info("Generating temporary token for password reset...");
+
+        Usuario user = usuarioRepo.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with Email: "+email));
+
+        String resetToken = generateResetToken(email);
+        String resetUrl = "http://localhost:4200/api/v1/auth/public/rescue-account/password-reset/confirm?token="+resetToken;//link del Endpoint para template password-reset-confirm.html
+        emailService.sendPasswordResetEmail(email, resetUrl);
+        logger.info("Password reset Request email  send successfully to email : {}", email);
+    }
+
+    @Override
+    public void resetPassword(String token, String newPassword) {
+
+        logger.debug("Resetting password with Token : {} - newPasssword : {} ", token, newPassword);
+
+        PasswordResetToken resetToken = passwordResetTokenRepo.findByToken(token)
+                .orElseThrow(() -> new ResourceNotFoundException("token no encontrado en el repositorio"));
+
+        if (resetToken == null || resetToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+            throw new TokenExpiredException("Token is invalid or expired");
+        }
+
+        Usuario usuario = usuarioRepo.findByEmail(resetToken.getEmail())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found to reset password confirm..."));
+
+        usuario.setPassword(passwordEncoder.encode(newPassword));
+        usuarioRepo.save(usuario);
+        passwordResetTokenRepo.delete(resetToken); // Opcional: elimina el token después de usarlo
+
+
+        // Eliminar el token de refresco asociado
+        RefreshToken refreshTokenOpotional = refreshTokenService.findByToken(token);
+        refreshTokenService.deleteByToken(refreshTokenOpotional.getToken());
+
+        emailService.sendPasswordResetConfirmEmail(usuario.getEmail());//Enviar email de notificacion de contrseña restablecida con exito
+    }
+
+    @Override
+    public void logout (String token){
+        Instant expireAt = jwtService.getExpiration(token).toInstant();
+        blacklistedService.blacklistToken(token, expireAt);
+        logger.info("Token aaded to Blacklist: {}", token);
+
+// Obtener el nombre de usuario del token
+        String username = jwtService.getUserName(token);
+
+        // Buscar al usuario y eliminar el token de refresco asociado
+        Usuario user = usuarioRepo.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        RefreshToken refreshTokenOptional = refreshTokenService.findByToken(token);
+            refreshTokenService.deleteByToken(refreshTokenOptional.getToken());
+
+    }
 
     /*------------------------- Metods Auxiliares --------------------------*/
 
@@ -70,10 +182,9 @@ public class AuthServiceImpl implements AuthService{
             throw new IllegalArgumentException("El nombre de usuario ya existe, elige otro");
         }
 
-        /*-leer comentario arriba (deshabilitar en caso de tener campos email en usuario)
         if (signupRequest.getEmail() == null || signupRequest.getEmail().isEmpty()) {
             throw new IllegalArgumentException("El campo email está vacío, se requiere para restablecimiento de contraseña");
-        }*/
+        }
     }
 
     private void assignRoleAndSaveUser(SignupRequest signupRequest, Usuario usuario) {
@@ -100,9 +211,21 @@ public class AuthServiceImpl implements AuthService{
             administrador.setUsuario(usuario);
             adminRepo.save(administrador);
         } else {
-            logger.error("Se debe proporcionar al menos una matricula or el IDAdmin ");
-            throw new RuntimeException("Debe proporcionar una matrícula o un ID de administrador");
+            logger.error("Se debe proporcionar al menos un RFC (cliente) or el claveAdmin (administrador)");
+            throw new RuntimeException("Debe proporcionar un RFC o una claveAdmin de administrador");
         }
+    }
+
+    private String generateResetToken(String email) {
+        String token = UUID.randomUUID().toString();
+        PasswordResetToken resetToken = new PasswordResetToken();
+        resetToken.setToken(token);
+        resetToken.setEmail(email);
+        resetToken.setExpiryDate(LocalDateTime.now().plusHours(1)); // Expira en 1 hora
+        logger.info("Token generated: {}", resetToken);
+        passwordResetTokenRepo.save(resetToken);
+        logger.info("Token saved in Repository DB.");
+        return token;
     }
 
 

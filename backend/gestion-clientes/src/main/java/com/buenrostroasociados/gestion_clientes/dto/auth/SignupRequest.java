@@ -15,10 +15,10 @@ public class SignupRequest {
     @Size(min = 6, max = 40)
     private String password;
 
-   /* @NotBlank --desahabilitar en caso se tener Email en el USuario
+    @NotBlank
     @Email
     private String email;
-*/
+
     //validar si es un administrador o un alumno registrado en la base dee datos
     private String rfc; //en caso de ser alumno
     private String claveAdmin; //en caso de ser administrador

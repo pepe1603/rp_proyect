@@ -65,8 +65,9 @@ public class SecurityConfig {
     public RequestMatcher publicEndPoints() {
         return new OrRequestMatcher(
                 new AntPathRequestMatcher("/api/v1/auth/**"),
-                new AntPathRequestMatcher("/api/**"),
+                //new AntPathRequestMatcher("/api/**"),
                 new AntPathRequestMatcher("/api/v1/public/**"),
+                new AntPathRequestMatcher("/api/v1/buenrostroAsociados/administradores/**"),//uso solo par afin practico
                 // Rutas de Swagger UI y OpenAPI
                 new AntPathRequestMatcher("/doc/swagger-ui.html"),
                 new AntPathRequestMatcher("/doc/v3/api-docs/**"),
@@ -74,7 +75,7 @@ public class SecurityConfig {
                 new AntPathRequestMatcher("/doc/swagger-ui/**")
         );
     }
-/*
+/*-Usar esta configuracion usando el Bean en caso de no tener una clase de configuracion
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

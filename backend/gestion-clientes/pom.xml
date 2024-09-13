@@ -74,6 +74,20 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Dependency para Email Sender Java-->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<!-- Thymyleft-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+
 		<!-- MapStruct -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>

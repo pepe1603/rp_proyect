@@ -6,25 +6,32 @@ import com.buenrostroasociados.gestion_clientes.entity.Archivo;
 import com.buenrostroasociados.gestion_clientes.entity.Cliente;
 import com.buenrostroasociados.gestion_clientes.entity.Usuario;
 import com.buenrostroasociados.gestion_clientes.enums.EstadoCaso;
+import com.buenrostroasociados.gestion_clientes.events.actividad.litigio.ActividadLitigioActualizadaEvent;
+import com.buenrostroasociados.gestion_clientes.events.actividad.litigio.ActividadLitigioCreadaEvent;
+import com.buenrostroasociados.gestion_clientes.events.actividad.litigio.ActividadLitigioEliminadaEvent;
 import com.buenrostroasociados.gestion_clientes.exception.BusinessException;
 import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundException;
 import com.buenrostroasociados.gestion_clientes.exception.UnauthorizedException;
 import com.buenrostroasociados.gestion_clientes.mapper.ActividadLitigioMapper;
+import com.buenrostroasociados.gestion_clientes.notification.NotificationService;
 import com.buenrostroasociados.gestion_clientes.repository.ActividadLitigioRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ArchivoRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ClienteRepository;
 import com.buenrostroasociados.gestion_clientes.service.ActividadLitigioService;
 import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
 import com.buenrostroasociados.gestion_clientes.service.files.FileService;
+import com.buenrostroasociados.gestion_clientes.utils.CurrentUserAuthenticated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.Resource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,19 +52,29 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
     private FileService fileService;
     @Autowired
     private ExportService exportService;
+    @Autowired
+    private NotificationService notificationService;
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     @Override
     public ActividadLitigioDTO saveActividadLitigio(ActividadLitigioDTO actividadLitigioDTO) {
         Cliente cliente = clienteRepo.findById(actividadLitigioDTO.getClienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado con ID: " + actividadLitigioDTO.getClienteId()));
 
+        actividadLitigioDTO.setFechaCreacion(LocalDateTime.now());
         ActividadLitigio actividadLitigio = actividadLitigioMapper.toEntity(actividadLitigioDTO);
         actividadLitigio.setCliente(cliente);
         actividadLitigio.setEstadoCaso(EstadoCaso.PENDIENTE);
 
         // No se manejan archivos en la creación inicial
-        ActividadLitigio actividadGuardada = actividadLitigioRepo.save(actividadLitigio);
-        return actividadLitigioMapper.toDTO(actividadGuardada);
+        ActividadLitigio savedActividad = actividadLitigioRepo.save(actividadLitigio);
+
+        //publicamos evento de creacion
+        eventPublisher.publishEvent(new ActividadLitigioCreadaEvent(this, actividadLitigio.getTitulo()));
+        notificationService.notifyActivityLitigioCreation(cliente.getCorreo(), savedActividad.getTitulo());
+
+        return actividadLitigioMapper.toDTO(savedActividad);
     }
 
     @Override
@@ -96,37 +113,12 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
 
         // Guardar la entidad actualizada
         ActividadLitigio actividadActualizada = actividadLitigioRepo.save(actividadLitigio);
+        //publicar Evento de Actrualizacion
+        eventPublisher.publishEvent(new ActividadLitigioActualizadaEvent(this, actividadActualizada.getTitulo()));
+        notificationService.notifyActivityLitigioUpdate(cliente.getCorreo(), actividadLitigio.getTitulo());
 
         // Convertir la entidad actualizada a DTO y devolver
         return actividadLitigioMapper.toDTO(actividadActualizada);
-    }
-
-    @Override
-    public void updateActividadLitigioFiles(Long id, List<Archivo> archivosDTO) {
-        ActividadLitigio actividadLitigio = actividadLitigioRepo.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Actividad litigio no encontrada con ID: " + id));
-
-        // Eliminar documentos antiguos si es necesario
-        List<Archivo> archivosExistentes = archivoRepo.findArchivosByActividadLitigioId(id);
-        for (Archivo archivo : archivosExistentes) {
-            fileService.delete(archivo.getNombreArchivo());
-            archivoRepo.delete(archivo);
-        }
-
-        // Añadir nuevos documentos
-        if (archivosDTO != null) {
-            List<Archivo> archivos = archivosDTO.stream()
-                    .map(archivoDTO -> {
-                        Archivo archivo = new Archivo();
-                        archivo.setNombreArchivo(archivoDTO.getNombreArchivo());
-                        archivo.setRutaArchivo(fileService.getRutaArchivo(archivoDTO.getNombreArchivo()));
-                        archivo.setActividadLitigio(actividadLitigio);
-                        return archivo;
-                    })
-                    .collect(Collectors.toList());
-
-            archivoRepo.saveAll(archivos);
-        }
     }
 
     @Override
@@ -142,15 +134,21 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
             throw new BusinessException("Transición de estado no válida");
         }
 
-        Usuario currentUser = getCurrentUser(); // Método para obtener el usuario actual
+        /*
+         * Obtén el usuario actual desde la autenticación
+         */
+        Usuario currentUser = CurrentUserAuthenticated.getCurrentUser(); // Método para obtener el usuario actual
         checkUserPermission(currentUser, nuevoEstado);
         checkBusinessRules(actividadLitigio, nuevoEstado);//omitir este metodod
 
         // Actualizar el estado
         actividadLitigio.setEstadoCaso(nuevoEstado);
         actividadLitigioRepo.save(actividadLitigio);
-    }
 
+        //publicar evento a clientes
+        notificationService.notifyActivityLitigioUpdatedStatus(actividadLitigio.getCliente().getCorreo(),
+                actividadLitigio.getTitulo() + " con No.Expediente [ "+actividadLitigio.getNumExpediente()+" ] ha cambiado de estado a "+actividadLitigio.getEstadoCaso().toString()+"." );
+    }
 
     @Override
     @Transactional
@@ -166,6 +164,9 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
         }
         // Elimina la actividad litigio
         actividadLitigioRepo.delete(actividadLitigio);
+        //publicar evento de elimnacion
+        eventPublisher.publishEvent(new ActividadLitigioEliminadaEvent(this, actividadLitigio.getTitulo()));
+        notificationService.notifyActivityLitigioDeletion(actividadLitigio.getCliente().getCorreo(), actividadLitigio.getTitulo());
     }
 
 
@@ -173,11 +174,14 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
     @Override
     public Resource exportActividadesToCSV() {
         List<ActividadLitigioDTO> actividades = getAllActividadesLitigio();
-        List<String> headers = List.of("ID", "Descripción", "Fecha Creación", "Estado Caso", "Cliente ID");
+        List<String> headers = List.of("ID", "Title",  "Descripción", "NumExpediante", "Actor", "Fecha Creación", "Estado Caso", "Cliente ID");
         List<List<String>> data = actividades.stream()
                 .map(actividad -> List.of(
                         actividad.getId().toString(),
+                        actividad.getTitulo(),
                         actividad.getDescripcion(),
+                        actividad.getNumExpediente().toString(),
+                        actividad.getActor().toString(),
                         actividad.getFechaCreacion().toString(),
                         actividad.getEstadoCaso(),
                         actividad.getClienteId().toString()
@@ -194,11 +198,14 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
     @Override
     public Resource exportActividadesToPDF() {
         List<ActividadLitigioDTO> actividades = getAllActividadesLitigio();
-        List<String> headers = List.of("ID", "Descripción", "Fecha Creación", "Estado Caso", "Cliente ID");
+        List<String> headers = List.of("ID", "Title",  "Descripción", "NumExpediante", "Actor", "Fecha Creación", "Estado Caso", "Cliente ID");
         List<List<String>> data = actividades.stream()
                 .map(actividad -> List.of(
                         actividad.getId().toString(),
+                        actividad.getTitulo(),
                         actividad.getDescripcion(),
+                        actividad.getNumExpediente().toString(),
+                        actividad.getActor().toString(),
                         actividad.getFechaCreacion().toString(),
                         actividad.getEstadoCaso(),
                         actividad.getClienteId().toString()
@@ -240,7 +247,7 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
                 return false;
 
             default:
-                throw new IllegalArgumentException("Valor no válido para actualización de EstadoCaso: " + estadoActual);
+                throw new IllegalArgumentException("Valor no válido para la transicion del Estado del Caso: " + estadoActual);
         }
     }
 
@@ -253,10 +260,10 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
         // Lógica para verificar permisos del usuario
         // Ejemplo: Solo ciertos roles pueden cambiar el estado a "FINALIZADO"
         boolean hasRoleAdmin = user.getAuthorities().stream()
-                .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+                .anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
 
         if (nuevoEstado == EstadoCaso.RESUELTO && !hasRoleAdmin) {
-            throw new UnauthorizedException("No tiene permisos para cambiar el estado a FINALIZADO");
+            throw new UnauthorizedException("No tiene permisos para cambiar el estado a"+ EstadoCaso.RESUELTO);
         }
     }
 
@@ -271,22 +278,6 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
         }
         */
 
-    }
-
-    /*
-     * Obtén el usuario actual desde la autenticación
-     */
-    private Usuario getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new UnauthorizedException("Usuario no autenticado");
-        }
-        Object principal = authentication.getPrincipal();
-        if (principal instanceof Usuario) {
-            return (Usuario) principal;
-        }else {
-            throw new UnauthorizedException("Usuario no autenticado");
-        }
     }
 
 }

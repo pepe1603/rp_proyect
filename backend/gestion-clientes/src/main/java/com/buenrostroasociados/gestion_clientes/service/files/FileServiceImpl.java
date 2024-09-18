@@ -11,6 +11,7 @@ import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.*;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -119,11 +120,12 @@ public class FileServiceImpl implements FileService {
         String baseName = filename.substring(0, filename.length() - fileExtension.length());
 
         String uniqueFilename = filename;
-        int counter = 1;
+
+        LocalDateTime dateCurrent = LocalDateTime.now();
+        String dateCurrentFormat = dateCurrent.getYear()+"-"+dateCurrent.getMonthValue()+"-"+dateCurrent.getDayOfMonth()+"-"+dateCurrent.getHour()+":"+dateCurrent.getMinute();
 
         while (fileExists(uniqueFilename)) {
-            uniqueFilename = baseName + "-" + counter + fileExtension;
-            counter++;
+            uniqueFilename = baseName + "-copy" + fileExtension;
         }
 
         return uniqueFilename;

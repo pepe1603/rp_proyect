@@ -11,8 +11,11 @@ public interface ClienteService {
     ClienteDTO getClienteById(Long id);
     ClienteDTO getClienteByRFC(String rfc);
     List<ClienteDTO> getAllClientes();
+
+    ClienteDTO getClienteByEmail(String email);
+
     ClienteDTO updateCliente(Long id, ClienteDTO clienteDTO);
-    ClienteDTO updateCliente(Long id, Map<String, Object> updates);
+
     void deleteCliente(Long id);
 
     Resource exportActividadesToCSV();

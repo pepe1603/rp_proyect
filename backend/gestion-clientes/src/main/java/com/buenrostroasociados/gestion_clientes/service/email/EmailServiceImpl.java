@@ -50,15 +50,9 @@ public class EmailServiceImpl implements EmailService{
             throw new EmailException("Ocurrió un error al enviar el email de Recuperacion: " + ex.getMessage());
         }
     }
+
     @Override
-    public void sendPasswordResetConfirmEmail(String email) {
-
-        String subject = "Contraseña Restablecida";
-        String message = "Tu contraseña ha sido restablecida exitosamente.";
-        sendEmail(email, subject, message);
-
-    }
-    private void sendEmail(String to, String subject, String body) {
+    public void sendEmail(String to, String subject, String body) {
         ///enviar coreeo sion platillas
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();

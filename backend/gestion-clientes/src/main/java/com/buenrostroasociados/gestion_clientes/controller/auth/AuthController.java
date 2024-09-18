@@ -42,7 +42,6 @@ public class AuthController {
         return ResponseEntity.ok(new InfoResponse("Password successfully reset"));
     }
 
-
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader("Authorization") String authorizationHeader) {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {

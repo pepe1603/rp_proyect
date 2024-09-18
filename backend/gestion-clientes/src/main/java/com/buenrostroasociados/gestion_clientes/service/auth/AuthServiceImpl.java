@@ -7,6 +7,9 @@ import com.buenrostroasociados.gestion_clientes.dto.auth.SignupRequest;
 import com.buenrostroasociados.gestion_clientes.entity.*;
 import com.buenrostroasociados.gestion_clientes.entity.auth.PasswordResetToken;
 import com.buenrostroasociados.gestion_clientes.entity.auth.RefreshToken;
+import com.buenrostroasociados.gestion_clientes.events.auth.PasswordConfirmationEvent;
+import com.buenrostroasociados.gestion_clientes.events.auth.UserLoginEvent;
+import com.buenrostroasociados.gestion_clientes.events.auth.UserRegistrationEvent;
 import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundException;
 import com.buenrostroasociados.gestion_clientes.exception.ResourceNotFoundException;
 import com.buenrostroasociados.gestion_clientes.exception.TokenExpiredException;
@@ -18,6 +21,7 @@ import com.buenrostroasociados.gestion_clientes.service.jwtRefreshToken.RefreshT
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -58,6 +62,8 @@ public class AuthServiceImpl implements AuthService{
     private BlacklistedService blacklistedService;
     @Autowired
     private RefreshTokenService refreshTokenService;
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     private final String rolname_ADMIN = "ADMIN", rolnameClient = "CLIENT";
 
@@ -68,13 +74,14 @@ public class AuthServiceImpl implements AuthService{
 
         Usuario usuario = new Usuario();
         usuario.setUsername(signupRequest.getUsername());
-        usuario.setEmail(signupRequest.getEmail());
+        //Desactivado por que se ingresa automaticamente el correo asociado dependiendo si es un cliente o un admin
+        // usuario.setEmail(signupRequest.getEmail());
         usuario.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
         usuarioRepo.save(usuario);
         assignRoleAndSaveUser(signupRequest, usuario);
         logger.info("User registered successfully: {}", signupRequest.getUsername());
         // Enviar correo de notificación
-        //eventPublisher.publishEvent(new UserRegistrationEvent(this, usuario.getUsername(), usuario.getEmail()));
+        eventPublisher.publishEvent(new UserRegistrationEvent(this, usuario.getUsername(), usuario.getEmail()));
     }
 
     @Override
@@ -87,18 +94,24 @@ public class AuthServiceImpl implements AuthService{
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
             );
 
+            logger.info("Obteniendo usuario autenticado...");
             Usuario user = (Usuario) authentication.getPrincipal();
             //Generar el Token de acceso
+            logger.info("Generando token para usuario...");
             String token = jwtService.generateToken(user);
             //obtener Rol de usuario
+            logger.info("Obteniendo rol de usuario...");
             String role = String.valueOf(user.getRoles().iterator().next().getNombre()); // Obtener el primer rol del usuario
 
             /// Generar el token de refresco
+            logger.info("Generando Token de refresco de usuario...");
             RefreshToken refreshToken = refreshTokenService.generateRefreshToken();
 
             // Publicar evento de inicio de sesión exitoso
-            //eventPublisher.publishEvent(new UserLoginEvent(this, user.getUsername(), user.getEmail()));
+            logger.info("Publicando Evento ded usuario autenticado...");
+            eventPublisher.publishEvent(new UserLoginEvent(this, user.getUsername(), user.getEmail()));
 
+            logger.info("Retornando Respuesta al cleinte...");
             return new SigninResponse(token, refreshToken.getToken(), role);
 
         } catch (AuthenticationException e) {
@@ -149,7 +162,7 @@ public class AuthServiceImpl implements AuthService{
         RefreshToken refreshTokenOpotional = refreshTokenService.findByToken(token);
         refreshTokenService.deleteByToken(refreshTokenOpotional.getToken());
 
-        emailService.sendPasswordResetConfirmEmail(usuario.getEmail());//Enviar email de notificacion de contrseña restablecida con exito
+        eventPublisher.publishEvent(new PasswordConfirmationEvent(this, usuario.getUsername(), usuario.getEmail()));
     }
 
     @Override
@@ -181,10 +194,6 @@ public class AuthServiceImpl implements AuthService{
             logger.error("Username already exists: {}", signupRequest.getUsername());
             throw new IllegalArgumentException("El nombre de usuario ya existe, elige otro");
         }
-
-        if (signupRequest.getEmail() == null || signupRequest.getEmail().isEmpty()) {
-            throw new IllegalArgumentException("El campo email está vacío, se requiere para restablecimiento de contraseña");
-        }
     }
 
     private void assignRoleAndSaveUser(SignupRequest signupRequest, Usuario usuario) {
@@ -198,7 +207,12 @@ public class AuthServiceImpl implements AuthService{
             Cliente cliente = clienteRepo.findByRfc(signupRequest.getRfc())
                     .orElseThrow(() -> new EntityNotFoundException("El cliente no se pudo registrar por que el RFC proporcionado no se encuentra en el Repositorio: " + signupRequest.getRfc()));
             cliente.setUsuario(usuario);
+            //asopciar usarioa cliente
             clienteRepo.save(cliente);
+            //asociar correo cliente a usuario
+            usuario.setEmail(cliente.getCorreo());
+
+
         } else if (signupRequest.getClaveAdmin() != null) {
             /*-- recuperar rol dela base de datos apra asignarlo al user*/
             Rol rol =  rolRepo.findByNombre(rolname_ADMIN).orElseThrow(
@@ -209,11 +223,17 @@ public class AuthServiceImpl implements AuthService{
                     .orElseThrow(() -> new EntityNotFoundException("Administrador no encontrado con ID: " + signupRequest.getClaveAdmin()));
 
             administrador.setUsuario(usuario);
+            //asoicair el usuario al administrador
             adminRepo.save(administrador);
+            //asociar el email del admin al usuario
+            usuario.setEmail(administrador.getCorreo());
         } else {
             logger.error("Se debe proporcionar al menos un RFC (cliente) or el claveAdmin (administrador)");
             throw new RuntimeException("Debe proporcionar un RFC o una claveAdmin de administrador");
         }
+
+
+
     }
 
     private String generateResetToken(String email) {

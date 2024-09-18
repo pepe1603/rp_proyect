@@ -20,6 +20,8 @@ public abstract class Actividad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
+    private String titulo;
+    @Column(nullable = false)
     private String descripcion;
     @Column(nullable = false)
     private LocalDateTime fechaCreacion;

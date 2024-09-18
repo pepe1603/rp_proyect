@@ -4,8 +4,12 @@ import com.buenrostroasociados.gestion_clientes.dto.ActividadContableDTO;
 import com.buenrostroasociados.gestion_clientes.entity.ActividadContable;
 import com.buenrostroasociados.gestion_clientes.entity.Archivo;
 import com.buenrostroasociados.gestion_clientes.entity.Cliente;
+import com.buenrostroasociados.gestion_clientes.events.actividad.contable.ActividadContableActualizadaEvent;
+import com.buenrostroasociados.gestion_clientes.events.actividad.contable.ActividadContableCreadaEvent;
+import com.buenrostroasociados.gestion_clientes.events.actividad.contable.ActividadContableEliminadaEvent;
 import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundException;
 import com.buenrostroasociados.gestion_clientes.mapper.ActividadContableMapper;
+import com.buenrostroasociados.gestion_clientes.notification.NotificationService;
 import com.buenrostroasociados.gestion_clientes.repository.ActividadContableRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ArchivoRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ClienteRepository;
@@ -15,9 +19,11 @@ import com.buenrostroasociados.gestion_clientes.service.files.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
@@ -36,17 +42,29 @@ public class ActividadContableServiceImpl implements ActividadContableService {
     private FileService fileService;
     @Autowired
     private ExportService exportService;
+    @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+
 
     @Override
     public ActividadContableDTO saveActividadContable(ActividadContableDTO actividadContableDTO) {
         Cliente cliente = clienteRepo.findById(actividadContableDTO.getClienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado con ID: " + actividadContableDTO.getClienteId()));
 
+        actividadContableDTO.setFechaCreacion(LocalDateTime.now());
         ActividadContable actividadContable = actividadContableMapper.toEntity(actividadContableDTO);
         actividadContable.setCliente(cliente);
 
-        // Guardar la actividad contable
+        // No s emanejan archivosa enla cracion inicial
         ActividadContable actividadGuardada = actividadContableRepo.save(actividadContable);
+
+        //publicar evento de creacion
+        eventPublisher.publishEvent(new ActividadContableCreadaEvent(this, actividadContable.getTitulo()));
+        notificationService.notifyActivityContableCreation(cliente.getCorreo(), actividadContable.getTitulo());
+
         return actividadContableMapper.toDTO(actividadGuardada);
     }
     @Override
@@ -86,6 +104,10 @@ public class ActividadContableServiceImpl implements ActividadContableService {
         // Guardar la entidad actualizada
         ActividadContable actividadActualizada = actividadContableRepo.save(actividadContable);
 
+        //publicar evento de creacion
+        eventPublisher.publishEvent(new ActividadContableActualizadaEvent(this, actividadContable.getTitulo() +"\n Revisa Los cambios en nuestra pĺataforma."));
+        notificationService.notifyActivityContableUpdate(cliente.getCorreo(), actividadContable.getTitulo() +"\n Revisa Los cambios en nuestra pĺataforma.");
+
         return actividadContableMapper.toDTO(actividadActualizada);
     }
 
@@ -103,15 +125,18 @@ public class ActividadContableServiceImpl implements ActividadContableService {
 
         // Elimina la actividad contable
         actividadContableRepo.delete(actividadContable);
+        //notificaon de Eliminacion
+        eventPublisher.publishEvent(new ActividadContableEliminadaEvent(this, actividadContable.getTitulo()));
     }
 
     @Override
     public Resource exportActividadesToCSV() {
         List<ActividadContableDTO> actividadesContables = getAllActividadesContables();
-        List<String> headers = List.of("ID", "Descripcion", "FechaCreacion", "ClienteId");
+        List<String> headers = List.of("ID", "Titulo", "Descripcion", "FechaCreacion", "ClienteId");
         List<List<String>> data = actividadesContables.stream()
                 .map(actividad -> List.of(
                         actividad.getId().toString(),
+                        actividad.getTitulo().toString(),
                         actividad.getDescripcion().toString(),
                         actividad.getFechaCreacion().toString(),
                         actividad.getClienteId().toString()
@@ -128,10 +153,11 @@ public class ActividadContableServiceImpl implements ActividadContableService {
     @Override
     public Resource exportActividadesToPDF() {
         List<ActividadContableDTO> actividadesContables = getAllActividadesContables();
-        List<String> headers = List.of("ID", "Descripcion", "FechaCreacion", "CleinteId");
+        List<String> headers = List.of("ID", "Titulo", "Descripcion", "FechaCreacion", "CleinteId");
         List<List<String>> data = actividadesContables.stream()
                 .map(actividad -> List.of(
                         actividad.getId().toString(),
+                        actividad.getTitulo(),
                         actividad.getDescripcion().toString(),
                         actividad.getFechaCreacion().toString(),
                         actividad.getClienteId().toString()

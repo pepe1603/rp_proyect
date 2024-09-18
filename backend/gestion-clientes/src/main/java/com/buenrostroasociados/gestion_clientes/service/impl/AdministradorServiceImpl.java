@@ -2,10 +2,12 @@ package com.buenrostroasociados.gestion_clientes.service.impl;
 
 import com.buenrostroasociados.gestion_clientes.dto.AdministradorDTO;
 import com.buenrostroasociados.gestion_clientes.entity.Administrador;
+import com.buenrostroasociados.gestion_clientes.entity.Usuario;
 import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundException;
 import com.buenrostroasociados.gestion_clientes.mapper.AdministradorMapper;
 import com.buenrostroasociados.gestion_clientes.repository.AdministradorRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ClienteRepository;
+import com.buenrostroasociados.gestion_clientes.repository.UsuarioRepository;
 import com.buenrostroasociados.gestion_clientes.service.AdministradorService;
 import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
 import org.slf4j.Logger;
@@ -29,6 +31,8 @@ public class AdministradorServiceImpl implements AdministradorService {
     private ClienteRepository clienteRepo;
     @Autowired
     private ExportService exportService;
+    @Autowired
+    private UsuarioRepository usuarioRepo;
 
     @Override
     public AdministradorDTO savedAdministrador(AdministradorDTO administradorDTO) {
@@ -92,14 +96,24 @@ public class AdministradorServiceImpl implements AdministradorService {
                         () -> new EntityNotFoundException("Cliente no encontrado con ID: "+id)
                 );
         adminFounded.setClave(administradorDTO.getClave());
-        adminFounded.setUsuario(null);
         adminFounded.setCorreo(administradorDTO.getCorreo());
         adminFounded.setTelefono(administradorDTO.getTelefono());
         adminFounded.setNombreFull(administradorDTO.getNombreFull());
 
-        Administrador savedAdmin = administradorRepo.save(adminFounded);
+        Administrador updatedAdmin = administradorRepo.save(adminFounded);
+        //una vez que el cleinte ya ha sido actualizadoc on exito actaulizamos el email del usuario
 
-        return administradorMapper.toDTO(savedAdmin);
+        logger.warn("Verificando actualizacion del usuario si esta disponible");
+        if (!(administradorDTO.getUsuarioId() == null)){
+            Usuario usuarioFounded = usuarioRepo.findById(administradorDTO.getUsuarioId()).orElseThrow(
+                    () -> new EntityNotFoundException("Usuario no encontrado Para Administrador : "+administradorDTO.getUsuarioId())
+            ) ;
+
+            usuarioFounded.setEmail(updatedAdmin.getCorreo());
+            logger.warn("Correo del usuario actualizado automaticamente");
+        }
+
+        return administradorMapper.toDTO(updatedAdmin);
     }
 
     @Override
@@ -137,7 +151,7 @@ public class AdministradorServiceImpl implements AdministradorService {
     @Override
     public Resource exportActividadesToPDF() {
         List<AdministradorDTO> administradores = getAllAdministradores();
-        List<String> headers = List.of("ID", "RFC", "Nombre", "Correo", "Telefono");
+        List<String> headers = List.of("ID", "RFC", "Nombre", "Correo", "Telefono", "UsuarioId");
         List<List<String>> data = administradores.stream()
                 .map(admin -> List.of(
                         admin.getId().toString(),

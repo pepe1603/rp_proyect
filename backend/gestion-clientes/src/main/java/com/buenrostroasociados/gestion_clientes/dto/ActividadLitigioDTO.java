@@ -11,6 +11,11 @@ import java.util.List;
 public class ActividadLitigioDTO {
     private Long id;
     @NotBlank(message = "La descripcion no puede estar en blanco")
+    private String titulo;
+    @NotBlank(message = "Es importante el No. Expediente")
+    private String numExpediente;
+    @NotBlank(message = "Se requiere el nombre del actor")
+    private String actor;
     private String descripcion;
     @NotNull(message = "La fecha de creacion no puede estar en blanco")
     private LocalDateTime fechaCreacion;

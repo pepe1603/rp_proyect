@@ -2,9 +2,11 @@ package com.buenrostroasociados.gestion_clientes.service.impl;
 
 import com.buenrostroasociados.gestion_clientes.dto.ClienteDTO;
 import com.buenrostroasociados.gestion_clientes.entity.Cliente;
+import com.buenrostroasociados.gestion_clientes.entity.Usuario;
 import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundException;
 import com.buenrostroasociados.gestion_clientes.mapper.ClienteMapper;
 import com.buenrostroasociados.gestion_clientes.repository.ClienteRepository;
+import com.buenrostroasociados.gestion_clientes.repository.UsuarioRepository;
 import com.buenrostroasociados.gestion_clientes.service.ClienteService;
 import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
 import org.slf4j.Logger;
@@ -28,6 +30,8 @@ public class ClienteServiceImpl implements ClienteService {
     private ClienteMapper clienteMapper;
     @Autowired
     private ExportService exportService;
+    @Autowired
+    private UsuarioRepository usuarioRepo;
 
     @Override
     public ClienteDTO saveCliente(ClienteDTO clienteDTO) {
@@ -72,40 +76,43 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
+    public ClienteDTO getClienteByEmail(String email){
+        Cliente clienteFounded = clienteRepo.findByCorreo(email).orElseThrow(() -> new EntityNotFoundException("Cliente Not Found with Email: "+ email));
+        return  clienteMapper.toDTO(clienteFounded);
+    }
+
+    @Override
     public ClienteDTO updateCliente(Long id, ClienteDTO clienteDTO) {
         Cliente clienteFounded = clienteRepo.findById(id)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Cliente no encontrado con ID: "+id)
                 );
 
+        if (!(clienteDTO.getTelefono().isEmpty())){
+            clienteFounded.setTelefono(clienteDTO.getTelefono());
+        }
         clienteFounded.setNombreFull(clienteDTO.getNombreFull());
-        clienteFounded.setCorreo(clienteDTO.getCorreo());
+        if (!clienteDTO.getCorreo().isEmpty()){
+            clienteFounded.setCorreo(clienteDTO.getCorreo());
+        }
+
+
         clienteFounded.setRfc(clienteDTO.getRfc());
 
         Cliente updatedCliente = clienteRepo.save(clienteFounded);
-        return  clienteMapper.toDTO(updatedCliente);
+        //una vez que el cleinte ya ha sido actualizadoc on exito actaulizamos el email del usuario
+        logger.warn("Verificando actualizacion del usuario si esta disponible");
+        if (!(clienteDTO.getUsuarioId() == null)){
+            Usuario usuarioFounded = usuarioRepo.findById(clienteDTO.getUsuarioId()).orElseThrow(
+                    () -> new EntityNotFoundException("Usuario no encontrado Para Cliente : "+clienteDTO.getUsuarioId())
+            ) ;
 
-    }
-
-    @Override
-    public ClienteDTO updateCliente(Long id, Map<String, Object> updates) {
-        Cliente clienteFounded = clienteRepo.findById(id)
-                .orElseThrow(
-                        () -> new EntityNotFoundException("Cliente no encontrado  con ID: "+id)
-                );
-
-        //aplñicamos actualizaciones
-        if (updates.containsKey("nombre")) {
-            clienteFounded.setNombreFull((String) updates.get("nombre"));
-        }else if (updates.containsKey("correo")){
-            clienteFounded.setCorreo((String) updates.get("correo"));
-        }else{
-            throw new IllegalArgumentException("Campo no valido para la actualizacion.");
+            usuarioFounded.setEmail(updatedCliente.getCorreo());
+            logger.warn("Correo del usuario actualizado automaticamnte");
         }
 
-        Cliente updatedCliente = clienteRepo.save(clienteFounded);
+        return  clienteMapper.toDTO(updatedCliente);
 
-return clienteMapper.toDTO(updatedCliente);
     }
 
     @Override

@@ -4,18 +4,26 @@ import com.buenrostroasociados.gestion_clientes.dto.ArchivoDTO;
 import com.buenrostroasociados.gestion_clientes.entity.ActividadContable;
 import com.buenrostroasociados.gestion_clientes.entity.ActividadLitigio;
 import com.buenrostroasociados.gestion_clientes.entity.Archivo;
+import com.buenrostroasociados.gestion_clientes.enums.ClaseArchivo;
+import com.buenrostroasociados.gestion_clientes.enums.EstadoCaso;
+import com.buenrostroasociados.gestion_clientes.events.archivos.ArchivoActualizadoEvent;
+import com.buenrostroasociados.gestion_clientes.events.archivos.ArchivoCreadoEvent;
+import com.buenrostroasociados.gestion_clientes.events.archivos.ArchivoEliminadoEvent;
 import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundException;
 import com.buenrostroasociados.gestion_clientes.exception.ResourceNotFoundException;
 import com.buenrostroasociados.gestion_clientes.mapper.ArchivoMapper;
+import com.buenrostroasociados.gestion_clientes.notification.NotificationService;
 import com.buenrostroasociados.gestion_clientes.repository.ActividadContableRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ActividadLitigioRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ArchivoRepository;
 import com.buenrostroasociados.gestion_clientes.service.ArchivoService;
 import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
 import com.buenrostroasociados.gestion_clientes.service.files.FileService;
+import com.buenrostroasociados.gestion_clientes.utils.CurrentUserAuthenticated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,6 +56,14 @@ public class ArchivoServiceImpl implements ArchivoService {
     @Autowired
     private ExportService exportService;
 
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+
+    @Autowired
+    private NotificationService notificationService;
+
+
+
     @Override
     public ArchivoDTO saveArchivo(ArchivoDTO archivoDTO, MultipartFile file, boolean replaceExisting) {
         // Obtiene las entidades de ActividadContable y ActividadLitigio si se especifican
@@ -78,7 +94,7 @@ public class ArchivoServiceImpl implements ArchivoService {
                 fileService.delete(existingArchivo.get().getNombreArchivo());
                 archivoRepository.delete(existingArchivo.get());
             } else {
-                throw new FileSystemAlreadyExistsException("El archivo con el nombre " + file.getOriginalFilename() + " ya existe.");
+                throw new FileSystemAlreadyExistsException("replaceExisting is : "+replaceExisting+" Por lo tanto, El archivo con el nombre " + file.getOriginalFilename() + " ya existe.");
             }
         }
 
@@ -93,6 +109,10 @@ public class ArchivoServiceImpl implements ArchivoService {
         archivo.setActividadLitigio(actividadLitigio);
 
         Archivo savedArchivo = archivoRepository.save(archivo);
+
+        //notificar al cleinte la subida de archivo asociado a la acticidad
+        eventPublisher.publishEvent(new ArchivoCreadoEvent(this, savedArchivo.getNombreArchivo()));
+        notificationService.notifyArchivoCreation(CurrentUserAuthenticated.getEmailUserRolClient(), savedArchivo.getNombreArchivo());
 
         return archivoMapper.toDTO(savedArchivo);
     }
@@ -109,7 +129,7 @@ public class ArchivoServiceImpl implements ArchivoService {
         List<Archivo> archivos = archivoRepository.findAll();
 
         if (archivos.isEmpty()){
-            throw new EntityNotFoundException("No se encontro ningun registro de algun archivo en el Repositorio");
+            throw new EntityNotFoundException("No se encontro ningun registro de archivos en el Repositorio");
         }
         return archivoRepository.findAll().stream()
                 .map(archivoMapper::toDTO)
@@ -164,13 +184,26 @@ public class ArchivoServiceImpl implements ArchivoService {
         existingArchivo.setRutaArchivo(fileService.getRutaArchivo(filename));
 
         // Actualiza otros campos si es necesario
-        existingArchivo.setTipoArchivo(archivoDTO.getTipoArchivo());
+        String tipoArchivoFormated = archivoDTO.getTipoArchivo().toLowerCase();
+        ClaseArchivo newTipoArchivo = null;
+        try {
+            newTipoArchivo = ClaseArchivo.valueOf(tipoArchivoFormated);
+        }catch (IllegalArgumentException ex){
+            logger.error("Campo no valido para actualizar emtadarta de archivo: {}",ex.getMessage());
+            throw new IllegalArgumentException("Tipó Archivo no valido. debe concidir con esstos campos: [     LITIGIO, CONTABLE y NO_ESPECIFICADO ] ");
+
+        }
+
+        existingArchivo.setTipoArchivo(newTipoArchivo);
         existingArchivo.setActividadContable(actividadContableRepository.findById(archivoDTO.getActividadContableId()).orElse(null));
         existingArchivo.setActividadLitigio(actividadLitigioRepository.findById(archivoDTO.getActividadLitigioId()).orElse(null));
 
         // Guarda los cambios
         Archivo updatedArchivo = archivoRepository.save(existingArchivo);
 
+        //publicar evento de actualizacion
+        eventPublisher.publishEvent(new ArchivoActualizadoEvent(this, updatedArchivo.getNombreArchivo()));
+        notificationService.notifyArchivoUpdate(CurrentUserAuthenticated.getEmailUserRolClient(), updatedArchivo.getNombreArchivo());
         return archivoMapper.toDTO(updatedArchivo);
     }
 
@@ -181,7 +214,10 @@ public class ArchivoServiceImpl implements ArchivoService {
 
         // Actualiza los metadatos del archivo
         if (archivoDTO.getTipoArchivo() != null) {
-            existingArchivo.setTipoArchivo(archivoDTO.getTipoArchivo());
+
+            String tipoArchivoFormated = archivoDTO.getTipoArchivo().toLowerCase();
+            ClaseArchivo newTipoArchivo = ClaseArchivo.valueOf(tipoArchivoFormated);
+            existingArchivo.setTipoArchivo(newTipoArchivo);
         }
         if (archivoDTO.getActividadContableId() != null) {
             ActividadContable actividadContable = actividadContableRepository.findById(archivoDTO.getActividadContableId()).orElse(null);
@@ -195,20 +231,27 @@ public class ArchivoServiceImpl implements ArchivoService {
         // Guarda los cambios
         Archivo updatedArchivo = archivoRepository.save(existingArchivo);
 
+        //publicar evento de actualizacion
+        eventPublisher.publishEvent(new ArchivoActualizadoEvent(this, updatedArchivo.getNombreArchivo()));
+        notificationService.notifyArchivoUpdate(CurrentUserAuthenticated.getEmailUserRolClient(), updatedArchivo.getNombreArchivo());
+
         return archivoMapper.toDTO(updatedArchivo);
     }
 
     @Override
     public void deleteArchivo(Long id) {
         Archivo archivo = archivoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("{El archivo no pudo ser eliminado por que no fue encontrado con id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("{El archivo no pudo ser eliminado por que no fue encontrado el id: " + id));
 
         // Elimina el archivo del sistema de archivos local
         fileService.delete(archivo.getNombreArchivo());
 
         // Elimina el registro en la base de datos
         archivoRepository.delete(archivo);
-    }
+
+        //publicar evento de eliminacion
+        eventPublisher.publishEvent(new ArchivoEliminadoEvent(this, archivo.getNombreArchivo()));
+        notificationService.notifyArchivoDeletion(CurrentUserAuthenticated.getEmailUserRolClient(), archivo.getNombreArchivo());    }
 
     @Override
     public Resource exportActividadesToCSV() {
@@ -253,6 +296,29 @@ public class ArchivoServiceImpl implements ArchivoService {
         return exportService.exportToPDF(title, headers, data);
     }
 
+///------------ Metohotds Aux
+private boolean isTransitionValid(ClaseArchivo claseActual, ClaseArchivo nuevaClase) {
+    if (claseActual == null || nuevaClase == null) {
+        throw new IllegalArgumentException("La Clase de archivo no pueden ser nulos");
+    }
+
+    switch (claseActual) {
+        case CONTABLE:
+            // De "" solo se puede cambiar a "PRESENTADO"
+            return nuevaClase == ClaseArchivo.LITIGIO;
+
+        case LITIGIO:
+            // De "PRESENTADO" solo se puede cambiar a "EN_PROCESO"
+            return nuevaClase == ClaseArchivo.CONTABLE;
+
+        case NO_ESPECIFICADO:
+            // De "EN_PROCESO" se puede cambiar a "RESUELTO" o "CERRADO"
+            return nuevaClase == ClaseArchivo.CONTABLE || nuevaClase == ClaseArchivo.LITIGIO;
+
+        default:
+            throw new IllegalArgumentException("Valor no válido para el cambio de Clase de Archivo: " + claseActual);
+    }
+}
 
 
     }

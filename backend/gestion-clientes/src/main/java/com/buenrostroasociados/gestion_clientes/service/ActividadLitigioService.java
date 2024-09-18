@@ -14,8 +14,6 @@ public interface ActividadLitigioService {
     ActividadLitigioDTO getActividadLitigioById(Long id);
     List<ActividadLitigioDTO> getAllActividadesLitigio();
     ActividadLitigioDTO updateActividadLitigio(Long id, ActividadLitigioDTO actividadLitigioDTO);
-    void updateActividadLitigioFiles(Long id, List<Archivo> archivosDTO);
-
     @Transactional
     void updateEstadoActividadLitigio(Long id, String estadoCaso);
 

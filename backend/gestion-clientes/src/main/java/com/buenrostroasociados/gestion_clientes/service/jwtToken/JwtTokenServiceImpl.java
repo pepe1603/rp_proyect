@@ -1,4 +1,4 @@
-package com.buenrostroasociados.gestion_clientes.config.security;
+package com.buenrostroasociados.gestion_clientes.service.jwtToken;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -16,9 +16,9 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JwtService {
+public class JwtTokenServiceImpl implements JwtTokenService {
 
-    private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenServiceImpl.class);
 
     @Value("${jwt.secret.key}")
     private String secretKey;
@@ -26,11 +26,13 @@ public class JwtService {
     @Value("${jwt.expiration.ms}")
     private long jwtExpirationMs;
 
+    @Override
     public String generateToken(UserDetails userDetails) {
         logger.debug("Generating token for user: {}", userDetails.getUsername());
         return generateToken(new HashMap<>(), userDetails);
     }
 
+    @Override
     public String generateToken(Map<String, Object> extractClaims, UserDetails userDetails) {
         return Jwts.builder()
                 .setClaims(extractClaims)
@@ -41,14 +43,17 @@ public class JwtService {
                 .compact();
     }
 
+    @Override
     public String getUserName(String token) {
         logger.debug("Parsing token to get username.");
         return getClaim(token, Claims::getSubject);
     }
 
-    public <T> T getClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = getAllClaims(token);
-        return claimsResolver.apply(claims);
+    @Override
+    public boolean validateToken(String token, UserDetails userDetails) {
+        logger.debug("Validating token for user: {}", userDetails.getUsername());
+        final String username = getUserName(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     private Claims getAllClaims(String token) {
@@ -69,17 +74,18 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public boolean validarToken(String token, UserDetails userDetails) {
-        logger.debug("Validating token for user: {}", userDetails.getUsername());
-        final String username = getUserName(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
-    }
-
     private boolean isTokenExpired(String token) {
+        logger.debug("Validando Expiracion de token : {}", token);
         return getExpiration(token).before(new Date());
     }
 
+    @Override
     public Date getExpiration(String token) {
         return getClaim(token, Claims::getExpiration);
+    }
+
+    public <T> T getClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = getAllClaims(token);
+        return claimsResolver.apply(claims);
     }
 }

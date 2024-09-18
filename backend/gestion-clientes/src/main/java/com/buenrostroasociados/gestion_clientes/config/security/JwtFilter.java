@@ -2,6 +2,7 @@ package com.buenrostroasociados.gestion_clientes.config.security;
 
 import com.buenrostroasociados.gestion_clientes.exception.JwtTokenBlacklistedException;
 import com.buenrostroasociados.gestion_clientes.service.jwtBlacklisted.BlacklistedService;
+import com.buenrostroasociados.gestion_clientes.service.jwtToken.JwtTokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,11 +26,11 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtFilter.class);
     private final UserDetailsService userDetailsService;
-    private final JwtService jwtService;
+    private final JwtTokenService jwtService;
     private final BlacklistedService blacklistService;
 
     @Autowired
-    public JwtFilter(UserDetailsService userDetailsService, JwtService jwtService, BlacklistedService blacklistService) {
+    public JwtFilter(UserDetailsService userDetailsService, JwtTokenService jwtService, BlacklistedService blacklistService) {
         this.userDetailsService = userDetailsService;
         this.jwtService = jwtService;
         this.blacklistService = blacklistService;
@@ -74,7 +75,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
-            if (jwtService.validarToken(jwt, userDetails)) {
+            if (jwtService.validateToken(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 

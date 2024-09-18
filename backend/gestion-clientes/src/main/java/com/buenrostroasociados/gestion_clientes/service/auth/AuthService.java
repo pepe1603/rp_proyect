@@ -16,4 +16,7 @@ public interface AuthService {
     void resetPassword(String token, String newPassword);
 
     void logout(String token);
+
+    //renovación del access token
+    SigninResponse refreshAccessToken(String refreshToken);
 }

@@ -1,6 +1,5 @@
 package com.buenrostroasociados.gestion_clientes.service.auth;
 
-import com.buenrostroasociados.gestion_clientes.config.security.JwtService;
 import com.buenrostroasociados.gestion_clientes.dto.auth.SigninRequest;
 import com.buenrostroasociados.gestion_clientes.dto.auth.SigninResponse;
 import com.buenrostroasociados.gestion_clientes.dto.auth.SignupRequest;
@@ -18,6 +17,7 @@ import com.buenrostroasociados.gestion_clientes.repository.*;
 import com.buenrostroasociados.gestion_clientes.repository.auth.PasswordResetTokenRepository;
 import com.buenrostroasociados.gestion_clientes.service.jwtBlacklisted.BlacklistedService;
 import com.buenrostroasociados.gestion_clientes.service.jwtRefreshToken.RefreshTokenService;
+import com.buenrostroasociados.gestion_clientes.service.jwtToken.JwtTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +53,7 @@ public class AuthServiceImpl implements AuthService{
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    private JwtService jwtService;
+    private JwtTokenService jwtService;
     @Autowired
     private AuthenticationManager authManager;
     @Autowired
@@ -105,7 +105,7 @@ public class AuthServiceImpl implements AuthService{
 
             /// Generar el token de refresco
             logger.info("Generando Token de refresco de usuario...");
-            RefreshToken refreshToken = refreshTokenService.generateRefreshToken();
+            RefreshToken refreshToken = refreshTokenService.generateRefreshToken(user);
 
             // Publicar evento de inicio de sesión exitoso
             logger.info("Publicando Evento ded usuario autenticado...");
@@ -182,6 +182,23 @@ public class AuthServiceImpl implements AuthService{
             refreshTokenService.deleteByToken(refreshTokenOptional.getToken());
 
     }
+
+    //renovación del access token
+    @Override
+    public SigninResponse refreshAccessToken(String refreshToken) {
+        RefreshToken validToken = refreshTokenService.findByToken(refreshToken);
+
+        // Verificación de la expiración del token de refresco
+        if (validToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+            throw new TokenExpiredException("Refresh token has expired to refresh Token");
+        }
+
+        // Generar un nuevo token de acceso usando el usuario asociado
+        String newAccessToken = jwtService.generateToken(validToken.getUser());
+
+        return new SigninResponse(newAccessToken, validToken.getToken(), validToken.getUser().getRoles().iterator().next().getNombre());
+    }
+
 
     /*------------------------- Metods Auxiliares --------------------------*/
 

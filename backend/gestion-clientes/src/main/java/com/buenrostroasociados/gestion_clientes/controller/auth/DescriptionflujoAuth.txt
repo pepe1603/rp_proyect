@@ -1,0 +1,85 @@
+Aquí tienes una descripción detallada del flujo de trabajo para el manejo de tokens de refresco en tu aplicación:
+1. Inicio de Sesión
+
+Endpoint: POST /api/v1/auth/sign_in
+
+Flujo:
+
+    El cliente envía una solicitud de inicio de sesión con el nombre de usuario y la contraseña.
+    El AuthServiceImpl valida las credenciales. Si son correctas:
+        Se genera un Token de Acceso utilizando JwtService.
+        Se genera un Token de Refresco mediante refreshTokenService.generateRefreshToken(usuario), donde el usuario autenticado se asocia al token.
+        Ambos tokens se envían en la respuesta.
+
+Ejemplo de Respuesta:
+
+json
+
+{
+  "accessToken": "eyJhbGci...",
+  "refreshToken": "refreshToken123",
+  "role": "USER"
+}
+
+2. Cerrar Sesión (Logout)
+
+Endpoint: POST /api/v1/auth/logout
+
+Flujo:
+
+    El cliente envía el Token de Acceso en la cabecera de autorización.
+    El AuthServiceImpl valida el token de acceso y lo añade a la lista de tokens blacklisted (en la lista negra) para evitar su uso posterior.
+    También se busca el Token de Refresco asociado al usuario y se elimina de la base de datos.
+    Se devuelve una respuesta confirmando que la sesión se ha cerrado.
+
+Ejemplo de Respuesta:
+
+json
+
+{
+  "message": "Logout successful"
+}
+
+3. Refrescar el Token de Acceso
+
+Endpoint: POST /api/v1/auth/refresh-token
+
+Flujo:
+
+    El cliente envía el Token de Refresco.
+    AuthServiceImpl valida el token de refresco:
+        Si el token es válido y no ha expirado:
+            Se genera un nuevo Token de Acceso utilizando JwtService.
+            Se devuelve el nuevo token de acceso junto con el token de refresco (puedes optar por enviar el mismo token de refresco si no ha expirado).
+        Si el token de refresco ha expirado o no es válido, se devuelve un error indicando que es necesario volver a iniciar sesión.
+
+Ejemplo de Respuesta:
+
+json
+
+{
+  "accessToken": "newAccessToken123",
+  "refreshToken": "refreshToken123"
+}
+
+Resumen del Flujo Completo
+
+    Inicio de Sesión:
+        Usuario envía credenciales.
+        Se generan y devuelven el token de acceso y el token de refresco.
+
+    Cerrar Sesión:
+        Usuario envía el token de acceso.
+        Se invalidan ambos tokens.
+
+    Refrescar el Token de Acceso:
+        Usuario envía el token de refresco.
+        Se valida el token de refresco, y si es válido, se genera un nuevo token de acceso.
+
+Consideraciones Finales
+
+    Seguridad: Asegúrate de manejar adecuadamente el almacenamiento y la invalidación de tokens para evitar accesos no autorizados.
+    Manejo de Errores: Implementa un manejo robusto de excepciones para cada flujo, para informar al cliente sobre problemas como la expiración de tokens o credenciales incorrectas.
+    Documentación: Documenta tus endpoints y flujos para que sea fácil para otros desarrolladores entender cómo interactuar con tu API.
+
+Si necesitas más detalles sobre alguna parte del flujo o cómo implementar algo en específico, ¡házmelo saber!

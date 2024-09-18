@@ -1,5 +1,6 @@
 package com.buenrostroasociados.gestion_clientes.service.jwtRefreshToken;
 
+import com.buenrostroasociados.gestion_clientes.entity.Usuario;
 import com.buenrostroasociados.gestion_clientes.entity.auth.RefreshToken;
 import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundException;
 import com.buenrostroasociados.gestion_clientes.repository.auth.RefreshTokenRepository;
@@ -17,10 +18,11 @@ public class RefreshTokenServiceImpl implements RefreshTokenService{
     private RefreshTokenRepository refreshTokenRepo;
 
     @Override
-    public RefreshToken generateRefreshToken() {
+    public RefreshToken generateRefreshToken(Usuario usuario) {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setToken(UUID.randomUUID().toString());
         refreshToken.setExpiryDate(LocalDateTime.now().plusDays(7)); // Ajusta la duracion a 7 dias
+        refreshToken.setUser(usuario);//asociamos el token al usuario
         return refreshTokenRepo.save(refreshToken);
     }
 

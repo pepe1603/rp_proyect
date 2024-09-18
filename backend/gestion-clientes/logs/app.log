@@ -1687,3 +1687,6 @@ com.buenrostroasociados.gestion_clientes.exception.JwtTokenBlacklistedException:
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
 	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
 
+2024-09-18T11:07:16.489-06:00  INFO 8689 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-18T11:07:16.497-06:00  INFO 8689 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-09-18T11:07:16.532-06:00  INFO 8689 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

@@ -7,16 +7,16 @@ import lombok.Data;
 @Data
 public class SignupRequest {
 
-    @NotBlank
-    @Size(min = 3, max = 20)
+    @NotBlank(message = "el username no debe estar vacio o null")
+    @Size(min = 3, max = 40, message = "El password requiere un size entre 6 y 40 caracteres")
     private String username;
 
-    @NotBlank
-    @Size(min = 6, max = 40)
+    @NotBlank(message="El password no debe estar vacio o null")
+    @Size(min = 6, max = 40, message = "El password requiere un size entre 6 y 40 caracteres")
     private String password;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "El email no debe estar vacio o null")
+    @Email(message = "El valor ingresado no es un Email")
     private String email;
 
     //validar si es un administrador o un alumno registrado en la base dee datos

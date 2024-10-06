@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PasswordResetEventListener implements ApplicationListener<ApplicationEvent>{
-    private static final Logger loger = LoggerFactory.getLogger(PasswordConfirmationEvent.class);
+    private static final Logger logger = LoggerFactory.getLogger(PasswordConfirmationEvent.class);
 
     @Autowired
     private NotificationService notificationService;
@@ -28,7 +28,7 @@ public class PasswordResetEventListener implements ApplicationListener<Applicati
         String text = "Hola mi estimado" + event.getUsername() + ",\n" +
                 "Tu contraseña ha sido confirmada y actualizada exitosamente. ahora Puedes volver a iniciar sesion, si no fuite tu el que realizo el cambio, por favor ponte en contacto con soporte tecnico.";
         notificationService.notifyEventResetPassword(event.getEmail(), subject, text);
-        loger.info("Event Listener HandleReset Password");
+        logger.info("Event Listener HandleReset Password");
     }
 
 }

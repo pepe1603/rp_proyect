@@ -1,15 +1,21 @@
 package com.buenrostroasociados.gestion_clientes.service.jwtRefreshToken;
 
+import com.buenrostroasociados.gestion_clientes.dto.auth.RefreshTokenDTO;
 import com.buenrostroasociados.gestion_clientes.entity.Usuario;
-import com.buenrostroasociados.gestion_clientes.entity.auth.RefreshToken;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface RefreshTokenService {
 
-    RefreshToken generateRefreshToken(Usuario usuario);
+    RefreshTokenDTO generateRefreshToken(Usuario usuario);
 
-    RefreshToken findByToken(String token);
+    RefreshTokenDTO findByToken(String token);
+
+    RefreshTokenDTO findByUser(Usuario user);
+
+    List<RefreshTokenDTO> findAllByUser(Usuario user);
+
+    void deleteAllByUser(Usuario usuario);
 
     void deleteByToken(String token);
 }

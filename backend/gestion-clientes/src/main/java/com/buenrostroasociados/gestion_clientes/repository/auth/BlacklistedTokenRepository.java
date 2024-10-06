@@ -10,5 +10,6 @@ import java.util.Optional;
 @Repository
 public interface BlacklistedTokenRepository  extends JpaRepository<BlacklistedToken, Long> {
     Optional<BlacklistedToken> findByToken(String token);
+
     void deleteByExpiresAtBefore(Instant now);
 }

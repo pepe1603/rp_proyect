@@ -15,7 +15,7 @@ public class UserRegistrationEventListener {
     @EventListener
     public void handleUserRegistrationEvent(UserRegistrationEvent event) {
         String subject = "Bienvenido a nuestra plataforma";
-        String text = "Hola " + event.getUsername() + ",\n" +
+        String text = "Hola Estimado " + event.getUsername() + ",\n" +
                 "Te has registrado exitosamente en nuestra plataforma Gestion de Actividades de Litigio y Contabilidad para Clientes. ¡Estamos emocionados de tenerte con nosotros!  :]" +
                 "\nAhora puedes iniciar sesion en nuestra plataforma";
 

@@ -45,6 +45,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
         logger.debug("Processing request : " + request.getRequestURI());
 
+        // Ignorar el filtro si la ruta es "/api/v1/auth/password-reset"
+        if (request.getRequestURI().equals("/api/v1/auth/password-reset")) {
+            logger.warn("Ignmore ruta dee restablecimiento para el filtro...");
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String username;

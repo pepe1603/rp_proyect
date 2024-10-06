@@ -38,6 +38,7 @@ public class AdministradorServiceImpl implements AdministradorService {
     public AdministradorDTO savedAdministrador(AdministradorDTO administradorDTO) {
         Administrador newAdministrador = administradorMapper.toEntity(administradorDTO);
         newAdministrador.setUsuario(null);
+        //newAdministrador.setClaveAdmin("C-"+administradorDTO.getClaveAdmin()); descomentar si se necesita añadir un prefix : C-ejemploClave
 
         Administrador savedAdministrador = administradorRepo.save(newAdministrador);
 

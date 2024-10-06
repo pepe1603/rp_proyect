@@ -4,11 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PasswordResetRequest {
-    private String email;
+public class RefreshTokenDTO {
+    private Long id;
     private String token;
-    private String newPassword;
+    private LocalDateTime expiryDate;
+
 }

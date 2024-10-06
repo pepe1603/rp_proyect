@@ -1,12 +1,17 @@
 package com.buenrostroasociados.gestion_clientes.controller.auth;
 
+import com.buenrostroasociados.gestion_clientes.dto.CustomErrorResponse;
 import com.buenrostroasociados.gestion_clientes.dto.InfoResponse;
-import com.buenrostroasociados.gestion_clientes.dto.auth.PasswordResetRequest;
-import com.buenrostroasociados.gestion_clientes.dto.auth.SigninRequest;
-import com.buenrostroasociados.gestion_clientes.dto.auth.SigninResponse;
-import com.buenrostroasociados.gestion_clientes.dto.auth.SignupRequest;
+import com.buenrostroasociados.gestion_clientes.dto.auth.*;
+import com.buenrostroasociados.gestion_clientes.exception.AccessDeniedException;
+import com.buenrostroasociados.gestion_clientes.exception.TokenExpiredException;
+import com.buenrostroasociados.gestion_clientes.exception.UnauthorizedException;
 import com.buenrostroasociados.gestion_clientes.service.auth.AuthService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,12 +19,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
+    @Value("app-client.login-url")
+    private String redirectUrlClient_login;
+    @Value("app-client.reset-password-url")
+    private String redirectUrlClient_forgotPassword;
+
     @Autowired
     private AuthService authService;
 
 
     @PostMapping("/sign_up")
-    public ResponseEntity<?> signUp(@RequestBody SignupRequest request) {
+    public ResponseEntity<InfoResponse> signUp(@Valid @RequestBody SignupRequest request) {
         authService.signUp(request);
         return ResponseEntity.ok(new InfoResponse("User registered successfully"));
     }
@@ -31,30 +41,36 @@ public class AuthController {
     }
 
     @PostMapping("/password-reset-request")
-    public ResponseEntity<?> requestPasswordReset(@RequestBody PasswordResetRequest request) {
-        authService.sendPasswordResetLink(request.getEmail());
-        return ResponseEntity.ok(new InfoResponse("Password reset link sent"));
+    public ResponseEntity<?> requestPasswordReset(@RequestParam String email) {
+        authService.sendPasswordResetLink(email);
+        return ResponseEntity.ok(new InfoResponse("Password reset link sent to your email"));
     }
 
     @PostMapping("/password-reset")
-    public ResponseEntity<?> resetPassword(@RequestParam String token, @RequestBody PasswordResetRequest request) {
-        authService.resetPassword(token, request.getNewPassword());
-        return ResponseEntity.ok(new InfoResponse("Password successfully reset"));
+    public ResponseEntity<?> changePassword(@RequestParam String tokenReset, @RequestParam String newPassword) {
+
+            authService.resetPassword(tokenReset, newPassword);
+            InfoResponse response = new InfoResponse("Password successfully reset, Ahora puedes volver a iniciar sesion en el siguiente Link " + redirectUrlClient_login);
+            return ResponseEntity.ok(response);
+
+
     }
+
+
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader("Authorization") String authorizationHeader) {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            String token = authorizationHeader.substring(7);
-            try {
-                authService.logout(token);
+            String token = authorizationHeader.substring(7);                authService.logout(token);
                 return ResponseEntity.ok(new InfoResponse("Logout successful"));
-            } catch (Exception ex) {
-                return ResponseEntity.status(500).body(new InfoResponse("Error during logout"));
-            }
         }
         return ResponseEntity.badRequest().body(new InfoResponse("Invalid token"));
     }
 
+    @PostMapping("/refresh-token")
+    public ResponseEntity<SigninResponse> refreshAccessToken(@RequestBody RefreshTokenRequest refreshToken) {
+        SigninResponse response = authService.refreshAccessToken(refreshToken.getRefreshToken());
+        return ResponseEntity.ok(response);
+    }
 
 }

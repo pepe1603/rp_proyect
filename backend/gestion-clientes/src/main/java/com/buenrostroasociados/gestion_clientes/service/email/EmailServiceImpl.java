@@ -1,5 +1,6 @@
 package com.buenrostroasociados.gestion_clientes.service.email;
 
+import com.buenrostroasociados.gestion_clientes.entity.Usuario;
 import com.buenrostroasociados.gestion_clientes.exception.EmailException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +31,11 @@ public class EmailServiceImpl implements EmailService{
     }
 
     @Override
-    public void sendPasswordResetEmail(String to, String resetUrl) {
+    public void sendPasswordResetEmail(Usuario user, String resetUrl) {
         try {
             Context context = new Context();
             context.setVariable("resetUrl", resetUrl);
+            context.setVariable("user", user);
             String template = "email/password-reset-email";
 
             String htmlBody = templateEngine.process(template, context);
@@ -41,7 +43,7 @@ public class EmailServiceImpl implements EmailService{
 
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "UTF-8");
-            helper.setTo(to);
+            helper.setTo(user.getEmail());
             helper.setSubject("Solicitud de Restablecimiento de contraseña");
             helper.setText(htmlBody, true);
 
@@ -64,6 +66,7 @@ public class EmailServiceImpl implements EmailService{
 
             mailSender.send(mimeMessage);
         } catch (MailException | MessagingException e) {
+            logger.error("Error sending email to {}: {}", to, e.getMessage());
             throw new EmailException("Falló al enviar el correo electrónico : " + e.getMessage());
         }
     }

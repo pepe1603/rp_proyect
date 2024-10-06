@@ -26,6 +26,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     @Value("${jwt.expiration.ms}")
     private long jwtExpirationMs;
 
+
     @Override
     public String generateToken(UserDetails userDetails) {
         logger.debug("Generating token for user: {}", userDetails.getUsername());
@@ -70,6 +71,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     }
 
     private Key getSignInKey() {
+
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }

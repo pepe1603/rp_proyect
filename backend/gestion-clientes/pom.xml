@@ -46,7 +46,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -97,7 +96,7 @@
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct-processor</artifactId>
-			<version>1.5.3.Final</version>
+			<version>1.5.5.Final</version>
 			<scope>provided</scope>
 		</dependency>
 		<!-- Libreria para iphonenumbervalidator de google-->
@@ -148,8 +147,14 @@
 			<artifactId>pdfbox</artifactId>
 			<version>2.0.27</version> <!-- Usa la versión más reciente disponible -->
 		</dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>

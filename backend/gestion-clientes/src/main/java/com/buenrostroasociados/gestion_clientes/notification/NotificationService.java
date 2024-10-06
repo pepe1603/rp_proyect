@@ -20,6 +20,8 @@ public interface NotificationService {
 
     void notifyEventUserLogin(String email, String subject, String text);
 
+    void notifyEventUserLogout(String email, String subject, String text);
+
     void notifyEventUserRegister(String email, String subject, String text);
 
     void notifyArchivoCreation(String email, String actividadTitle);

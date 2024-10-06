@@ -1,6 +1,7 @@
 package com.buenrostroasociados.gestion_clientes.listener.auth;
 
 import com.buenrostroasociados.gestion_clientes.events.auth.UserLoginEvent;
+import com.buenrostroasociados.gestion_clientes.events.auth.UserLogoutEvent;
 import com.buenrostroasociados.gestion_clientes.notification.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
@@ -9,19 +10,19 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-public class UserLoginEventListener {
+public class UserLogoutEventListener {
     @Autowired
     private NotificationService notificationService;
 
 
     @EventListener
-    public void handleUserLoginEvent(UserLoginEvent event) {
+    public void handleUserLogoutEvent(UserLogoutEvent event) {
 
-        String subject = "Notificación de Inicio de Sesión";
-        String text = "Hola estimado/a " + event.getUsername() + ",\n\n "+
-                "Se ha detectado un inicio de sesión en tu cuenta el "+ LocalDateTime.now() +".\n\n";
+        String subject = "Notificación de Cierre de Sesión";
+        String text ="Estimado/a " + event.getUsername() + ",\n\n" +
+                "Se ha registrado un cierre de sesión en su cuenta el " + LocalDateTime.now() + ". ";
 
-        notificationService.notifyEventUserLogin(event.getEmail(), subject, text);
+        notificationService.notifyEventUserLogout(event.getEmail(), subject, text);
     }
 
 }

@@ -82,4 +82,6 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true; // Personaliza según sea necesario
     }
+
+
 }

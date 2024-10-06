@@ -141,6 +141,17 @@ public class NotificationServiceImpl implements NotificationService{
         logger.info("Template Send to Email: {}, {}", email, context);
     }
     @Override
+    public void notifyEventUserLogout(String email, String subject, String text){
+        logger.info("Procesing Template Notification Logout ...");
+        Context context = new Context();
+        context.setVariable("subject", subject);
+        context.setVariable("message", text);
+
+        String body = templateEngine.process("notification/notification-logout", context);
+        emailService.sendEmail(email, subject, body);
+        logger.info("Template Send to Email: {}, {}", email, context);
+    }
+    @Override
     public void notifyEventUserRegister(String email, String subject, String text){
         logger.info("Procesing Template Notification Register ...");
         Context context = new Context();

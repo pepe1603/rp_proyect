@@ -31,10 +31,10 @@ public class EmailServiceImpl implements EmailService{
     }
 
     @Override
-    public void sendPasswordResetEmail(Usuario user, String resetUrl) {
+    public void sendPasswordResetEmail(Usuario user, String verificationCode) {
         try {
             Context context = new Context();
-            context.setVariable("resetUrl", resetUrl);
+            context.setVariable("verificationCode", verificationCode);
             context.setVariable("user", user);
             String template = "email/password-reset-email";
 

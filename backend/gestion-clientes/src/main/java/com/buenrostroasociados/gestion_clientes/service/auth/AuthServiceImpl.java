@@ -7,7 +7,7 @@ import com.buenrostroasociados.gestion_clientes.dto.auth.SigninRequest;
 import com.buenrostroasociados.gestion_clientes.dto.auth.SigninResponse;
 import com.buenrostroasociados.gestion_clientes.dto.auth.SignupRequest;
 import com.buenrostroasociados.gestion_clientes.entity.*;
-import com.buenrostroasociados.gestion_clientes.entity.auth.PasswordResetToken;
+import com.buenrostroasociados.gestion_clientes.entity.auth.VerificationCode;
 import com.buenrostroasociados.gestion_clientes.entity.auth.RefreshToken;
 import com.buenrostroasociados.gestion_clientes.events.auth.PasswordConfirmationEvent;
 import com.buenrostroasociados.gestion_clientes.events.auth.UserLoginEvent;
@@ -19,10 +19,11 @@ import com.buenrostroasociados.gestion_clientes.exception.TokenExpiredException;
 import com.buenrostroasociados.gestion_clientes.mapper.RefreshTokenMapper;
 import com.buenrostroasociados.gestion_clientes.service.email.EmailService;
 import com.buenrostroasociados.gestion_clientes.repository.*;
-import com.buenrostroasociados.gestion_clientes.repository.auth.PasswordResetTokenRepository;
+import com.buenrostroasociados.gestion_clientes.repository.auth.VerificationCodeRepository;
 import com.buenrostroasociados.gestion_clientes.service.jwtBlacklisted.BlacklistedService;
 import com.buenrostroasociados.gestion_clientes.service.jwtRefreshToken.RefreshTokenService;
 import com.buenrostroasociados.gestion_clientes.service.jwtToken.JwtTokenService;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,6 @@ public class AuthServiceImpl implements AuthService{
 
     private static final Logger logger= LoggerFactory.getLogger(AuthServiceImpl.class);
 
-    //url decliente vuejs /auth/ForgotPassword
-    @Value("${app-client.reset-password-url}")
-    private String resetPasswordUrl;
     private final String rolname_ADMIN = "ADMIN", rolnameClient = "CLIENT";
     @Value("${password.reset.token.expiration.hours}")
     private long resetTokenExpirationHours;
@@ -64,7 +62,7 @@ public class AuthServiceImpl implements AuthService{
     @Autowired
     private RolRepository rolRepo;
     @Autowired
-    private PasswordResetTokenRepository passwordResetTokenRepo;
+    private VerificationCodeRepository verificationCodeRepo;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
@@ -161,13 +159,10 @@ public class AuthServiceImpl implements AuthService{
         Usuario user = usuarioRepo.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with Email: "+email));
 
-        String resetToken = generateResetToken(email);
-        //URL Vuejs -> auth/forgot-poasword para restablecer la contraseña
-        String resetUrl =  resetPasswordUrl + "?tokenReset=" + resetToken;
-
-        //enviar link al email
-        emailService.sendPasswordResetEmail(user, resetUrl);
-        logger.info("Reset URL send to:  {} \n User: {}", resetUrl, user.getUsername());
+        String codigo = generateVerificationCode(email);
+        // Enviar el código de verificación al email
+        emailService.sendPasswordResetEmail(user, codigo);
+        logger.info("Verification code sent to: {} \n User: {}", email, user.getUsername());
         logger.info("Password reset Request email  send successfully to email : {}", email);
     }
 
@@ -175,15 +170,15 @@ public class AuthServiceImpl implements AuthService{
     @Override
     public void resetPassword(String tokenReset, String newPassword) {
 
-        logger.debug("Resetting password with Token-reset: {} - newPasssword to user: {} ", tokenReset, newPassword);
+        logger.debug("Resetting password with Verification Code: {} - New Password for user: {} ", tokenReset, newPassword);
         //validar Nueva password
         validateNewPassword(newPassword);
 
-        PasswordResetToken resetToken = passwordResetTokenRepo.findByToken(tokenReset)
-                .orElseThrow(() -> new ResourceNotFoundException("token-reset no encontrado en el repositorio"));
+        VerificationCode resetToken = verificationCodeRepo.findByToken(tokenReset)
+                .orElseThrow(() -> new ResourceNotFoundException("verification Code no encontrado en el repositorio"));
 
         if (resetToken == null || resetToken.getExpiryDate().isBefore(LocalDateTime.now())) {
-            throw new TokenExpiredException("Token-reset is invalid or expired");
+            throw new TokenExpiredException("Verification Code is invalid or expired");
         }
 
         Usuario usuario = usuarioRepo.findByEmail(resetToken.getEmail())
@@ -195,13 +190,14 @@ public class AuthServiceImpl implements AuthService{
         usuarioRepo.save(usuario);
         logger.warn("Preparin Deleting Token Refresh...");
 
-        //Eliminamos todos los token ded refresco del usuario
+        // Intentar eliminar todos los tokens de refresco del usuario
         refreshTokenService.deleteAllByUser(usuario);
-        passwordResetTokenRepo.delete(resetToken); // Opcional: elimina el token de restablecimiento después de usarlo
+        logger.info("All refresh tokens deleted successfully.");
+
+        verificationCodeRepo.delete(resetToken); // Opcional: elimina el token de restablecimiento después de usarlo
         logger.info("The refresh Deleted succesfully..");
 
        eventPublisher.publishEvent(new PasswordConfirmationEvent(this, usuario.getUsername(), usuario.getEmail()));
-
 
     }
 
@@ -309,20 +305,21 @@ public class AuthServiceImpl implements AuthService{
 
     }
 
-    private String generateResetToken(String email) {
-        String token = UUID.randomUUID().toString();
-        PasswordResetToken resetToken = new PasswordResetToken();
+    //metood para restavbleciiento d econtraSEÑA
+    private String generateVerificationCode(String email) {
+        String token = UUID.randomUUID().toString().substring(0, 6);
+        VerificationCode resetToken = new VerificationCode();
         resetToken.setToken(token);
         resetToken.setEmail(email);
         resetToken.setExpiryDate(LocalDateTime.now().plusHours(resetTokenExpirationHours)); // Expira en 1 hora
 
-        logger.info("Reset Token generated: {}", resetToken);
-        passwordResetTokenRepo.save(resetToken);
-        logger.info("Reset Token saved in Repository DB.");
+        logger.info("Verification Code generated: {}", resetToken);
+        verificationCodeRepo.save(resetToken);
+        logger.info("Verification Code saved in Repository DB.");
         return token;
     }
 
-    private void validateNewPassword(@org.jetbrains.annotations.NotNull String newPassword) {
+    private void validateNewPassword(@NotNull String newPassword) {
         if (newPassword.length() < 8) {
             throw new IllegalArgumentException("La nueva contraseña debe tener al menos 8 caracteres");
         }

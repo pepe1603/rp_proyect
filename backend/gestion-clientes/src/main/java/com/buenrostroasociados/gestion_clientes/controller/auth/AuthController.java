@@ -19,11 +19,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-    @Value("app-client.login-url")
-    private String redirectUrlClient_login;
-    @Value("app-client.reset-password-url")
-    private String redirectUrlClient_forgotPassword;
-
     @Autowired
     private AuthService authService;
 
@@ -47,10 +42,10 @@ public class AuthController {
     }
 
     @PostMapping("/password-reset")
-    public ResponseEntity<?> changePassword(@RequestParam String tokenReset, @RequestParam String newPassword) {
+    public ResponseEntity<?> changePassword(@RequestParam String verificationCode, @RequestParam String newPassword) {
 
-            authService.resetPassword(tokenReset, newPassword);
-            InfoResponse response = new InfoResponse("Password successfully reset, Ahora puedes volver a iniciar sesion en el siguiente Link " + redirectUrlClient_login);
+            authService.resetPassword(verificationCode, newPassword);
+            InfoResponse response = new InfoResponse("Password successfully reset, Puedes iniciar sesion con tus nuevas credenciales.");
             return ResponseEntity.ok(response);
 
 

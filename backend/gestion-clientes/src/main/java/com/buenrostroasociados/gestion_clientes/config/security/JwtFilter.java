@@ -47,7 +47,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // Ignorar el filtro si la ruta es "/api/v1/auth/password-reset"
         if (request.getRequestURI().equals("/api/v1/auth/password-reset")) {
-            logger.warn("Ignmore ruta dee restablecimiento para el filtro...");
+            logger.warn("Ignore ruta de restablecimiento para el filtro...");
             filterChain.doFilter(request, response);
             return;
         }

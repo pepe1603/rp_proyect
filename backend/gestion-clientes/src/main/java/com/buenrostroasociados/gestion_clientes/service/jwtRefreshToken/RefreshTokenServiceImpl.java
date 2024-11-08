@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -74,11 +75,11 @@ public class RefreshTokenServiceImpl implements RefreshTokenService{
         Optional<RefreshToken> refreshTokens;
         logger.info("Buscando Usuario en RefreshTokens..");
         refreshTokens = refreshTokenRepo.findByUser(user);
-        logger.info("RefresthTokens Entroncrados...");
+        logger.info("RefresthTokens Enontrados...");
 
         if (refreshTokens.isEmpty()){
-            logger.error("Token rEfresh Not Founded With User : {}", user.getUsername());
-            throw new EntityNotFoundException("Toke Refesh Not Founded With User "+user.getUsername()); // O lanza una excepción si prefieres
+            logger.warn("Token Refresh no encontrados asociados al  to User : {}", user.getUsername());
+           // throw new EntityNotFoundException("Toke Refesh Not Founded With User "+user.getUsername()); // O lanza una excepción si prefieres
         }
 
         return refreshTokens.stream()
@@ -86,6 +87,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService{
                                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public void deleteAllByUser(Usuario usuario) {
         List<RefreshToken> refreshTokens = this.findAllByUser(usuario).stream()

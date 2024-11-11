@@ -53,6 +53,13 @@ public class GlobalExceptionHandler {
                 HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Server Error", "Ocurrio un error inesperado de tipo Archivo."+ ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(InvalidFileTypeException.class)
+    public ResponseEntity<CustomErrorResponse> handleInvalidFileTypeException(InvalidFileTypeException ex){
+        CustomErrorResponse errorResponse = new CustomErrorResponse(
+                HttpStatus.BAD_REQUEST.value(), "Bad Request", "InvalidFileTypeException."+ ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<CustomErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex){
         CustomErrorResponse errorResponse = new CustomErrorResponse(
@@ -86,6 +93,17 @@ public class GlobalExceptionHandler {
             HttpMediaTypeNotAcceptableException ex) {
         CustomErrorResponse errorResponse = new CustomErrorResponse(HttpStatus.NOT_ACCEPTABLE.value(), "Not Acceptable", ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    /**
+     *Exceptions Activcitys
+     */
+
+    @ExceptionHandler(ActividadConflictException.class)
+    public ResponseEntity<CustomErrorResponse> handleActividadConflictException(ActividadConflictException ex){
+        CustomErrorResponse errorResponse = new CustomErrorResponse(
+                HttpStatus.BAD_REQUEST.value(), "ActividadConflictException => Bad Request", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     /*

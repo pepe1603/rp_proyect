@@ -14,8 +14,9 @@ import com.buenrostroasociados.gestion_clientes.repository.ActividadContableRepo
 import com.buenrostroasociados.gestion_clientes.repository.ArchivoRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ClienteRepository;
 import com.buenrostroasociados.gestion_clientes.service.ActividadContableService;
+import com.buenrostroasociados.gestion_clientes.service.awss3.S3Service;
 import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
-import com.buenrostroasociados.gestion_clientes.service.files.FileService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class ActividadContableServiceImpl implements ActividadContableService {
     @Autowired
     private ArchivoRepository archivoRepo;
     @Autowired
-    private FileService fileService;
+    private S3Service s3Service;
     @Autowired
     private ExportService exportService;
     @Autowired
@@ -58,8 +59,10 @@ public class ActividadContableServiceImpl implements ActividadContableService {
         ActividadContable actividadContable = actividadContableMapper.toEntity(actividadContableDTO);
         actividadContable.setCliente(cliente);
 
-        // No s emanejan archivosa enla cracion inicial
+        // No se manejan archivosa enla cracion inicial
         ActividadContable actividadGuardada = actividadContableRepo.save(actividadContable);
+
+        logger.warn("No se asigna archivos en al creacion inicial de la actividad Contable");
 
         //publicar evento de creacion
         eventPublisher.publishEvent(new ActividadContableCreadaEvent(this, actividadContable.getTitulo()));
@@ -67,6 +70,7 @@ public class ActividadContableServiceImpl implements ActividadContableService {
 
         return actividadContableMapper.toDTO(actividadGuardada);
     }
+
     @Override
     public ActividadContableDTO getActividadContableById(Long id) {
         ActividadContable actividadContable = actividadContableRepo.findById(id)
@@ -104,9 +108,9 @@ public class ActividadContableServiceImpl implements ActividadContableService {
         // Guardar la entidad actualizada
         ActividadContable actividadActualizada = actividadContableRepo.save(actividadContable);
 
-        //publicar evento de creacion
-        eventPublisher.publishEvent(new ActividadContableActualizadaEvent(this, actividadContable.getTitulo() +"\n Revisa Los cambios en nuestra pĺataforma."));
-        notificationService.notifyActivityContableUpdate(cliente.getCorreo(), actividadContable.getTitulo() +"\n Revisa Los cambios en nuestra pĺataforma.");
+        //publicar evento de actualizacion
+        eventPublisher.publishEvent(new ActividadContableActualizadaEvent(this, actividadContable.getTitulo() ));
+        notificationService.notifyActivityContableUpdate(cliente.getCorreo(), actividadContable.getTitulo() );
 
         return actividadContableMapper.toDTO(actividadActualizada);
     }
@@ -119,13 +123,13 @@ public class ActividadContableServiceImpl implements ActividadContableService {
         // Elimina los archivos asociados
         List<Archivo> archivos = archivoRepo.findArchivosByActividadContableId(id);
         for (Archivo archivo : archivos) {
-            fileService.delete(archivo.getNombreArchivo());
+            s3Service.deleteFile(archivo.getNombreArchivo());
             archivoRepo.delete(archivo);
         }
 
         // Elimina la actividad contable
         actividadContableRepo.delete(actividadContable);
-        //notificaon de Eliminacion
+        //publicar evento de eliminmacion
         eventPublisher.publishEvent(new ActividadContableEliminadaEvent(this, actividadContable.getTitulo()));
     }
 

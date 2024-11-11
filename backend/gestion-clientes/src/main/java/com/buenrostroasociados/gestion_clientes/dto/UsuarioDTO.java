@@ -15,7 +15,7 @@ public class UsuarioDTO {
     private Long id;
     @NotBlank(message = "El Username no debe estar en blanco")
     private String username;
-    @NotBlank(message = "El passwprd no debe estar5 en blanco")
+    @NotBlank(message = "El passwprd no debe estar en blanco")
     private String password;
     @Email
     private String email;

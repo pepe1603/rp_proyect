@@ -5,11 +5,11 @@ import com.buenrostroasociados.gestion_clientes.entity.ActividadContable;
 import com.buenrostroasociados.gestion_clientes.entity.ActividadLitigio;
 import com.buenrostroasociados.gestion_clientes.entity.Archivo;
 import com.buenrostroasociados.gestion_clientes.enums.ClaseArchivo;
-import com.buenrostroasociados.gestion_clientes.enums.EstadoCaso;
 import com.buenrostroasociados.gestion_clientes.events.archivos.ArchivoActualizadoEvent;
-import com.buenrostroasociados.gestion_clientes.events.archivos.ArchivoCreadoEvent;
 import com.buenrostroasociados.gestion_clientes.events.archivos.ArchivoEliminadoEvent;
+import com.buenrostroasociados.gestion_clientes.exception.ActividadConflictException;
 import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundException;
+import com.buenrostroasociados.gestion_clientes.exception.InvalidFileTypeException;
 import com.buenrostroasociados.gestion_clientes.exception.ResourceNotFoundException;
 import com.buenrostroasociados.gestion_clientes.mapper.ArchivoMapper;
 import com.buenrostroasociados.gestion_clientes.notification.NotificationService;
@@ -17,8 +17,8 @@ import com.buenrostroasociados.gestion_clientes.repository.ActividadContableRepo
 import com.buenrostroasociados.gestion_clientes.repository.ActividadLitigioRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ArchivoRepository;
 import com.buenrostroasociados.gestion_clientes.service.ArchivoService;
+import com.buenrostroasociados.gestion_clientes.service.awss3.S3Service;
 import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
-import com.buenrostroasociados.gestion_clientes.service.files.FileService;
 import com.buenrostroasociados.gestion_clientes.utils.CurrentUserAuthenticated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.FileSystemAlreadyExistsException;
@@ -48,7 +49,7 @@ public class ArchivoServiceImpl implements ArchivoService {
     private ActividadLitigioRepository actividadLitigioRepository;
 
     @Autowired
-    private FileService fileService;
+    private S3Service s3Service;
 
     @Autowired
     private ArchivoMapper archivoMapper;
@@ -62,11 +63,16 @@ public class ArchivoServiceImpl implements ArchivoService {
     @Autowired
     private NotificationService notificationService;
 
-
-
+    @Transactional
     @Override
     public ArchivoDTO saveArchivo(ArchivoDTO archivoDTO, MultipartFile file, boolean replaceExisting) {
-        // Obtiene las entidades de ActividadContable y ActividadLitigio si se especifican
+        // Verificar que solo un tipo de actividad esté presente (Contable o Litigio)
+        if (archivoDTO.getActividadContableId() != null && archivoDTO.getActividadLitigioId() != null) {
+            logger.error("Intento de asignar tanto actividad contable como litigio al archivo.");
+            throw new ActividadConflictException("No se puede asignar ambas actividades al mismo archivo.");
+        }
+
+        // Obtener las entidades correspondientes si se especifican
         ActividadContable actividadContable = null;
         ActividadLitigio actividadLitigio = null;
 
@@ -80,61 +86,92 @@ public class ArchivoServiceImpl implements ArchivoService {
                     .orElseThrow(() -> new ResourceNotFoundException("Actividad Litigio no encontrada con id: " + archivoDTO.getActividadLitigioId()));
         }
 
+        archivoDTO.setFechaCreacion(LocalDateTime.now());  // Establece la fecha de creación como la fecha actual
 
-        archivoDTO.setFechaCreacion(LocalDateTime.now());// fecha actual por default
-        // Verifica si el archivo ya existe
+        // Verificar si el archivo ya existe en la base de datos
         Optional<Archivo> existingArchivo = archivoRepository.findByNombreArchivo(file.getOriginalFilename());
 
-        String filename = fileService.getUniqueFilename(file.getOriginalFilename());
-
-        // Si el archivo ya existe y se debe reemplazar, elimina el archivo antiguo
+        // Si el archivo ya existe en la base de datos y en S3
         if (existingArchivo.isPresent()) {
             if (replaceExisting) {
-                // Elimina el archivo del sistema de archivos local
-                fileService.delete(existingArchivo.get().getNombreArchivo());
-                archivoRepository.delete(existingArchivo.get());
+                // Si se debe reemplazar, eliminamos el archivo de S3 y de la base de datos
+                logger.info("Reemplazando archivo existente: {}", file.getOriginalFilename());
+                s3Service.deleteFile(existingArchivo.get().getRutaArchivo());  // Eliminar el archivo de S3
+                archivoRepository.delete(existingArchivo.get());  // Eliminar de la base de datos
             } else {
-                throw new FileSystemAlreadyExistsException("replaceExisting is : "+replaceExisting+" Por lo tanto, El archivo con el nombre " + file.getOriginalFilename() + " ya existe.");
+                // Si no se reemplaza, se retorna un mensaje de advertencia
+                logger.warn("El archivo {} ya existe y no se reemplazará.", file.getOriginalFilename());
+                return existingArchivo.map(archivoMapper::toDTO).orElseThrow();
             }
+        } else {
+            logger.info("Archivo no encontrado en la base de datos. Procediendo con la carga.");
         }
 
-        // Guarda el archivo en el sistema de archivos local
-        fileService.save(file, filename);
+        // Validar el tipo de archivo antes de proceder (si es necesario)
+        validateFileType(file);
 
-        // Mapea el DTO a la entidad y guarda en la base de datos
+        // Subir el archivo a S3
+        String fileName = file.getOriginalFilename();
+        try {
+            logger.info("Subiendo archivo a S3: {}", fileName);
+            s3Service.uploadFile(fileName, file.getResource());  // Subimos el archivo a S3
+        } catch (Exception e) {
+            logger.error("Error al subir el archivo a S3: {}", fileName, e);
+            throw new RuntimeException("Error al subir el archivo a S3", e);
+        }
+
+        // Crear el objeto Archivo en la base de datos
         Archivo archivo = archivoMapper.toEntity(archivoDTO);
-        archivo.setNombreArchivo(filename);
-        archivo.setRutaArchivo(fileService.getRutaArchivo(filename));
+        archivo.setRutaArchivo(fileName);  // Guardamos solo la clave (nombre del archivo) en la base de datos
         archivo.setActividadContable(actividadContable);
         archivo.setActividadLitigio(actividadLitigio);
 
-        Archivo savedArchivo = archivoRepository.save(archivo);
+        // Guardamos el archivo en la base de datos
+        archivoRepository.save(archivo);
 
-        //notificar al cleinte la subida de archivo asociado a la acticidad
-        eventPublisher.publishEvent(new ArchivoCreadoEvent(this, savedArchivo.getNombreArchivo()));
-        notificationService.notifyArchivoCreation(CurrentUserAuthenticated.getEmailUserRolClient(), savedArchivo.getNombreArchivo());
+        logger.info("Archivo guardado correctamente en la base de datos con la clave S3: {}", fileName);
 
-        return archivoMapper.toDTO(savedArchivo);
-    }
+        // Publicar el evento de actualización
+        eventPublisher.publishEvent(new ArchivoActualizadoEvent(this, archivo.getNombreArchivo()));
+        notificationService.notifyArchivoCreation(CurrentUserAuthenticated.getEmailUserRolClient(), archivo.getNombreArchivo());
 
-    @Override
-    public ArchivoDTO getArchivo(Long id) {
-        Archivo archivo = archivoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Archivo no encontrado con id: " + id));
+
+        // Retornamos el DTO del archivo guardado
         return archivoMapper.toDTO(archivo);
     }
 
+
+
+    @Override
+    public ArchivoDTO getArchivo(Long id) {
+        logger.info("Buscando archivo con id: {}", id);
+        Archivo archivo = archivoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Archivo no encontrado con id: " + id));
+
+        logger.info("Archivo encontrado: {}", archivo.getNombreArchivo());
+        return archivoMapper.toDTO(archivo);
+    }
+
+
+    /* Nota: considerar
+    Optimización de Búsquedas: Si tu base de datos crece mucho, podrías pensar en implementar
+    paginación o filtrado de archivos para evitar que la carga de todos los archivos a la vez cause problemas de rendimiento.
+     */
     @Override
     public List<ArchivoDTO> getAllArchivos() {
         List<Archivo> archivos = archivoRepository.findAll();
 
-        if (archivos.isEmpty()){
-            throw new EntityNotFoundException("No se encontro ningun registro de archivos en el Repositorio");
+        if (archivos.isEmpty()) {
+            logger.warn("No se encontraron archivos en el repositorio.");
+            throw new EntityNotFoundException("No se encontró ningún registro de archivos en el repositorio.");
         }
-        return archivoRepository.findAll().stream()
+
+        logger.info("Se encontraron {} archivos.", archivos.size());
+        return archivos.stream()
                 .map(archivoMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public List<ArchivoDTO> getArchivosByActividadContableId(Long actividadContableId) {
@@ -156,102 +193,165 @@ public class ArchivoServiceImpl implements ArchivoService {
                 .map(archivoMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
     @Override
     public ArchivoDTO updateArchivo(Long id, ArchivoDTO archivoDTO, MultipartFile file, boolean replaceExisting) {
-        // Primero, encuentra el archivo existente
+        // Buscar archivo existente
         Archivo existingArchivo = archivoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Archivo no encontrado con id: " + id));
 
-        // Verifica si el archivo ya existe en el sistema de archivos
+        // Log para mostrar que se está actualizando un archivo
+        logger.info("Iniciando actualización del archivo con id: {} y nombre: {}", id, existingArchivo.getNombreArchivo());
+
+        // Verifica si el archivo existe en la base de datos y si se debe reemplazar
         Optional<Archivo> oldArchivo = archivoRepository.findByNombreArchivo(file.getOriginalFilename());
 
-        if (oldArchivo.isPresent() && replaceExisting) {
-            // Elimina el archivo del sistema de archivos local
-            fileService.delete(oldArchivo.get().getNombreArchivo());
+        if (oldArchivo.isPresent()) {
+            if (replaceExisting) {
+                // Eliminar archivo viejo de S3
+                logger.info("Reemplazando archivo existente: {}", file.getOriginalFilename());
+                s3Service.deleteFile(oldArchivo.get().getRutaArchivo()); // Eliminar de S3
 
-            // Elimina el registro viejo en la base de datos
-            archivoRepository.delete(oldArchivo.get());
-        } else if (oldArchivo.isPresent()) {
-            throw new FileSystemAlreadyExistsException("El archivo con el nombre " + file.getOriginalFilename() + " ya existe.");
+                // Eliminar el registro viejo en la base de datos
+                archivoRepository.delete(oldArchivo.get());
+            } else {
+                // Si no se reemplaza el archivo, lanzar un warn
+                logger.warn("El archivo con nombre {} ya existe y no se reemplazará.", file.getOriginalFilename());
+                return archivoMapper.toDTO(oldArchivo.get());//retornamos el archivo existente
+            }
         }
 
-        // Guarda el nuevo archivo en el sistema de archivos local
-        String filename = fileService.getUniqueFilename(file.getOriginalFilename());
-        fileService.save(file, filename);
+        // Guardar el nuevo archivo en el sistema de archivos (S3 en este caso)
+        String filename = file.getOriginalFilename();  // Usar el nombre original del archivo (puedes cambiar esto si es necesario)
+        try {
+            logger.info("Subiendo archivo a S3: {}", filename);
+            s3Service.uploadFile(filename, file.getResource());
+        } catch (Exception e) {
+            logger.error("Error al subir el archivo a S3: {}", filename, e);
+            throw new RuntimeException("Error al subir el archivo a S3", e);
+        }
 
-        // Actualiza la entidad con el nuevo archivo
-        existingArchivo.setNombreArchivo(filename);
-        existingArchivo.setRutaArchivo(fileService.getRutaArchivo(filename));
+        // Actualizar los datos del archivo
+        existingArchivo.setNombreArchivo(filename); // Nombre actualizado del archivo
+        existingArchivo.setRutaArchivo(filename);   // Ruta en S3 (usamos el nombre del archivo como clave)
 
-        // Actualiza otros campos si es necesario
+        // Validar y actualizar el tipo de archivo
         String tipoArchivoFormated = archivoDTO.getTipoArchivo().toLowerCase();
-        ClaseArchivo newTipoArchivo = null;
+        ClaseArchivo newTipoArchivo;
         try {
             newTipoArchivo = ClaseArchivo.valueOf(tipoArchivoFormated);
-        }catch (IllegalArgumentException ex){
-            logger.error("Campo no valido para actualizar emtadarta de archivo: {}",ex.getMessage());
-            throw new IllegalArgumentException("Tipó Archivo no valido. debe concidir con esstos campos: [     LITIGIO, CONTABLE y NO_ESPECIFICADO ] ");
-
+        } catch (ActividadConflictException ex) {
+            logger.error("Tipo de archivo no válido: {}", archivoDTO.getTipoArchivo());
+            throw new ActividadConflictException("Tipo de archivo no válido. Los tipos válidos son: [LITIGIO, CONTABLE, NO_ESPECIFICADO].");
         }
 
         existingArchivo.setTipoArchivo(newTipoArchivo);
-        existingArchivo.setActividadContable(actividadContableRepository.findById(archivoDTO.getActividadContableId()).orElse(null));
-        existingArchivo.setActividadLitigio(actividadLitigioRepository.findById(archivoDTO.getActividadLitigioId()).orElse(null));
 
-        // Guarda los cambios
+        // Asociar las actividades (si existen)
+        if (archivoDTO.getActividadContableId() != null) {
+            ActividadContable actividadContable = actividadContableRepository.findById(archivoDTO.getActividadContableId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Actividad Contable no encontrada con id: " + archivoDTO.getActividadContableId()));
+            existingArchivo.setActividadContable(actividadContable);
+        } else {
+            existingArchivo.setActividadContable(null); // No asociar si no se encuentra el ID
+        }
+
+        if (archivoDTO.getActividadLitigioId() != null) {
+            ActividadLitigio actividadLitigio = actividadLitigioRepository.findById(archivoDTO.getActividadLitigioId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Actividad Litigio no encontrada con id: " + archivoDTO.getActividadLitigioId()));
+            existingArchivo.setActividadLitigio(actividadLitigio);
+        } else {
+            existingArchivo.setActividadLitigio(null); // No asociar si no se encuentra el ID
+        }
+
+        // Guardar los cambios en la base de datos
         Archivo updatedArchivo = archivoRepository.save(existingArchivo);
 
-        //publicar evento de actualizacion
+        // Publicar el evento de actualización
         eventPublisher.publishEvent(new ArchivoActualizadoEvent(this, updatedArchivo.getNombreArchivo()));
         notificationService.notifyArchivoUpdate(CurrentUserAuthenticated.getEmailUserRolClient(), updatedArchivo.getNombreArchivo());
+
+        logger.info("Archivo con id: {} actualizado exitosamente. Nuevo nombre de archivo: {}", id, updatedArchivo.getNombreArchivo());
+
+        // Retornar el DTO del archivo actualizado
         return archivoMapper.toDTO(updatedArchivo);
     }
 
+
+    @Transactional
     @Override
     public ArchivoDTO updateArchivoMetadata(Long id, ArchivoDTO archivoDTO) {
+        // Busca el archivo existente
         Archivo existingArchivo = archivoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Archivo no encontrado con id: " + id));
 
         // Actualiza los metadatos del archivo
         if (archivoDTO.getTipoArchivo() != null) {
-
-            String tipoArchivoFormated = archivoDTO.getTipoArchivo().toLowerCase();
-            ClaseArchivo newTipoArchivo = ClaseArchivo.valueOf(tipoArchivoFormated);
+            // Validar y asignar el tipo de archivo utilizando el nuevo método
+            ClaseArchivo newTipoArchivo = validateAndAssignArchivoType(archivoDTO.getTipoArchivo());
             existingArchivo.setTipoArchivo(newTipoArchivo);
         }
+
+        // Actualiza la actividad contable si es necesario
         if (archivoDTO.getActividadContableId() != null) {
-            ActividadContable actividadContable = actividadContableRepository.findById(archivoDTO.getActividadContableId()).orElse(null);
+            ActividadContable actividadContable = actividadContableRepository.findById(archivoDTO.getActividadContableId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Actividad Contable no encontrada con id: " + archivoDTO.getActividadContableId()));
             existingArchivo.setActividadContable(actividadContable);
         }
+
+        // Actualiza la actividad de litigio si es necesario
         if (archivoDTO.getActividadLitigioId() != null) {
-            ActividadLitigio actividadLitigio = actividadLitigioRepository.findById(archivoDTO.getActividadLitigioId()).orElse(null);
+            ActividadLitigio actividadLitigio = actividadLitigioRepository.findById(archivoDTO.getActividadLitigioId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Actividad Litigio no encontrada con id: " + archivoDTO.getActividadLitigioId()));
             existingArchivo.setActividadLitigio(actividadLitigio);
         }
 
-        // Guarda los cambios
+        // Guarda los cambios en la base de datos
         Archivo updatedArchivo = archivoRepository.save(existingArchivo);
 
-        //publicar evento de actualizacion
+        // Publicar evento de actualización
         eventPublisher.publishEvent(new ArchivoActualizadoEvent(this, updatedArchivo.getNombreArchivo()));
         notificationService.notifyArchivoUpdate(CurrentUserAuthenticated.getEmailUserRolClient(), updatedArchivo.getNombreArchivo());
 
+        // Log de éxito
+        logger.info("Archivo con ID {} actualizado con éxito.", id);
+
+        // Retorna el DTO actualizado
         return archivoMapper.toDTO(updatedArchivo);
     }
 
+
+
     @Override
     public void deleteArchivo(Long id) {
+        // Buscar el archivo en la base de datos
         Archivo archivo = archivoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("{El archivo no pudo ser eliminado por que no fue encontrado el id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("El archivo no pudo ser eliminado porque no se encontró el archivo con el ID: " + id));
 
-        // Elimina el archivo del sistema de archivos local
-        fileService.delete(archivo.getNombreArchivo());
+        try {
+            // Verifica si el archivo existe en S3
+            if (!s3Service.fileExists(archivo.getRutaArchivo())) {
+                logger.warn("El archivo con nombre {} no se encontró en S3.", archivo.getRutaArchivo());
+            } else {
+                // Elimina el archivo de S3
+                s3Service.deleteFile(archivo.getRutaArchivo());
+                logger.info("Archivo con nombre {} eliminado de S3.", archivo.getRutaArchivo());
+            }
+        } catch (Exception e) {
+            logger.error("Error al intentar eliminar el archivo de S3: {}", archivo.getRutaArchivo(), e);
+            // Lanza una excepción si la eliminación del archivo falla en S3
+            throw new RuntimeException("Error al eliminar el archivo de S3.", e);
+        }
 
         // Elimina el registro en la base de datos
         archivoRepository.delete(archivo);
+        logger.info("Archivo con ID {} eliminado de la base de datos.", id);
 
-        //publicar evento de eliminacion
-        eventPublisher.publishEvent(new ArchivoEliminadoEvent(this, archivo.getNombreArchivo()));
-        notificationService.notifyArchivoDeletion(CurrentUserAuthenticated.getEmailUserRolClient(), archivo.getNombreArchivo());    }
+        // Publicar evento de eliminación
+        eventPublisher.publishEvent(new ArchivoEliminadoEvent(this, archivo.getRutaArchivo()));
+        notificationService.notifyArchivoDeletion(CurrentUserAuthenticated.getEmailUserRolClient(), archivo.getRutaArchivo());
+    }
+
 
     @Override
     public Resource exportActividadesToCSV() {
@@ -297,28 +397,37 @@ public class ArchivoServiceImpl implements ArchivoService {
     }
 
 ///------------ Metohotds Aux
-private boolean isTransitionValid(ClaseArchivo claseActual, ClaseArchivo nuevaClase) {
-    if (claseActual == null || nuevaClase == null) {
-        throw new IllegalArgumentException("La Clase de archivo no pueden ser nulos");
+
+    /**
+     * Valida y asigna el tipo de archivo al archivo proporcionado.
+     * Este método verifica que el tipo de archivo esté entre los valores válidos.
+     *
+     * @param tipoArchivo El tipo de archivo a validar y asignar.
+     * @return El tipo de archivo validado (ClaseArchivo).
+     */
+    private ClaseArchivo validateAndAssignArchivoType(String tipoArchivo) {
+        try {
+            // Convertir el tipo a mayúsculas y luego asignar el valor correspondiente
+            String tipoArchivoFormated = tipoArchivo.toUpperCase();
+            return ClaseArchivo.valueOf(tipoArchivoFormated);
+        } catch (IllegalArgumentException ex) {
+            // Si el tipo no es válido, se lanza una excepción
+            logger.error("Tipo de archivo no válido: {}", tipoArchivo);
+            throw new IllegalArgumentException("Tipo de archivo no válido. Debe ser uno de los siguientes: LITIGIO, CONTABLE, NO_ESPECIFICADO.");
+        }
     }
 
-    switch (claseActual) {
-        case CONTABLE:
-            // De "" solo se puede cambiar a "PRESENTADO"
-            return nuevaClase == ClaseArchivo.LITIGIO;
 
-        case LITIGIO:
-            // De "PRESENTADO" solo se puede cambiar a "EN_PROCESO"
-            return nuevaClase == ClaseArchivo.CONTABLE;
-
-        case NO_ESPECIFICADO:
-            // De "EN_PROCESO" se puede cambiar a "RESUELTO" o "CERRADO"
-            return nuevaClase == ClaseArchivo.CONTABLE || nuevaClase == ClaseArchivo.LITIGIO;
-
-        default:
-            throw new IllegalArgumentException("Valor no válido para el cambio de Clase de Archivo: " + claseActual);
+    /**
+     * Valida el tipo de archivo (por ejemplo, solo PDF).
+     */
+    private void validateFileType(MultipartFile file) {
+        String fileName = file.getOriginalFilename();
+        if (fileName == null || !fileName.toLowerCase().endsWith(".pdf")) {
+            logger.error("Tipo de archivo no permitido: {}", fileName);
+            throw new InvalidFileTypeException("Solo se permiten archivos PDF.");
+        }
     }
-}
 
 
     }

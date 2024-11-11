@@ -31,6 +31,7 @@ public class ArchivoController {
             @RequestParam(value = "replaceExisting", defaultValue = "false") boolean replaceExisting) {
 
         // Crea el DTO del archivo sin usar la ID, ya que se maneja en el servicio
+        // se asigana y valida el tipo de archivo
         ArchivoDTO archivoDTO = new ArchivoDTO();
         archivoDTO.setTipoArchivo(tipoArchivo);//
         archivoDTO.setActividadContableId(actividadContableId);
@@ -69,15 +70,22 @@ public class ArchivoController {
     public ResponseEntity<ArchivoDTO> updateArchivo(
             @PathVariable Long id,
             @RequestParam(value = "file", required = false) MultipartFile file,
-            @RequestParam(value = "replaceExisting", defaultValue = "false") boolean replaceExisting) {
+            @RequestParam(value = "replaceExisting", defaultValue = "false") boolean replaceExisting,
+            @RequestParam(value = "tipoArchivo", required = false) String tipoArchivo ) {
 
-        // Si no se proporciona un archivo, solo actualiza los metadatos
+        // Crea el DTO del archivo
+        ArchivoDTO archivoDTO = archivoService.getArchivo(id);  // Obtiene el archivo existente
+
+        //si se recibe un nuevo tipo de archivo, lo validamos y asignamos
+        if (tipoArchivo != null || tipoArchivo.isEmpty()){
+            archivoDTO.setTipoArchivo(tipoArchivo);
+        }
+
+        // Si no se proporciona un archivo nuevo, solo actualizar los metadatos
         if (file == null || file.isEmpty()) {
-            ArchivoDTO archivoDTO = archivoService.getArchivo(id);
             ArchivoDTO updatedArchivo = archivoService.updateArchivoMetadata(id, archivoDTO);
             return new ResponseEntity<>(updatedArchivo, HttpStatus.OK);
         } else {
-            ArchivoDTO archivoDTO = new ArchivoDTO();
             archivoDTO.setNombreArchivo(file.getOriginalFilename());
             // Llama al servicio para reemplazar el archivo
             ArchivoDTO updatedArchivo = archivoService.updateArchivo(id, archivoDTO, file, replaceExisting);
@@ -89,7 +97,11 @@ public class ArchivoController {
     public ResponseEntity<ArchivoDTO> patchArchivo(
             @PathVariable Long id,
             @RequestBody ArchivoDTO archivoDTO) {
-
+        // Validamos el tipo de archivo en caso de que se haya cambiado
+        if (archivoDTO.getTipoArchivo() != null) {
+            archivoDTO.setTipoArchivo(archivoDTO.getTipoArchivo());
+        }
+        //llama al serviicio para actualizar los mettadattos del archivo
         ArchivoDTO updatedArchivo = archivoService.updateArchivoMetadata(id, archivoDTO);
         return new ResponseEntity<>(updatedArchivo, HttpStatus.OK);
     }

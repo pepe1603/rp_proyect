@@ -44,7 +44,7 @@ public class NotificationServiceImpl implements NotificationService{
         String subject = "Actividad Contable Actualizada";
         Context context = new Context();
         context.setVariable("subject", subject);
-        context.setVariable("message", "La actividad contable ha sido actualizada: " + actividadTitle);
+        context.setVariable("message", "La actividad contable ha sido actualizada: " + actividadTitle+ ". Revisa Los cambios en nuestra pĺataforma.");
 
         String body = templateEngine.process("notification/notification-email", context);
         emailService.sendEmail(email, subject, body);

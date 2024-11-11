@@ -18,8 +18,8 @@ import com.buenrostroasociados.gestion_clientes.repository.ActividadLitigioRepos
 import com.buenrostroasociados.gestion_clientes.repository.ArchivoRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ClienteRepository;
 import com.buenrostroasociados.gestion_clientes.service.ActividadLitigioService;
+import com.buenrostroasociados.gestion_clientes.service.awss3.S3Service;
 import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
-import com.buenrostroasociados.gestion_clientes.service.files.FileService;
 import com.buenrostroasociados.gestion_clientes.utils.CurrentUserAuthenticated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +49,7 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
     @Autowired
     private ArchivoRepository archivoRepo;
     @Autowired
-    private FileService fileService;
+    private S3Service s3Service;
     @Autowired
     private ExportService exportService;
     @Autowired
@@ -131,6 +131,7 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
 
         // Validaciones
         if (!isTransitionValid(actividadLitigio.getEstadoCaso(), nuevoEstado)) {
+            logger.error("Transicion de estado litigio no valida");
             throw new BusinessException("Transición de estado no válida");
         }
 
@@ -159,7 +160,7 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
         // Elimina los archivos asociados
         List<Archivo> documentos = archivoRepo.findArchivosByActividadLitigioId(id);
         for (Archivo archivo : documentos) {
-            fileService.delete(archivo.getNombreArchivo());
+            s3Service.deleteFile(archivo.getNombreArchivo());
             archivoRepo.delete(archivo);
         }
         // Elimina la actividad litigio
@@ -263,6 +264,7 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
                 .anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
 
         if (nuevoEstado == EstadoCaso.RESUELTO && !hasRoleAdmin) {
+            logger.error("el ususario Actual No tiene permisos para cabiar el estado del caso a {} ", EstadoCaso.RESUELTO);
             throw new UnauthorizedException("No tiene permisos para cambiar el estado a"+ EstadoCaso.RESUELTO);
         }
     }
@@ -272,6 +274,7 @@ public class ActividadLitigioServiceImpl implements ActividadLitigioService {
      */
     private void checkBusinessRules(ActividadLitigio actividadLitigio, EstadoCaso nuevoEstado) {
         // Lógica para verificar las reglas de negocio
+        logger.warn("Verificando regla de Negocio para la actualizacion del Estado de caso");
         // Ejemplo: No se puede cambiar a "CERRADO" si hay archivos asociados
        /* if (nuevoEstado == EstadoCaso.CERRADO && !actividadLitigio.getArchivos().isEmpty()) {
             throw new BusinessException("No se puede cerrar la actividad con archivos asociados");

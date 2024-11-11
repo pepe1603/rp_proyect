@@ -106,6 +106,24 @@
 			<version>8.12.56</version> <!-- Verifica la última versión disponible -->
 		</dependency>
 
+		<!-- API Aws SDK v1 para S3 en este proyecto funciona-->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>1.12.300</version> <!-- Usa la última versión disponible -->
+		</dependency>
+
+		<!-- AWS SDK v2 (mas reciente) para S3  -->
+		<!---
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
+			<version></version> /** Usa la versión más reciente **/
+		</dependency>
+
+		-->
+
+
 		<!-- JSON Web Token (JWT) -->
 		<dependency>
 			<!-- JSON Web Token Support -->

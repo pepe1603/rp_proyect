@@ -15,8 +15,6 @@ public class SignupRequest {
     @Size(min = 6, max = 40, message = "El password requiere un size entre 6 y 40 caracteres")
     private String password;
 
-    @NotBlank(message = "El email no debe estar vacio o null")
-    @Email(message = "El valor ingresado no es un Email")
     private String email;
 
     //validar si es un administrador o un alumno registrado en la base dee datos

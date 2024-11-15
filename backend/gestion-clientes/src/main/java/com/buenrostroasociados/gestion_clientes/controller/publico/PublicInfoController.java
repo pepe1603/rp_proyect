@@ -17,8 +17,6 @@ public class PublicInfoController {
     @Autowired
     private final PublicInfoService publicInfoService;
 
-
-
     @GetMapping("/info")
     public ResponseEntity<PublicInfoDTO> obtenerInformacionPublica() {
         PublicInfoDTO info = publicInfoService.obtenerInformacionPublica();

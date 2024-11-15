@@ -1,4 +1,4 @@
-package com.buenrostroasociados.gestion_clientes.service.impl;
+package com.buenrostroasociados.gestion_clientes.service.resource.impl;
 
 import com.buenrostroasociados.gestion_clientes.dto.RolDTO;
 import com.buenrostroasociados.gestion_clientes.entity.Rol;
@@ -6,7 +6,7 @@ import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundExceptio
 import com.buenrostroasociados.gestion_clientes.exception.ResourceNotFoundException;
 import com.buenrostroasociados.gestion_clientes.mapper.RolMapper;
 import com.buenrostroasociados.gestion_clientes.repository.RolRepository;
-import com.buenrostroasociados.gestion_clientes.service.RolService;
+import com.buenrostroasociados.gestion_clientes.service.resource.RolService;
 import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.buenrostroasociados.gestion_clientes.service.impl;
+package com.buenrostroasociados.gestion_clientes.service.resource.impl;
 
 import com.buenrostroasociados.gestion_clientes.dto.ActividadContableDTO;
 import com.buenrostroasociados.gestion_clientes.entity.ActividadContable;
@@ -13,7 +13,7 @@ import com.buenrostroasociados.gestion_clientes.notification.NotificationService
 import com.buenrostroasociados.gestion_clientes.repository.ActividadContableRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ArchivoRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ClienteRepository;
-import com.buenrostroasociados.gestion_clientes.service.ActividadContableService;
+import com.buenrostroasociados.gestion_clientes.service.resource.ActividadContableService;
 import com.buenrostroasociados.gestion_clientes.service.awss3.S3Service;
 import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
 

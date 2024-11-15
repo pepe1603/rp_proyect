@@ -1,10 +1,9 @@
-package com.buenrostroasociados.gestion_clientes.service;
+package com.buenrostroasociados.gestion_clientes.service.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.AdministradorDTO;
 import org.springframework.core.io.Resource;
 
 import java.util.List;
-import java.util.Map;
 
 public interface AdministradorService {
     AdministradorDTO savedAdministrador(AdministradorDTO administradorDTO);

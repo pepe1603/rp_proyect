@@ -2,13 +2,8 @@ package com.buenrostroasociados.gestion_clientes.controller.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.ActividadLitigioDTO;
 import com.buenrostroasociados.gestion_clientes.dto.InfoResponse;
-import com.buenrostroasociados.gestion_clientes.entity.ActividadLitigio;
-import com.buenrostroasociados.gestion_clientes.enums.EstadoCaso;
-import com.buenrostroasociados.gestion_clientes.exception.BusinessException;
-import com.buenrostroasociados.gestion_clientes.exception.UnauthorizedException;
-import com.buenrostroasociados.gestion_clientes.service.ActividadLitigioService;
+import com.buenrostroasociados.gestion_clientes.service.resource.ActividadLitigioService;
 import jakarta.validation.Valid;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;

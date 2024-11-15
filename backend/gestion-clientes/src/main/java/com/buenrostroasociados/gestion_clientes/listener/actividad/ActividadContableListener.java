@@ -1,13 +1,11 @@
 package com.buenrostroasociados.gestion_clientes.listener.actividad;
 
 
-import com.buenrostroasociados.gestion_clientes.entity.Cliente;
 import com.buenrostroasociados.gestion_clientes.events.actividad.contable.ActividadContableActualizadaEvent;
 import com.buenrostroasociados.gestion_clientes.events.actividad.contable.ActividadContableCreadaEvent;
 import com.buenrostroasociados.gestion_clientes.events.actividad.contable.ActividadContableEliminadaEvent;
 import com.buenrostroasociados.gestion_clientes.notification.NotificationService;
-import com.buenrostroasociados.gestion_clientes.service.ClienteService;
-import com.buenrostroasociados.gestion_clientes.service.UsuarioService;
+import com.buenrostroasociados.gestion_clientes.service.resource.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;

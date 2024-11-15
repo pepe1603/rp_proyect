@@ -1,12 +1,10 @@
-package com.buenrostroasociados.gestion_clientes.service;
+package com.buenrostroasociados.gestion_clientes.service.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.ActividadLitigioDTO;
-import com.buenrostroasociados.gestion_clientes.entity.Archivo;
 import org.springframework.core.io.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ActividadLitigioService {
 

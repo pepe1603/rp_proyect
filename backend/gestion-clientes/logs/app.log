@@ -1,75 +1,400 @@
-2024-11-11T14:09:57.600-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.11 with PID 11852 (C:\noveno_seemestre\rp_proyect\backend\gestion-clientes\target\classes started by jose_ in C:\noveno_seemestre\rp_proyect\backend\gestion-clientes)
-2024-11-11T14:09:57.630-06:00 DEBUG 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
-2024-11-11T14:09:57.633-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
-2024-11-11T14:09:57.805-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-11-11T14:09:57.805-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-11-11T14:10:01.345-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-11-11T14:10:01.706-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 338 ms. Found 11 JPA repository interfaces.
-2024-11-11T14:10:03.920-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
-2024-11-11T14:10:03.951-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-11-11T14:10:03.952-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
-2024-11-11T14:10:04.159-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-11-11T14:10:04.160-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6353 ms
-2024-11-11T14:10:04.558-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-11-11T14:10:04.813-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-11-11T14:10:04.926-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-11-11T14:10:05.851-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-11-11T14:10:05.928-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-11-11T14:10:06.419-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@e7dc40a
-2024-11-11T14:10:06.423-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-11-11T14:10:10.169-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-11-11T14:10:10.547-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-11-11T14:10:11.512-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
-2024-11-11T14:10:11.619-06:00 DEBUG 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
-2024-11-11T14:10:11.662-06:00 DEBUG 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
-2024-11-11T14:10:11.700-06:00 DEBUG 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
-2024-11-11T14:10:11.953-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2024-11-11T14:10:11.955-06:00  WARN 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
-2024-11-11T14:10:12.292-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-11-11T14:10:13.789-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.service.files.FileServiceImpl      : Carpeta de directorio de subidas ya está disponible.
-2024-11-11T14:10:14.048-06:00  WARN 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-11-11T14:10:16.103-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2024-11-11T14:10:16.212-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 4200 (http) with context path '/'
-2024-11-11T14:10:16.254-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Started GestionClientesBuenrostroAsociadosApplication in 20.101 seconds (process running for 21.608)
-2024-11-11T14:10:16.291-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [scheduling-1] c.b.g.s.j.BlacklistServiceImpl           : Verifying Blacklist...
-2024-11-11T14:10:16.640-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [scheduling-1] c.b.g.s.j.BlacklistServiceImpl           : Expired tokens cleaned up from the blacklist.
-2024-11-11T14:14:17.789-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-11-11T14:14:17.798-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-11-11T14:14:17.820-06:00  INFO 11852 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-11-11T14:14:50.692-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.11 with PID 9864 (C:\noveno_seemestre\rp_proyect\backend\gestion-clientes\target\classes started by jose_ in C:\noveno_seemestre\rp_proyect\backend\gestion-clientes)
-2024-11-11T14:14:50.703-06:00 DEBUG 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
-2024-11-11T14:14:50.706-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
-2024-11-11T14:14:50.972-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-11-11T14:14:50.975-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-11-11T14:14:54.870-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-11-11T14:14:55.237-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 344 ms. Found 11 JPA repository interfaces.
-2024-11-11T14:14:57.588-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
-2024-11-11T14:14:57.617-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-11-11T14:14:57.618-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
-2024-11-11T14:14:57.773-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-11-11T14:14:57.775-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6798 ms
-2024-11-11T14:14:58.310-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-11-11T14:14:58.510-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-11-11T14:14:58.624-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-11-11T14:14:59.433-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-11-11T14:14:59.538-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-11-11T14:15:00.059-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@273e4dc0
-2024-11-11T14:15:00.064-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-11-11T14:15:03.880-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-11-11T14:15:04.240-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-11-11T14:15:05.278-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
-2024-11-11T14:15:05.376-06:00 DEBUG 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
-2024-11-11T14:15:05.420-06:00 DEBUG 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
-2024-11-11T14:15:05.458-06:00 DEBUG 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
-2024-11-11T14:15:05.778-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2024-11-11T14:15:05.780-06:00  WARN 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
-2024-11-11T14:15:06.120-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-11-11T14:15:07.860-06:00  WARN 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-11-11T14:15:09.867-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2024-11-11T14:15:10.012-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 4200 (http) with context path '/'
-2024-11-11T14:15:10.057-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Started GestionClientesBuenrostroAsociadosApplication in 21.046 seconds (process running for 22.535)
-2024-11-11T14:15:10.110-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [scheduling-1] c.b.g.s.j.BlacklistServiceImpl           : Verifying Blacklist...
-2024-11-11T14:15:10.449-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [scheduling-1] c.b.g.s.j.BlacklistServiceImpl           : Expired tokens cleaned up from the blacklist.
-2024-11-11T14:15:14.646-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-11-11T14:15:14.654-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-11-11T14:15:14.674-06:00  INFO 9864 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-15T14:58:43.939-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.11 with PID 16140 (C:\noveno_seemestre\rp_proyect\backend\gestion-clientes\target\classes started by jose_ in C:\noveno_seemestre\rp_proyect\backend\gestion-clientes)
+2024-11-15T14:58:43.970-06:00 DEBUG 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-11-15T14:58:43.972-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-11-15T14:58:44.286-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-11-15T14:58:44.332-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-11-15T14:58:50.720-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-15T14:58:51.047-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 301 ms. Found 11 JPA repository interfaces.
+2024-11-15T14:58:54.235-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-11-15T14:58:54.274-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-15T14:58:54.275-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-11-15T14:58:54.571-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-15T14:58:54.579-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 10243 ms
+2024-11-15T14:58:55.091-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-15T14:58:55.379-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-15T14:58:55.512-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-15T14:58:56.908-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-15T14:58:57.009-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-15T14:58:57.767-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@118b2a69
+2024-11-15T14:58:57.770-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-15T14:59:02.103-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-15T14:59:02.629-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-15T14:59:06.013-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
+2024-11-15T14:59:06.405-06:00 DEBUG 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
+2024-11-15T14:59:06.491-06:00 DEBUG 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
+2024-11-15T14:59:06.538-06:00 DEBUG 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
+2024-11-15T14:59:07.609-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-11-15T14:59:07.625-06:00  WARN 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-11-15T14:59:08.296-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-11-15T14:59:10.105-06:00  WARN 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-15T14:59:11.840-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-11-15T14:59:11.935-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 4200 (http) with context path '/'
+2024-11-15T14:59:11.966-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Started GestionClientesBuenrostroAsociadosApplication in 30.688 seconds (process running for 32.446)
+2024-11-15T14:59:11.982-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [scheduling-1] c.b.g.s.j.BlacklistServiceImpl           : Verifying Blacklist...
+2024-11-15T14:59:12.306-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [scheduling-1] c.b.g.s.j.BlacklistServiceImpl           : Expired tokens cleaned up from the blacklist.
+2024-11-15T15:03:25.359-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-15T15:03:25.361-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-11-15T15:03:25.371-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+2024-11-15T15:03:25.440-06:00 DEBUG 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/auth/sign_in
+2024-11-15T15:03:25.441-06:00  WARN 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:03:25.441-06:00 DEBUG 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:03:25.525-06:00 DEBUG 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.service.auth.AuthServiceImpl       : Attempting to authenticate user: usr_pepe01
+2024-11-15T15:03:25.772-06:00 DEBUG 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.AppConfig          : Loading user by username: usr_pepe01
+2024-11-15T15:03:25.793-06:00 ERROR 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.service.auth.AuthServiceImpl       : Authentication failed for user: usr_pepe01
+
+org.springframework.security.authentication.InternalAuthenticationServiceException: Usuario no encontrado con username: usr_pepe01
+	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.retrieveUser(DaoAuthenticationProvider.java:122) ~[spring-security-core-6.3.1.jar:6.3.1]
+	at org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider.authenticate(AbstractUserDetailsAuthenticationProvider.java:133) ~[spring-security-core-6.3.1.jar:6.3.1]
+	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:182) ~[spring-security-core-6.3.1.jar:6.3.1]
+	at com.buenrostroasociados.gestion_clientes.service.auth.AuthServiceImpl.signIn(AuthServiceImpl.java:110) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354) ~[spring-aop-6.1.11.jar:6.1.11]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:716) ~[spring-aop-6.1.11.jar:6.1.11]
+	at com.buenrostroasociados.gestion_clientes.service.auth.AuthServiceImpl$$SpringCGLIB$$0.signIn(<generated>) ~[classes/:na]
+	at com.buenrostroasociados.gestion_clientes.controller.auth.AuthController.signIn(AuthController.java:34) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at com.buenrostroasociados.gestion_clientes.config.security.JwtFilter.doFilterInternal(JwtFilter.java:67) ~[classes/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230) ~[spring-security-config-6.3.1.jar:6.3.1]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:389) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+Caused by: com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundException: Usuario no encontrado con username: usr_pepe01
+	at com.buenrostroasociados.gestion_clientes.config.security.AppConfig.lambda$userDetailsService$0(AppConfig.java:32) ~[classes/:na]
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403) ~[na:na]
+	at com.buenrostroasociados.gestion_clientes.config.security.AppConfig.lambda$userDetailsService$1(AppConfig.java:31) ~[classes/:na]
+	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.retrieveUser(DaoAuthenticationProvider.java:107) ~[spring-security-core-6.3.1.jar:6.3.1]
+	... 106 common frames omitted
+
+2024-11-15T15:03:38.572-06:00 DEBUG 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/auth/sign_in
+2024-11-15T15:03:38.572-06:00  WARN 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:03:38.573-06:00 DEBUG 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:03:38.579-06:00 DEBUG 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.service.auth.AuthServiceImpl       : Attempting to authenticate user: usr_pepe
+2024-11-15T15:03:38.580-06:00 DEBUG 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.AppConfig          : Loading user by username: usr_pepe
+2024-11-15T15:03:38.590-06:00 ERROR 16140 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.service.auth.AuthServiceImpl       : Authentication failed for user: usr_pepe
+
+org.springframework.security.authentication.InternalAuthenticationServiceException: Usuario no encontrado con username: usr_pepe
+	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.retrieveUser(DaoAuthenticationProvider.java:122) ~[spring-security-core-6.3.1.jar:6.3.1]
+	at org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider.authenticate(AbstractUserDetailsAuthenticationProvider.java:133) ~[spring-security-core-6.3.1.jar:6.3.1]
+	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:182) ~[spring-security-core-6.3.1.jar:6.3.1]
+	at com.buenrostroasociados.gestion_clientes.service.auth.AuthServiceImpl.signIn(AuthServiceImpl.java:110) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354) ~[spring-aop-6.1.11.jar:6.1.11]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:716) ~[spring-aop-6.1.11.jar:6.1.11]
+	at com.buenrostroasociados.gestion_clientes.service.auth.AuthServiceImpl$$SpringCGLIB$$0.signIn(<generated>) ~[classes/:na]
+	at com.buenrostroasociados.gestion_clientes.controller.auth.AuthController.signIn(AuthController.java:34) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at com.buenrostroasociados.gestion_clientes.config.security.JwtFilter.doFilterInternal(JwtFilter.java:67) ~[classes/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.3.1.jar:6.3.1]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230) ~[spring-security-config-6.3.1.jar:6.3.1]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:389) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+Caused by: com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundException: Usuario no encontrado con username: usr_pepe
+	at com.buenrostroasociados.gestion_clientes.config.security.AppConfig.lambda$userDetailsService$0(AppConfig.java:32) ~[classes/:na]
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403) ~[na:na]
+	at com.buenrostroasociados.gestion_clientes.config.security.AppConfig.lambda$userDetailsService$1(AppConfig.java:31) ~[classes/:na]
+	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.retrieveUser(DaoAuthenticationProvider.java:107) ~[spring-security-core-6.3.1.jar:6.3.1]
+	... 106 common frames omitted
+
+2024-11-15T15:46:50.100-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-15T15:46:50.132-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-15T15:46:50.179-06:00  INFO 16140 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-15T15:47:07.928-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Starting GestionClientesBuenrostroAsociadosApplication using Java 17.0.11 with PID 16580 (C:\noveno_seemestre\rp_proyect\backend\gestion-clientes\target\classes started by jose_ in C:\noveno_seemestre\rp_proyect\backend\gestion-clientes)
+2024-11-15T15:47:07.938-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Running with Spring Boot v3.3.2, Spring v6.1.11
+2024-11-15T15:47:07.941-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : No active profile set, falling back to 1 default profile: "default"
+2024-11-15T15:47:08.287-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-11-15T15:47:08.287-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-11-15T15:47:13.133-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-15T15:47:13.512-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 355 ms. Found 11 JPA repository interfaces.
+2024-11-15T15:47:15.775-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 4200 (http)
+2024-11-15T15:47:15.822-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-15T15:47:15.822-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-11-15T15:47:15.983-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-15T15:47:15.983-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 7688 ms
+2024-11-15T15:47:16.379-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-15T15:47:16.566-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-15T15:47:16.662-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-15T15:47:17.371-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-15T15:47:17.450-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-15T15:47:17.904-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@44089686
+2024-11-15T15:47:17.922-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-15T15:47:21.184-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-15T15:47:21.513-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-15T15:47:22.415-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : JwtFilter initialized
+2024-11-15T15:47:22.525-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.JwtFilter          : Filter 'jwtFilter' configured for use
+2024-11-15T15:47:22.557-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating AuthenticationProvider bean
+2024-11-15T15:47:22.588-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] c.b.g.config.security.AppConfig          : Creating PasswordEncoder bean
+2024-11-15T15:47:22.848-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-11-15T15:47:22.848-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-11-15T15:47:23.172-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-11-15T15:47:24.731-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-15T15:47:27.120-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-11-15T15:47:27.239-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 4200 (http) with context path '/'
+2024-11-15T15:47:27.286-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [restartedMain] onClientesBuenrostroAsociadosApplication : Started GestionClientesBuenrostroAsociadosApplication in 21.531 seconds (process running for 23.087)
+2024-11-15T15:47:27.317-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [scheduling-1] c.b.g.s.j.BlacklistServiceImpl           : Verifying Blacklist...
+2024-11-15T15:47:27.683-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [scheduling-1] c.b.g.s.j.BlacklistServiceImpl           : Expired tokens cleaned up from the blacklist.
+2024-11-15T15:47:33.577-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-15T15:47:33.577-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-11-15T15:47:33.585-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2024-11-15T15:47:33.656-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/public
+2024-11-15T15:47:33.656-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:47:33.656-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:47:33.676-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] o.s.web.servlet.PageNotFound             : No mapping for GET /api/v1/public
+2024-11-15T15:47:33.931-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
+2024-11-15T15:47:33.936-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:47:33.936-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:48:24.316-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/public
+2024-11-15T15:48:24.316-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:48:24.324-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:48:24.324-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] o.s.web.servlet.PageNotFound             : No mapping for GET /api/v1/public
+2024-11-15T15:48:24.359-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
+2024-11-15T15:48:24.359-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:48:24.359-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:31.832-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Processing request : /swagger-ui.html
+2024-11-15T15:49:31.832-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:31.832-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:31.872-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
+2024-11-15T15:49:31.872-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:31.872-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:41.476-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Processing request : /docs/swagger-ui.html
+2024-11-15T15:49:41.476-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:41.476-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:41.513-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
+2024-11-15T15:49:41.513-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:41.513-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:47.116-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui.html
+2024-11-15T15:49:47.116-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:47.116-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:47.202-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/index.html
+2024-11-15T15:49:47.202-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:47.202-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:47.258-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/swagger-ui.css
+2024-11-15T15:49:47.258-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:47.258-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:47.266-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/swagger-ui-standalone-preset.js
+2024-11-15T15:49:47.266-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:47.266-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:47.266-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/index.css
+2024-11-15T15:49:47.266-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:47.266-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:47.269-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/swagger-initializer.js
+2024-11-15T15:49:47.269-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:47.269-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:47.280-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/swagger-ui-bundle.js
+2024-11-15T15:49:47.280-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:47.280-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-4] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:47.833-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/swagger-config
+2024-11-15T15:49:47.833-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:47.833-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-7] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:47.859-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/favicon-32x32.png
+2024-11-15T15:49:47.859-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:47.859-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-8] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:47.978-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/Auth%20API
+2024-11-15T15:49:47.978-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:47.978-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:49.914-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-9] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 1863 ms
+2024-11-15T15:49:52.084-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Processing request : /doc/v3/api-docs/Public%20API
+2024-11-15T15:49:52.084-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:52.084-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:52.106-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/favicon-32x32.png
+2024-11-15T15:49:52.106-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:52.106-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-1] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:49:52.610-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-10] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 509 ms
+2024-11-15T15:49:59.054-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Processing request : /doc/swagger-ui/favicon-32x32.png
+2024-11-15T15:49:59.054-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:49:59.054-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-5] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:50:05.408-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/public/info
+2024-11-15T15:50:05.408-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:50:05.408-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-3] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:50:37.679-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Processing request : /api/v1/public/info
+2024-11-15T15:50:37.684-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:50:37.684-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-2] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:50:37.774-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Processing request : /favicon.ico
+2024-11-15T15:50:37.774-06:00  WARN 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : Authorization header missing
+2024-11-15T15:50:37.774-06:00 DEBUG 16580 --- [GestionClientes-BuenrostroAsociados] [http-nio-4200-exec-6] c.b.g.config.security.JwtFilter          : No JWT token found, passing request through.
+2024-11-15T15:51:01.912-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-15T15:51:01.928-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-15T15:51:01.943-06:00  INFO 16580 --- [GestionClientes-BuenrostroAsociados] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

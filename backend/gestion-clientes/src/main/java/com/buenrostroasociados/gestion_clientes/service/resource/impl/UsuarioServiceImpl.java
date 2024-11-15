@@ -1,4 +1,4 @@
-package com.buenrostroasociados.gestion_clientes.service.impl;
+package com.buenrostroasociados.gestion_clientes.service.resource.impl;
 
 import com.buenrostroasociados.gestion_clientes.dto.ClienteDTO;
 import com.buenrostroasociados.gestion_clientes.dto.UsuarioDTO;
@@ -9,8 +9,8 @@ import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundExceptio
 import com.buenrostroasociados.gestion_clientes.mapper.UsuarioMapper;
 import com.buenrostroasociados.gestion_clientes.repository.RolRepository;
 import com.buenrostroasociados.gestion_clientes.repository.UsuarioRepository;
-import com.buenrostroasociados.gestion_clientes.service.ClienteService;
-import com.buenrostroasociados.gestion_clientes.service.UsuarioService;
+import com.buenrostroasociados.gestion_clientes.service.resource.ClienteService;
+import com.buenrostroasociados.gestion_clientes.service.resource.UsuarioService;
 import com.buenrostroasociados.gestion_clientes.service.auth.AuthService;
 import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
 import lombok.AllArgsConstructor;

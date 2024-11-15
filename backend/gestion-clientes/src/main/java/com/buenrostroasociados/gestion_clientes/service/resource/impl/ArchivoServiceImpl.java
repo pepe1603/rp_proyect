@@ -1,4 +1,4 @@
-package com.buenrostroasociados.gestion_clientes.service.impl;
+package com.buenrostroasociados.gestion_clientes.service.resource.impl;
 
 import com.buenrostroasociados.gestion_clientes.dto.ArchivoDTO;
 import com.buenrostroasociados.gestion_clientes.entity.ActividadContable;
@@ -16,7 +16,7 @@ import com.buenrostroasociados.gestion_clientes.notification.NotificationService
 import com.buenrostroasociados.gestion_clientes.repository.ActividadContableRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ActividadLitigioRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ArchivoRepository;
-import com.buenrostroasociados.gestion_clientes.service.ArchivoService;
+import com.buenrostroasociados.gestion_clientes.service.resource.ArchivoService;
 import com.buenrostroasociados.gestion_clientes.service.awss3.S3Service;
 import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
 import com.buenrostroasociados.gestion_clientes.utils.CurrentUserAuthenticated;
@@ -29,7 +29,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.FileSystemAlreadyExistsException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

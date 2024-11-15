@@ -1,4 +1,4 @@
-package com.buenrostroasociados.gestion_clientes.service.impl;
+package com.buenrostroasociados.gestion_clientes.service.resource.impl;
 
 import com.buenrostroasociados.gestion_clientes.dto.AdministradorDTO;
 import com.buenrostroasociados.gestion_clientes.entity.Administrador;
@@ -8,7 +8,7 @@ import com.buenrostroasociados.gestion_clientes.mapper.AdministradorMapper;
 import com.buenrostroasociados.gestion_clientes.repository.AdministradorRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ClienteRepository;
 import com.buenrostroasociados.gestion_clientes.repository.UsuarioRepository;
-import com.buenrostroasociados.gestion_clientes.service.AdministradorService;
+import com.buenrostroasociados.gestion_clientes.service.resource.AdministradorService;
 import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

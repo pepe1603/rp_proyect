@@ -3,7 +3,7 @@ package com.buenrostroasociados.gestion_clientes.controller.resource;
 import com.buenrostroasociados.gestion_clientes.dto.AdministradorDTO;
 import com.buenrostroasociados.gestion_clientes.dto.CustomErrorResponse;
 import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundException;
-import com.buenrostroasociados.gestion_clientes.service.AdministradorService;
+import com.buenrostroasociados.gestion_clientes.service.resource.AdministradorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;

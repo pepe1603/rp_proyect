@@ -1,4 +1,4 @@
-package com.buenrostroasociados.gestion_clientes.service;
+package com.buenrostroasociados.gestion_clientes.service.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.ArchivoDTO;
 import org.springframework.core.io.Resource;

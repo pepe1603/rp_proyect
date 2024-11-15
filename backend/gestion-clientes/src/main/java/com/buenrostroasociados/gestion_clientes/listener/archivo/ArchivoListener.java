@@ -4,7 +4,7 @@ import com.buenrostroasociados.gestion_clientes.events.archivos.ArchivoActualiza
 import com.buenrostroasociados.gestion_clientes.events.archivos.ArchivoCreadoEvent;
 import com.buenrostroasociados.gestion_clientes.events.archivos.ArchivoEliminadoEvent;
 import com.buenrostroasociados.gestion_clientes.notification.NotificationService;
-import com.buenrostroasociados.gestion_clientes.service.UsuarioService;
+import com.buenrostroasociados.gestion_clientes.service.resource.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;

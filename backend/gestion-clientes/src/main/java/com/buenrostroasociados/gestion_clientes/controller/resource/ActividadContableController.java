@@ -1,7 +1,7 @@
 package com.buenrostroasociados.gestion_clientes.controller.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.ActividadContableDTO;
-import com.buenrostroasociados.gestion_clientes.service.ActividadContableService;
+import com.buenrostroasociados.gestion_clientes.service.resource.ActividadContableService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;

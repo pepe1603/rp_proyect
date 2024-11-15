@@ -2,7 +2,7 @@ package com.buenrostroasociados.gestion_clientes.controller.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.CustomErrorResponse;
 import com.buenrostroasociados.gestion_clientes.dto.RolDTO;
-import com.buenrostroasociados.gestion_clientes.service.RolService;
+import com.buenrostroasociados.gestion_clientes.service.resource.RolService;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

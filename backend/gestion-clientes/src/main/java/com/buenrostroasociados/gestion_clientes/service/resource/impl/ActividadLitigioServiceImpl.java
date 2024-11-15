@@ -1,4 +1,4 @@
-package com.buenrostroasociados.gestion_clientes.service.impl;
+package com.buenrostroasociados.gestion_clientes.service.resource.impl;
 
 import com.buenrostroasociados.gestion_clientes.dto.ActividadLitigioDTO;
 import com.buenrostroasociados.gestion_clientes.entity.ActividadLitigio;
@@ -17,7 +17,7 @@ import com.buenrostroasociados.gestion_clientes.notification.NotificationService
 import com.buenrostroasociados.gestion_clientes.repository.ActividadLitigioRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ArchivoRepository;
 import com.buenrostroasociados.gestion_clientes.repository.ClienteRepository;
-import com.buenrostroasociados.gestion_clientes.service.ActividadLitigioService;
+import com.buenrostroasociados.gestion_clientes.service.resource.ActividadLitigioService;
 import com.buenrostroasociados.gestion_clientes.service.awss3.S3Service;
 import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
 import com.buenrostroasociados.gestion_clientes.utils.CurrentUserAuthenticated;
@@ -26,8 +26,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.Resource;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

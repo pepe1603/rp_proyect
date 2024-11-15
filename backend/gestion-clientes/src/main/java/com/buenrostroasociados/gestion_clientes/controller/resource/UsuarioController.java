@@ -2,7 +2,7 @@ package com.buenrostroasociados.gestion_clientes.controller.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.UsuarioDTO;
 import com.buenrostroasociados.gestion_clientes.dto.auth.SignupRequest;
-import com.buenrostroasociados.gestion_clientes.service.UsuarioService;
+import com.buenrostroasociados.gestion_clientes.service.resource.UsuarioService;
 import com.buenrostroasociados.gestion_clientes.service.auth.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

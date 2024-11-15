@@ -1,4 +1,4 @@
-package com.buenrostroasociados.gestion_clientes.service.impl;
+package com.buenrostroasociados.gestion_clientes.service.resource.impl;
 
 import com.buenrostroasociados.gestion_clientes.dto.ClienteDTO;
 import com.buenrostroasociados.gestion_clientes.entity.Cliente;
@@ -7,7 +7,7 @@ import com.buenrostroasociados.gestion_clientes.exception.EntityNotFoundExceptio
 import com.buenrostroasociados.gestion_clientes.mapper.ClienteMapper;
 import com.buenrostroasociados.gestion_clientes.repository.ClienteRepository;
 import com.buenrostroasociados.gestion_clientes.repository.UsuarioRepository;
-import com.buenrostroasociados.gestion_clientes.service.ClienteService;
+import com.buenrostroasociados.gestion_clientes.service.resource.ClienteService;
 import com.buenrostroasociados.gestion_clientes.service.export.ExportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service

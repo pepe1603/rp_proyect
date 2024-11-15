@@ -1,7 +1,7 @@
 package com.buenrostroasociados.gestion_clientes.controller.resource;
 
 import com.buenrostroasociados.gestion_clientes.dto.ArchivoDTO;
-import com.buenrostroasociados.gestion_clientes.service.ArchivoService;
+import com.buenrostroasociados.gestion_clientes.service.resource.ArchivoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;

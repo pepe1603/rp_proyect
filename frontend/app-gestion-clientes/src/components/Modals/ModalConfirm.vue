@@ -9,7 +9,7 @@
   
   <script setup>
   import { ref } from 'vue'
-  import Modal from './Modal.vue'
+  import Modal from '../components_push/Modal.vue'
   
   const props = defineProps({
     message: { type: String, required: true },

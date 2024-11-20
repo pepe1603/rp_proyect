@@ -2,18 +2,19 @@
 <template>
   <div v-if="isOpen" class="modal-overlay" @click.self="close">
     <div class="modal">
+        <div class="modal-icon"></div>
       <div class="modal-header">
         <h2>{{ title }}</h2>
         <button class="close-button" @click="close">
-        <XMarkIcon class="h-6 w-6 rounded-sm " />
+          <XMarkIcon class="h-6 w-6 rounded-sm" />
         </button>
       </div>
       <div class="modal-body">
         <slot></slot>
-        <!-- Aquí puedes poner cualquier contenido -->
+        
       </div>
       <div class="modal-footer">
-        <button @click="close">Cancel</button>
+        <button class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 hover:bg-red-500 text-base font-medium text-white" @click="close">Cancel</button>
         <button @click="confirm">Confirm</button>
       </div>
     </div>
@@ -22,7 +23,7 @@
 
 <script setup>
 import { ref } from "vue";
-import {XMarkIcon}  from '@heroicons/vue/24/solid/index.js'
+import { XMarkIcon } from "@heroicons/vue/24/solid/index.js";
 
 // Propiedades y estado del modal
 const props = defineProps({

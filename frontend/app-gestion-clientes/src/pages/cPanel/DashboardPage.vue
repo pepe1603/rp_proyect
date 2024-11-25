@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="text-blue-600">
         <h1>Bienvenido al Panel de Control</h1>
         <p>Resumen de las actividades y datos importantes</p>
     </div>

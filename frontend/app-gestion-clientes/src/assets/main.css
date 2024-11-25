@@ -1,7 +1,26 @@
 @import './base.css';
-
+/* main.css o cualquier archivo global de CSS */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+body{
+  font-family: "Open Sans", sans-serif;
+}
 
 span{
   color: blueviolet;
 }
 
+.logo{
+  text-shadow: 2px 2px 6px black;
+}
+
+/* Clase personalizada para botones */
+.btn {
+  @apply px-4 py-2 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-400;
+}
+
+.btn-offset{
+  @apply px-10 py-2 text-lg sm:text-sm border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white font-semibold rounded-lg  outline outline-2 outline-teal-500 outline-offset-4 
+}

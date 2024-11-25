@@ -1,44 +1,43 @@
-// services/AuthService.js
-import axios from 'axios';
-import { useAuthStore } from '@/stores/authStore';  // Usamos el store de autenticación
+import apiClient from "@/config/apiConfig";
 
-const api = axios.create({
-    baseURL: 'http://localhost:4200/api/v1/auth',  // Cambiar la URL según tu configuración
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
-
-const authService = {
-    // Método para registrarse
-    signUp(userData) {
-        return api.post('/sign_up', userData);
+export const authService = {
+    async signUp(payload) {
+        const response = await apiClient.post("/auth/sign_up", payload);
+        return response.data;   //Retorna el JSOn Directamente
     },
 
-    // Método para iniciar sesión
-    signIn(credentials) {
-        return api.post('/sign_in', credentials);
+    async signIn(payload) {
+        const response = await apiClient.post("/auth/sign_in", payload);
+        return response.data;
     },
 
-    // Método para refrescar el token
-    refreshToken(refreshToken) {
-        return api.post('/refresh-token', { refreshToken });
+    async requestPasswordReset(email) {
+        const response = await apiClient.post("/auth/password-reset-request", null, {
+            params: { email },
+        });
+        return response.data;
     },
 
-    // Método para solicitar el link de restablecimiento de contraseña
-    requestPasswordReset(email) {
-        return api.post(`/password-reset-request?email=${email}`);
+    async resetPassword(verificationCode, newPassword) {
+        const response = await apiClient.post("/auth/password-reset", null, {
+            params: { verificationCode, newPassword },
+        });
+        return response.data;
     },
 
-    // Método para restablecer la contraseña
-    resetPassword(verificationCode, newPassword) {
-        return api.post('/password-reset', { verificationCode, newPassword });
+    async logout(token) {
+        const response = await apiClient.post(
+            "/auth/logout",
+            {},
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+        return response.data;
     },
 
-    // Método para cerrar sesión
-    logout(token) {
-        return api.post('/logout', {}, { headers: { Authorization: `Bearer ${token}` } });
+    async refreshToken(refreshToken) {
+        const response = await apiClient.post("/auth/refresh-token", { refreshToken });
+        return response.data;
     },
 };
-
-export default authService;

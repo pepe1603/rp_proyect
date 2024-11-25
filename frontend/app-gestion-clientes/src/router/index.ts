@@ -1,21 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 // Importar páginas
-import HomePage from '@/pages/HomePage.vue';
-import ServicesPage from '@/pages/ServicesPage.vue';
-
-// Importar layouts
-import MainLayout from '@/layouts/MainLayout.vue';
-import DashboardLayout from '@/layouts/DashboardLayout.vue';
-import LoginPage from '@/pages/LoginPage.vue';
-import Register from '@/views/Register.vue';
-import ForgotPassword from '@/views/ForgotPassword.vue';
-import DashboardHome from '@/pages/DashboardHome.vue';
-import UserManagement from '@/pages/UserManagement.vue';
-import SettingsPage from '@/pages/SettingsPage.vue';
+import HomePage from '@/pages/publico/HomePage.vue';
+import ServicesPage from '@/pages/publico/ServicesPage.vue';
+import UserManagement from '@/pages/cPanel/UserManagement.vue';
+import SettingsPage from '@/pages/cPanel/SettingsPage.vue';
 import NotFoundPage from '@/pages/NotFoundPage.vue';
-import AuthLayout from '@/layouts/AuthLayout.vue';
-import ErrorLayout from '@/layouts/ErrorLayout.vue'; // Importamos el nuevo layout
+import DashboardPage from '@/pages/cPanel/DashboardPage.vue';
+// Importar layouts
+//se imprtan automaticamente en la etiqueta meta
+//impoirtar vistas
+import Register from '@/views/auth/Register.vue';
+import ForgotPassword from '@/views/auth/ForgotPassword.vue';
+import Login from '@/views/auth/Login.vue';
+import Welcome from '@/pages/cPanel/Welcome.vue';
+import WelcomePage from '@/views/publico/WelcomePage.vue';
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,18 +26,23 @@ const router = createRouter({
       children: [
         {
           path: '',
+          name: 'Welcome',
+          component: WelcomePage,
+        },
+        {
+          path: 'home',
           name: 'Home',
           component: HomePage,
         },
         {
-          path: '/services',
+          path: 'services',
           name: 'Services',
           component: ServicesPage,
         },
         {
-          path: '/about',
+          path: 'about',
           name: 'About',
-          component: () => import('@/views/AboutView.vue'),
+          component: () => import('@/views/publico/AboutView.vue'),
         },
       ],
       meta: { layout: 'MainLayout' }, // Definimos el layout
@@ -50,7 +55,7 @@ const router = createRouter({
         {
           path: 'login',
           name: 'Login',
-          component: LoginPage,
+          component: Login,
         },
         {
           path: 'register',
@@ -68,12 +73,17 @@ const router = createRouter({
 
     // Rutas del Dashboard (Dashboard Layout)
     {
-      path: '/dashboard',
+      path: '/cPanel',
       children: [
         {
           path: '',
-          name: 'DashboardHome',
-          component: DashboardHome,
+          name: 'welcome',
+          component: Welcome
+        },
+        {
+          path: 'dashboard',
+          name: 'Dashboard',
+          component: DashboardPage,
         },
         {
           path: 'users',
@@ -86,7 +96,7 @@ const router = createRouter({
           component: SettingsPage,
         },
       ],
-      meta: { layout: 'DashboardLayout' }, // Definimos el layout
+      meta: { layout: 'cPanelLayout' }, // Definimos el layout
     },
 
     // Ruta para páginas no encontradas (usando ErrorLayout)

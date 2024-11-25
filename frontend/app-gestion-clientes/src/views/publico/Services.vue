@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Componente HOme siample View</h1>    
+    <h1>Serviciios sample View</h1>
   </div>
 </template>
 

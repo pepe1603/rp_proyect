@@ -1,4 +1,7 @@
-body{
+.layout-auth{
+    font-family: 'Poppins',sans-serif;
+}
 
-    
+.btn{
+    @apply: "bg-[#F73D60]";
 }

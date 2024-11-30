@@ -89,10 +89,18 @@ console.log(FacebookIcon);
 }
 .icon span > *{
     color: #fff;
+    scale: 0.95;
     transition: scale .4s ease;
     transition: box-shadow .4s ease;
 
 }
+
+.icon {
+    scale: 0.95;
+    transition: scale .4s ease;
+    transition: box-shadow .4s ease;
+}
+
 .icon:hover{
     scale: 1.05;
 }

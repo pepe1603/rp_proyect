@@ -29,7 +29,7 @@
                         </router-link>
                     </li>
                 </ul>
-                                <div>
+                    <div v-if="!authStore.isAuthenticated">
                     <router-link to="auth/login" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800">
                         Login
                     </router-link>
@@ -41,8 +41,10 @@
 <script setup>
 import { BuildingOffice2Icon } from "@heroicons/vue/24/solid";
 import { useRoute } from 'vue-router';
+import { useAuthStore } from "@/stores/AuthStore";
 
 const route = useRoute();
+const authStore = useAuthStore();
 
 // Función para determinar si la ruta actual es la activa
 const isActive = (path) => {

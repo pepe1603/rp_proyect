@@ -10,11 +10,12 @@ import DashboardPage from '@/pages/cPanel/DashboardPage.vue';
 // Importar layouts
 //se imprtan automaticamente en la etiqueta meta
 //impoirtar vistas
-import Register from '@/views/auth/Register.vue';
-import ForgotPassword from '@/views/auth/ForgotPassword.vue';
-import Login from '@/views/auth/Login.vue';
+import RegisterView from '@/views/auth/RegisterView.vue';
+import ForgotPasswordView from '@/views/auth/ForgotPasswordView.vue';
+import LoginView from '@/views/auth/LoginView.vue';
 import Welcome from '@/pages/cPanel/Welcome.vue';
 import WelcomePage from '@/views/publico/WelcomePage.vue';
+import ResetPasswordView from '@/views/auth/ResetPasswordView.vue';
 
 
 const router = createRouter({
@@ -55,18 +56,23 @@ const router = createRouter({
         {
           path: 'login',
           name: 'Login',
-          component: Login,
+          component: LoginView,
         },
         {
           path: 'register',
           name: 'Register',
-          component: Register,
+          component: RegisterView,
         },
         {
           path: 'forgot-password',
           name: 'ForgotPassword',
-          component: ForgotPassword,
+          component: ForgotPasswordView,
         },
+        {
+          path: 'reset-password',
+          name: 'ResetPassword',
+          component: ResetPasswordView,
+        }
       ],
       meta: { layout: 'AuthLayout' }, // Definimos el layout
     },

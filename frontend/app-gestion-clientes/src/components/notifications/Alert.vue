@@ -7,13 +7,13 @@
         enter-from-class="opacity-0"
         enter-to-class="opacity-100"
     >
-        <div v-if="props.show" role="alert" :class="containerClass">
+        <div v-if="props.show" role="alert" class="hover:shadow-md absolute right-3 bottom-5" :class="containerClass">
             <div class="shrink-0">
                 <!-- Icono de la alerta -->
                 <component :is="iconComponent" :class="iconClass" />
             </div>
             <div class="flex-1 space-y-2">
-                <h2 :class="tittleClass">
+                <h2 :class="titleClass">
                     {{ props.title }}
                 </h2>
                 <div :class="contentClass">
@@ -24,7 +24,7 @@
             <div class="shrink-0" v-if="props.onDismiss">
                 <button @click="dismiss" :class="closeButtonClass">
                     <!-- Icono de la cruz -->
-                    <XMarkIcon class="w-6 h-6" />
+                    <XMarkIcon class="w-6 h-6 " />
                 </button>
             </div>
         </div>
@@ -34,7 +34,7 @@
 <script setup>
 import { InformationCircleIcon, XMarkIcon, CheckCircleIcon, ExclamationTriangleIcon, XCircleIcon, LightBulbIcon, ShieldExclamationIcon } from '@heroicons/vue/24/solid'
 import { cva } from 'class-variance-authority'
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, onMounted, watch } from 'vue'
 
 const props = defineProps({
     intent: {
@@ -52,6 +52,8 @@ const props = defineProps({
     onDismiss: Function
 })
 
+const emit = defineEmits(['dismiss']);
+
 const containerClass = computed(() => {
     const intentClasses = {
         info: "bg-blue-100",
@@ -61,7 +63,7 @@ const containerClass = computed(() => {
         dark: "bg-slate-600",
         brand: "bg-purple-200"
     }
-    return `w-[325px] flex p-4 rounded-md space-x-3 ${intentClasses[props.intent] || ''}`
+    return `min-w-[275px] max-w-[325px] flex p-4 rounded-md space-x-3 ${intentClasses[props.intent] || ''}`
 })
 
 const iconClass = computed(() => {
@@ -81,8 +83,8 @@ const iconClass = computed(() => {
     })
 })
 
-const tittleClass = computed(() => {
-    return cva("font-medium", {
+const titleClass = computed(() => {
+    return cva("font-bold", {
         variants: {
             intent: {
                 info: "text-blue-900",
@@ -99,7 +101,7 @@ const tittleClass = computed(() => {
 })
 
 const contentClass = computed(() => {
-    return cva("text-sm", {
+    return cva("text-xs", {
         variants: {
             intent: {
                 info: "text-blue-800",
@@ -145,20 +147,48 @@ const iconComponent = computed(() => {
     return icons[props.intent]
 })
 
-// Emitir el evento dismiss cuando se haga clic en el botón de cerrar
+const AutoHideDurations = computed(()=> {
+    const durations = {
+        success: 5300, // 5.3 segundos
+        info: 5000,    // 5 segundos
+        danger: 5500,  // 5.5 segundos
+        warning: 4500, // 4.5 segundos
+        dark: 4000,    // 4 segundos
+        brand: 4000,   // 10 segundos
+        default: 3000, // Tiempo por defecto
+    }
+    return durations[props.intent] || durations.default;
+});
+
+
+// Ocultamiento automático
+let timer = null;
+
+const handleAutoHide = () => {
+    if (props.show) {
+        timer = setTimeout(() => {
+            dismiss();
+        }, AutoHideDurations.value);
+    }
+};
+
+watch(() => props.show, handleAutoHide);
+onMounted(handleAutoHide);
+onBeforeUnmount(() => {
+    if (timer) {
+        clearTimeout(timer);
+    }
+});
+
+
+// Emitir el evento dismiss cuando se haga clic en el botón de cerrar (manualmente)
 function dismiss() {
     if (props.onDismiss) {
-        props.onDismiss() // Llama al callback onDismiss
+        props.onDismiss() // Llama al callback onDismiss, es decir llamam al callback pasado dfesde el padre
     }
+    emit('dismiss');
 }
 </script>
 
 <style scoped>
-/* Animación de fade */
-.fade-enter-active, .fade-leave-active {
-    transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-to {
-    opacity: 0;
-}
 </style>

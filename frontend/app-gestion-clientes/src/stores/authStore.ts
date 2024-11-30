@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { authService } from "@/services/authService";
+import { authService } from "@/services/auth/authService";
 import { ref } from "vue";
 
 export const useAuthStore = defineStore("auth", () => {
@@ -13,6 +13,11 @@ export const useAuthStore = defineStore("auth", () => {
     const signIn = async (payload) => {
         try {
             const response = await authService.signIn(payload);
+            //asigna valores 
+            setAccessToken(response.token);
+            refreshToken.value = response.refreshToken;
+            setUser(response.userData);
+
 
             // Procesar el JSON de la respuesta
             token.value = response.token;
@@ -26,9 +31,12 @@ export const useAuthStore = defineStore("auth", () => {
 
             return { success: true };
         } catch (error) {
+            clearAuthState();
             return {
-                success: false,
-                message: error.response?.data?.message || "Credenciales inválidas",
+                
+                    success: false,
+                    message: error.response?.data?.message || "Credenciales inválidas", 
+                
             };
         }
     };
@@ -55,8 +63,20 @@ export const useAuthStore = defineStore("auth", () => {
         }
     };
 
-    // Métodos auxiliares
-    const saveTokensToLocalStorage = (accessToken, refreshTokenValue) => {
+
+    const setUser = (userData) => {
+        console.log("user guadado");
+        user.value = userData;
+    }
+
+    const setAccessToken = (accessToken) => {
+        console.log("Set AccessToken");
+        token.value = accessToken;
+        localStorage.setItem('authToken', accessToken);
+    }
+
+    // Métodos auxiliares- persisttencia
+    const saveTokensToLocalStorage = (accessToken, refreshToken) => {
         localStorage.setItem("authToken", accessToken);
         localStorage.setItem("refreshToken", refreshTokenValue);
     };
@@ -85,6 +105,8 @@ export const useAuthStore = defineStore("auth", () => {
     loadTokensFromLocalStorage();
 
     return {
+        setAccessToken,
+        setUser,
         isAuthenticated,
         token,
         refreshToken,

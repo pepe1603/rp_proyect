@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref} from "vue";
-import authService from "@/services/AuthService";
+import authService from "@/services/auth/authService";
 
 export const useTokenStore = defineStore('token', () => {
     const tokenAccess = ref(localStorage.getItem('tokenAccess')    || null);
